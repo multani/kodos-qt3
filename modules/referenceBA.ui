@@ -472,6 +472,186 @@
                 <pixmap></pixmap>
             </property>
         </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>{m,n}</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. </string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>{m,n}?</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. </string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?P&lt;name&gt;...)</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name.</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?P=name)</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches whatever text was matched by the earlier group named name. </string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>\number </string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches the contents of the group of the same number. Groups are numbered starting from 1.</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?&lt;=...)</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion.</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?&lt;!...)</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion.</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?=...) </string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion.</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?!...)</string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>Matches if ... doesn't match next. This is a negative lookahead assertion</string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
+        <item>
+            <property>
+                <name>text</name>
+                <string>(?#...) </string>
+            </property>
+            <property>
+                <name>text</name>
+                <string>A comment; the contents of the parentheses are simply ignored.  </string>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+            <property>
+                <name>pixmap</name>
+                <pixmap></pixmap>
+            </property>
+        </item>
             <property stdset="1">
                 <name>name</name>
                 <cstring>referenceListView</cstring>

@@ -1,6 +1,6 @@
 # Form implementation generated from reading ui file '/www/kodos/modules/referenceBA.ui'
 #
-# Created: Tue Feb 18 10:06:44 2003
+# Created: Mon Apr 28 15:27:32 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -116,6 +116,46 @@ class ReferenceBA(QWidget):
         item = QListViewItem(self.referenceListView,item)
         item.setText(0,self.tr('[]'))
         item.setText(1,self.tr('Character class'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('{m,n}'))
+        item.setText(1,self.tr('match from m to n repetitions of the preceding RE, attempting to match as many repetitions as possible. '))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('{m,n}?'))
+        item.setText(1,self.tr('match from m to n repetitions of the preceding RE, attempting to match as few repetitions as possible. '))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?P<name>...)'))
+        item.setText(1,self.tr('Similar to regular parentheses, but the substring matched by the group is accessible via the symbolic group name name.'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?P=name)'))
+        item.setText(1,self.tr('Matches whatever text was matched by the earlier group named name. '))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('\\number '))
+        item.setText(1,self.tr('Matches the contents of the group of the same number. Groups are numbered starting from 1.'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?<=...)'))
+        item.setText(1,self.tr('Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion.'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?<!...)'))
+        item.setText(1,self.tr('Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion.'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?=...) '))
+        item.setText(1,self.tr('Matches if ... matches next, but doesn\'t consume any of the string. This is called a lookahead assertion.'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?!...)'))
+        item.setText(1,self.tr('Matches if ... doesn\'t match next. This is a negative lookahead assertion'))
+
+        item = QListViewItem(self.referenceListView,item)
+        item.setText(0,self.tr('(?#...) '))
+        item.setText(1,self.tr('A comment; the contents of the parentheses are simply ignored.  '))
 
         self.referenceListView.setSizePolicy(QSizePolicy(5,5,self.referenceListView.sizePolicy().hasHeightForWidth()))
         self.referenceListView.setFrameShape(QListView.StyledPanel)

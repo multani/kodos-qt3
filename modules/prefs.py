@@ -2,6 +2,7 @@
 
 from util import *
 from prefsBA import PrefsBA
+import help
 
 ##class Prefs(PrefsBA):
 ##    def __init__(self, parent=None, name=None, modal=0):
@@ -14,8 +15,8 @@ class Preferences(PrefsBA):
         self.parent = parent
         PrefsBA.__init__(self, parent)
 
-        prefsFilename = ".kodos"
-        self.prefsPath = getHomeDirectory() + os.sep + prefsFilename
+        prefsFilename = "prefs"
+        self.prefsPath = getHomeDirectory() + os.sep + ".kodos" + os.sep + prefsFilename
         if autoload: self.load()
         
     def load(self):
@@ -34,7 +35,9 @@ class Preferences(PrefsBA):
                 self.browserEdit.setText(setting)
             if preference == 'Email Server' and setting:
                 self.emailServerEdit.setText(setting)
-
+            if preference == 'Recent Files' and setting:
+                self.recentFilesSpinBox.setValue(int(setting))
+            
 
     def save(self):
         try:
@@ -53,8 +56,9 @@ class Preferences(PrefsBA):
 
         fp.write("Web Browser: %s\n" % str(self.browserEdit.text()))
         fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
+        fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.text()))
         fp.close()
-
+        self.parent.emit(PYSIGNAL('prefsSaved()'), () )
                                 
 
     def parseFontStr(self, fontstr):
@@ -107,5 +111,5 @@ class Preferences(PrefsBA):
 
 
     def help_slot(self):
-        self.helpWindow = help.Help(self, "prefa.html")
+        self.helpWindow = help.Help(self, "prefs.html")
 

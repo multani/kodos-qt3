@@ -1,6 +1,6 @@
-# Form implementation generated from reading ui file '/www/kodos/modules/prefsBA.ui'
+# Form implementation generated from reading ui file '/home/phil/kodos/modules/prefsBA.ui'
 #
-# Created: Fri Apr 11 10:06:41 2003
+# Created: Mon Apr 28 21:10:53 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -75,9 +75,68 @@ class PrefsBA(QDialog):
         self.setCaption(self.tr('Preferences'))
         self.setIcon(image0)
         self.setSizeGripEnabled(0)
-        PrefsBALayout = QGridLayout(self)
+        PrefsBALayout = QVBoxLayout(self)
         PrefsBALayout.setSpacing(6)
         PrefsBALayout.setMargin(11)
+
+        Layout15 = QGridLayout()
+        Layout15.setSpacing(6)
+        Layout15.setMargin(0)
+        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout15.addMultiCell(spacer,3,3,2,3)
+
+        self.recentFilesSpinBox = QSpinBox(self,'recentFilesSpinBox')
+        self.recentFilesSpinBox.setSizePolicy(QSizePolicy(0,0,self.recentFilesSpinBox.sizePolicy().hasHeightForWidth()))
+        self.recentFilesSpinBox.setMaxValue(25)
+        self.recentFilesSpinBox.setValue(5)
+
+        Layout15.addWidget(self.recentFilesSpinBox,3,1)
+
+        self.browserButton = QPushButton(self,'browserButton')
+        self.browserButton.setSizePolicy(QSizePolicy(0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
+        self.browserButton.setText(self.tr('...'))
+
+        Layout15.addWidget(self.browserButton,0,3)
+
+        self.browserEdit = QLineEdit(self,'browserEdit')
+
+        Layout15.addMultiCellWidget(self.browserEdit,0,0,1,2)
+
+        self.emailServerEdit = QLineEdit(self,'emailServerEdit')
+
+        Layout15.addMultiCellWidget(self.emailServerEdit,2,2,1,3)
+
+        self.TextLabel1_2 = QLabel(self,'TextLabel1_2')
+        self.TextLabel1_2.setSizePolicy(QSizePolicy(0,1,self.TextLabel1_2.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1_2.setText(self.tr('Recent Files:'))
+
+        Layout15.addWidget(self.TextLabel1_2,3,0)
+
+        self.TextLabel1 = QLabel(self,'TextLabel1')
+        self.TextLabel1.setSizePolicy(QSizePolicy(0,1,self.TextLabel1.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1.setText(self.tr('Web Browser:'))
+
+        Layout15.addWidget(self.TextLabel1,0,0)
+
+        self.fontButton = QPushButton(self,'fontButton')
+        self.fontButton.setText(self.tr(''))
+
+        Layout15.addMultiCellWidget(self.fontButton,1,1,1,3)
+
+        self.TextLabel1_2Emaii = QLabel(self,'TextLabel1_2Emaii')
+        self.TextLabel1_2Emaii.setSizePolicy(QSizePolicy(0,1,self.TextLabel1_2Emaii.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1_2Emaii.setText(self.tr('Email Server:'))
+
+        Layout15.addWidget(self.TextLabel1_2Emaii,2,0)
+
+        self.TextLabel2 = QLabel(self,'TextLabel2')
+        self.TextLabel2.setSizePolicy(QSizePolicy(0,1,self.TextLabel2.sizePolicy().hasHeightForWidth()))
+        self.TextLabel2.setText(self.tr('Editor Font:'))
+
+        Layout15.addWidget(self.TextLabel2,1,0)
+        PrefsBALayout.addLayout(Layout15)
+        spacer_2 = QSpacerItem(20,20,QSizePolicy.Minimum,QSizePolicy.Expanding)
+        PrefsBALayout.addItem(spacer_2)
 
         Layout1 = QHBoxLayout()
         Layout1.setSpacing(6)
@@ -87,8 +146,8 @@ class PrefsBA(QDialog):
         self.buttonHelp.setText(self.tr('&Help'))
         self.buttonHelp.setAutoDefault(1)
         Layout1.addWidget(self.buttonHelp)
-        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(spacer)
+        spacer_3 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout1.addItem(spacer_3)
 
         self.buttonApply = QPushButton(self,'buttonApply')
         self.buttonApply.setText(self.tr('&Apply'))
@@ -105,50 +164,7 @@ class PrefsBA(QDialog):
         self.buttonCancel.setText(self.tr('&Cancel'))
         self.buttonCancel.setAutoDefault(1)
         Layout1.addWidget(self.buttonCancel)
-
-        PrefsBALayout.addLayout(Layout1,2,0)
-        spacer_2 = QSpacerItem(20,20,QSizePolicy.Minimum,QSizePolicy.Expanding)
-        PrefsBALayout.addItem(spacer_2,1,0)
-
-        Layout11 = QGridLayout()
-        Layout11.setSpacing(6)
-        Layout11.setMargin(0)
-
-        self.emailServerEdit = QLineEdit(self,'emailServerEdit')
-
-        Layout11.addMultiCellWidget(self.emailServerEdit,2,2,1,2)
-
-        self.TextLabel2 = QLabel(self,'TextLabel2')
-        self.TextLabel2.setText(self.tr('Editor Font:'))
-
-        Layout11.addWidget(self.TextLabel2,1,0)
-
-        self.fontButton = QPushButton(self,'fontButton')
-        self.fontButton.setText(self.tr(''))
-
-        Layout11.addMultiCellWidget(self.fontButton,1,1,1,2)
-
-        self.browserButton = QPushButton(self,'browserButton')
-        self.browserButton.setSizePolicy(QSizePolicy(0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
-        self.browserButton.setText(self.tr('...'))
-
-        Layout11.addWidget(self.browserButton,0,2)
-
-        self.browserEdit = QLineEdit(self,'browserEdit')
-
-        Layout11.addWidget(self.browserEdit,0,1)
-
-        self.TextLabel1 = QLabel(self,'TextLabel1')
-        self.TextLabel1.setText(self.tr('Web Browser:'))
-
-        Layout11.addWidget(self.TextLabel1,0,0)
-
-        self.TextLabel1_2Emaii = QLabel(self,'TextLabel1_2Emaii')
-        self.TextLabel1_2Emaii.setText(self.tr('Email Server:'))
-
-        Layout11.addWidget(self.TextLabel1_2Emaii,2,0)
-
-        PrefsBALayout.addLayout(Layout11,0,0)
+        PrefsBALayout.addLayout(Layout1)
 
         self.connect(self.buttonOk,SIGNAL('clicked()'),self,SLOT('accept()'))
         self.connect(self.buttonCancel,SIGNAL('clicked()'),self,SLOT('reject()'))
@@ -160,7 +176,8 @@ class PrefsBA(QDialog):
         self.setTabOrder(self.browserEdit,self.browserButton)
         self.setTabOrder(self.browserButton,self.fontButton)
         self.setTabOrder(self.fontButton,self.emailServerEdit)
-        self.setTabOrder(self.emailServerEdit,self.buttonHelp)
+        self.setTabOrder(self.emailServerEdit,self.recentFilesSpinBox)
+        self.setTabOrder(self.recentFilesSpinBox,self.buttonHelp)
         self.setTabOrder(self.buttonHelp,self.buttonApply)
         self.setTabOrder(self.buttonApply,self.buttonOk)
         self.setTabOrder(self.buttonOk,self.buttonCancel)

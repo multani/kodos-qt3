@@ -13,6 +13,7 @@ from modules.prefs import *
 from modules.webbrowser import launch_browser
 from modules.reportBug import reportBugWindow
 from modules.version import VERSION
+from modules.recent_files import RecentFiles
 import modules.xpm as xpm
 import sys
 import os
@@ -24,6 +25,7 @@ import types
 import getopt
 import urllib
 import signal
+from modules.migrate_settings import MigrateSettings
 
 # match status
 MATCH_NA = 0
@@ -297,11 +299,11 @@ class Kodos(KodosBA):
         self.groupListView.clear()
         self.codeTextBrowser.setText("")
         self.matchTextBrowser.setText("")
-        
+
 
     def process_regex(self):
         def timeout(signum, frame):
-            raise Exception, "Timed out parsing regex"
+            return
 
         if self.is_paused:
             return
@@ -425,10 +427,13 @@ class Kodos(KodosBA):
 
         if not fn.isEmpty():
             filename = str(fn)
-            self.openFile(filename)
+            if self.openFile(filename):
+                self.parent.recent_files.add(filename)
 
 
     def openFile(self, filename):
+        self.filename = None
+
         try:
             fp = open(filename, "r")
         except:
@@ -516,6 +521,7 @@ class Kodos(KodosBA):
         fp.close()
         msg = self.filename + " successfully saved"
         self.parent.updateStatus(msg, -1, 5, TRUE)
+        self.parent.recent_files.add(self.filename)
 
 
     def copy_symbol(self, symbol):
@@ -586,7 +592,23 @@ class KodosMainWindow(QMainWindow):
         self.kodos.show()
         self.show()
         self.prefs = Preferences(self, 1)
+        self.recent_files = RecentFiles(self, self.prefs.recentFilesSpinBox.value(), self.debug)
+        self.connect(self, PYSIGNAL('prefsSaved()'), self.prefsSaved)
+        self.connect(self.filemenu, SIGNAL('activated(int)'), self.fileMenuHandler)
 
+
+    def fileMenuHandler(self, menuid):
+        if self.recent_files.isRecentFile(menuid):
+            fn = str(self.filemenu.text(menuid))
+            # qt 2.3 seg faults during the removal/addition of menu items
+            if QT_VERS > 2: self.recent_files.add(fn)
+            self.kodos.openFile(fn)
+            
+
+    def prefsSaved(self):
+        if self.debug: print "prefsSaved slot"
+        self.recent_files.setNumShown(self.prefs.recentFilesSpinBox.value())
+        
 
     def updateStatus(self, status_string, status_value, duration=0, replace=FALSE, tooltip=''):
         if status_value == MATCH_NA:
@@ -673,7 +695,6 @@ class KodosMainWindow(QMainWindow):
 
         # populate "File" 
         self.filemenu = QPopupMenu()
-
         self.filemenu.insertItem(QIconSet(QPixmap(xpm.openIcon)),
                                  "&Open", self.kodos.openFileDialog)
         
@@ -687,6 +708,7 @@ class KodosMainWindow(QMainWindow):
         self.filemenu.insertSeparator()
         self.filemenu.insertItem(QIconSet(QPixmap(xpm.exitIcon)),
                                  "&Quit", qApp, SLOT("quit()"), Qt.CTRL+Qt.Key_Q )
+        self.filemenu.insertSeparator()
         self.menubar.insertItem("&File", self.filemenu)
 
 
@@ -702,6 +724,7 @@ class KodosMainWindow(QMainWindow):
         self.editmenu.insertSeparator()
         self.editmenu.insertItem("P&references", self.preferences)
         self.menubar.insertItem("&Edit", self.editmenu)
+
 
         # populate "Help"
         self.helpmenu = QPopupMenu()
@@ -856,6 +879,7 @@ for opt, arg in opts:
     if opt in ('-f', '--file'):
         filename = arg
                
+MigrateSettings()
 
 qApp = QApplication(sys.argv)
 
