@@ -17,7 +17,7 @@ FileName = modules/referenceBA.ui
 Position = 2
 Type = Form
 [File4]
-Active = 1
+Active = 0
 Comments = 
 FileName = modules/prefsBA.ui
 Position = 3
@@ -29,7 +29,7 @@ FileName = modules/clearAllBA.ui
 Position = -1
 Type = Form
 [File6]
-Active = 0
+Active = 1
 Comments = 
 FileName = modules/reportBugBA.ui
 Position = 4

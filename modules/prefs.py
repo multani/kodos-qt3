@@ -14,7 +14,6 @@ class Preferences(PrefsBA):
         self.parent = parent
         PrefsBA.__init__(self, parent)
 
-        self.timeout = 3
         prefsFilename = ".kodos"
         self.prefsPath = getHomeDirectory() + os.sep + prefsFilename
         if autoload: self.load()
@@ -35,13 +34,6 @@ class Preferences(PrefsBA):
                 self.browserEdit.setText(setting)
             if preference == 'Email Server' and setting:
                 self.emailServerEdit.setText(setting)
-            if preference == 'Timeout' and setting:
-                try:
-                    val = int(setting)
-                except:
-                    val = 3
-                self.timeoutSpinBox.setValue(val)
-                self.timeout = val
 
 
     def save(self):
@@ -61,9 +53,8 @@ class Preferences(PrefsBA):
 
         fp.write("Web Browser: %s\n" % str(self.browserEdit.text()))
         fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
-        self.timeout = self.timeoutSpinBox.value()
-        fp.write("Timeout: %d\n" % self.timeout)
         fp.close()
+
                                 
 
     def parseFontStr(self, fontstr):

@@ -34,6 +34,8 @@ MATCH_PAUSED = 3
 TRUE = 1
 FALSE = 0
 
+TIMEOUT=3
+
 # regex to find special flags which must begin at beginning of line
 # or after some spaces
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
@@ -313,27 +315,26 @@ class Kodos(KodosBA):
 
         if HAS_ALARM:
             signal.signal(signal.SIGALRM, timeout)
-            signal.alarm(self.parent.prefs.timeout)
+            signal.alarm(TIMEOUT)
 
         try:
-            try:
-                compile_obj = re.compile(self.regex, self.flags)
-                #print "find all"
-                allmatches = compile_obj.findall(self.matchstring)
-                #print "found all"
-                if allmatches and len(allmatches):
-                    self.matchNumberSpinBox.setMaxValue(len(allmatches))
-                    self.matchNumberSpinBox.setEnabled(TRUE)
-                else:
-                    self.matchNumberSpinBox.setEnabled(FALSE)
+            compile_obj = re.compile(self.regex, self.flags)
+            #print "find all"
+            allmatches = compile_obj.findall(self.matchstring)
+            #print "found all"
+            if allmatches and len(allmatches):
+                self.matchNumberSpinBox.setMaxValue(len(allmatches))
+                self.matchNumberSpinBox.setEnabled(TRUE)
+            else:
+                self.matchNumberSpinBox.setEnabled(FALSE)
 
-                match_obj = compile_obj.search(self.matchstring)
-            finally:
-                if HAS_ALARM: signal.alarm(0)
+            match_obj = compile_obj.search(self.matchstring)
         except Exception, e:
             self.update_results(str(e), MATCH_FAIL)
             return
 
+        if HAS_ALARM:
+            signal.alarm(0)
 
         if not match_obj:
             self.update_results("Pattern does not match", MATCH_FAIL)
