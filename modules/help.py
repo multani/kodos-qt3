@@ -4,7 +4,7 @@ from qt import *
 from util import *
 import xpm
 from webbrowser import launch_browser
-from os import execvp, fork, access, X_OK
+
 
 class textbrowser(QTextBrowser):
     # reimplemented textbrowser that filters out external sources
