@@ -7,6 +7,7 @@ import time
 import string
 from qt import *
 from debug import *
+import stat
 
 # QT constants that should be defined
 FALSE = 0
@@ -35,6 +36,14 @@ def get_time_str(epoch_str, format="%m/%d/%Y"):
     return timestr
 
 
+def getKodosDir():
+    kodos_dir = os.environ.get("KODOS_DIR", None)
+    if kodos_dir == None or not os.path.exists(kodos_dir):
+        return getAppPath()
+    else:
+        return os.path.abspath(kodos_dir)
+
+
 def getAppPath():
     "Convenience function so that we can find the necessary images"
     fullpath = os.path.abspath(sys.argv[0])
@@ -42,13 +51,14 @@ def getAppPath():
     return path
 
 
-def getPixmap(fileStr, fileType="PNG", dir="images"):
+def getPixmap(fileStr, fileType="PNG", image_dir="images"):
     """Return a QPixmap instance for the file fileStr relative
     to the binary location and residing in it's 'images' subdirectory"""
 
-    image = getAppPath() + os.sep + dir + os.sep + fileStr
-
-    if debug & DEBUG_PIXMAP: print "image:", image
+    #image = getAppPath() + os.sep + dir + os.sep + fileStr
+    
+    image = os.path.join(getKodosDir(), image_dir, fileStr)
+    if debug & DEBUG_PIXMAP: print "image:", image_dir
     
     pixmap = QPixmap(image, fileType)
     pixmap.setMask(pixmap.createHeuristicMask(1))

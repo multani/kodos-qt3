@@ -1,6 +1,27 @@
+#!/usr/bin/env python
 #  kodos.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
+
+import sys
+import os
+import string
+import re
+import copy
+import cPickle
+import types
+import getopt
+import urllib
+import signal
 from qt import *
+
+### make sure that this script can find kodos specific modules ###
+import os.path
+from distutils.sysconfig import get_python_lib
+
+sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) #, "modules"))
+
+###################################################################
+
 from modules.kodosBA import *
 from modules.util import getPixmap
 from modules.about import *
@@ -15,16 +36,6 @@ from modules.reportBug import reportBugWindow
 from modules.version import VERSION
 from modules.recent_files import RecentFiles
 import modules.xpm as xpm
-import sys
-import os
-import string
-import re
-import copy
-import cPickle
-import types
-import getopt
-import urllib
-import signal
 from modules.migrate_settings import MigrateSettings
 
 # match status
@@ -73,6 +84,7 @@ class Kodos(KodosBA):
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
+
         if QT_VERS > 2:
             self.matchTextBrowser.setTextFormat(QTextEdit.RichText)
 
@@ -579,6 +591,12 @@ class KodosMainWindow(QMainWindow):
         self.setIcon(getPixmap("kodos_icon.png", "PNG"))
 
         self.createStatusBar()
+        
+        self.statusPixmapsDict = {MATCH_NA: QPixmap(xpm.yellowStatusIcon),
+                                  MATCH_OK: QPixmap(xpm.greenStatusIcon),
+                                  MATCH_FAIL: QPixmap(xpm.redStatusIcon),
+                                  MATCH_PAUSED: QPixmap(xpm.pauseStatusIcon)}
+        
         self.updateStatus("Enter a regular expression and a string to match against", MATCH_NA)
 
         self.kodos = Kodos(self, filename, self.debug)
@@ -611,16 +629,7 @@ class KodosMainWindow(QMainWindow):
         
 
     def updateStatus(self, status_string, status_value, duration=0, replace=FALSE, tooltip=''):
-        if status_value == MATCH_NA:
-            pixmap = getPixmap("yellow.png", "PNG")
-        elif status_value == MATCH_OK:
-            pixmap = getPixmap("green.png", "PNG")
-        elif status_value == MATCH_FAIL:
-            pixmap = getPixmap("red.png", "PNG")
-        elif status_value == MATCH_PAUSED:
-            pixmap = getPixmap("pause.png", "PNG")
-        else:
-            pixmap = None
+        pixmap = self.statusPixmapsDict.get(status_value)
 
         self.status_bar.set_message(status_string, duration, replace, tooltip, pixmap)
                 
@@ -848,19 +857,21 @@ class KodosMainWindow(QMainWindow):
 ##############################################################################
 
 def usage():
-    print "kodos.py [-f filename | --file=filename ] [ -d debug | --debug=debug ]"
+    print "kodos.py [-f filename | --file=filename ] [ -d debug | --debug=debug ] [ -k kodos_dir ]"
     print
     print "  -f filename | --filename=filename  : Load filename on startup"
     print "  -d debug | --debug=debug           : Set debug to this debug level"
+    print "  -k kodos_dir                       : Path containing Kodos images & help subdirs"
     print
     sys.exit(0)
 
 filename=None
 debug=0
+kodos_dir = os.path.join(sys.prefix, "kodos")
 
 args = sys.argv[1:]
 try:
-    (opts, getopts) = getopt.getopt(args, 'd:f:?h',
+    (opts, getopts) = getopt.getopt(args, 'd:f:k:?h',
                                     ["file=", "debug=",
                                      "help"])
 except:
@@ -870,6 +881,8 @@ except:
 for opt, arg in opts:
     if opt in ('-h', '-?', '--help'):
         usage()
+    if opt == '-k':
+        kodos_dir = arg
     if opt in ('-d', '--debug'):
         try:
             debug = int(arg)
@@ -878,7 +891,9 @@ for opt, arg in opts:
             usage()            
     if opt in ('-f', '--file'):
         filename = arg
-               
+
+os.environ['KODOS_DIR'] = kodos_dir
+
 MigrateSettings()
 
 qApp = QApplication(sys.argv)
