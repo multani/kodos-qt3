@@ -102,18 +102,9 @@ class Help(QMainWindow):
         self.connect(self.homeButton, SIGNAL("clicked()"),
                      self.textBrowser.home)
 
+
+        self.logolabel = kodos_toolbar_logo(toolbar)
         
-         # hack to move logo to right
-        label = QLabel("", toolbar)
-        toolbar.setStretchableWidget(label)
-
-        self.logolabel = QLabel("logo", toolbar)
-        self.logolabel.setPixmap(getPixmap("ssilogo.png", "PNG"))
-
-        banner = getPixmap("banner.png", "PNG")
-        bannerlabel = QLabel("ssi banner", toolbar)
-        bannerlabel.setPixmap(banner)
-
 
     def setForwardAvailable(self, bool):
         #print "bool: ", bool

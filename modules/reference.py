@@ -64,20 +64,8 @@ class ReferenceWindow(QMainWindow):
         self.copyTip.addWidget(self.copyButton)
         self.connect(self.copyButton, SIGNAL("clicked()"), self.ref.copy_symbol_slot)
     
-        
-        # hack to move logo to right
-        label = QLabel("", toolbar)
-        toolbar.setStretchableWidget(label)
-
-        self.logolabel = QLabel("logo", toolbar)
-        pixmap = getPixmap("ssilogo.png", "PNG")
-        self.logolabel.setPixmap(pixmap)
-
-        banner = getPixmap("banner.png", "PNG")
-        bannerlabel = QLabel("ssi banner", toolbar)
-        bannerlabel.setPixmap(banner)
-        
-
+        self.logolabel = kodos_toolbar_logo(toolbar)
+                
 
     def createMenuBar(self):
          # create a menubar

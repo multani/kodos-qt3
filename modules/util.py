@@ -156,3 +156,23 @@ def escapeSQLq(qstr):
     return escapeSQL(s)
 
 
+def kodos_toolbar_logo(toolbar):
+    # hack to move logo to right
+    blanklabel = QLabel("", toolbar)
+    toolbar.setStretchableWidget(blanklabel)
+    
+    logolabel = QLabel("kodos_logo", toolbar)
+    
+    logolabel.setText("Kodos   ")
+    font = QFont(logolabel.font())
+    font.setFamily('helvetic')
+    font.setBold(1)
+    logolabel.setFont(font)
+        
+    cg = QColorGroup()
+    pal =  logolabel.palette()
+    cg.setColor(QColorGroup.Foreground,QColor(9,86,16))
+    pal.setActive(cg)
+    pal.setInactive(cg)
+    logolabel.setPalette(pal)
+    return logolabel

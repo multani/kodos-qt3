@@ -22,6 +22,7 @@ import cPickle
 import types
 import getopt
 import urllib
+import signal
 
 # match status
 MATCH_NA = 0
@@ -31,16 +32,19 @@ MATCH_FAIL = 2
 TRUE = 1
 FALSE = 0
 
-# regex to find special flags which must begin at beginning of line or after some spaces
+TIMEOUT=3
+
+# regex to find special flags which must begin at beginning of line
+# or after some spaces
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 
 QT_VERS = int(QT_VERSION_STR[0])
     
-########################################################################################
+##############################################################################
 #
 # The Kodos class which defines the main functionality and user interaction
 #
-########################################################################################
+##############################################################################
 
 class Kodos(KodosBA):
     def __init__(self, parent, filename, debug):
@@ -211,7 +215,6 @@ class Kodos(KodosBA):
         self.codeTextBrowser.setText("")
         code =  "import re\n"
         code += "# common variables\n"
-        #code += "rawstr = r\"\"\"" + self.regex + "\"\"\"\n"
         code += "rawstr = r\"\"\"" + self.regex_embedded_flags_removed + "\"\"\"\n"
         code += "embedded_rawstr = r\"\"\"" + self.get_embedded_flags_string() + \
                 self.regex_embedded_flags_removed + "\"\"\"\n"
@@ -277,33 +280,44 @@ class Kodos(KodosBA):
         
 
     def process_regex(self):
+        def timeout(signum, frame):
+            raise Exception, "Timed out parsing regex"
+        
         if not self.regex or not self.matchstring:
             self.update_results("Enter a regular expression and a string to match against", MATCH_NA)
             self.clear_results()
             return
-
+        
         self.process_embedded_flags(self.regex)
+        
+        signal.signal(signal.SIGALRM, timeout)
+        signal.alarm(TIMEOUT)
 
         try:
             compile_obj = re.compile(self.regex, self.flags)
+            #print "find all"
             allmatches = compile_obj.findall(self.matchstring)
+            #print "found all"
             if allmatches and len(allmatches):
                 self.matchNumberSpinBox.setMaxValue(len(allmatches))
                 self.matchNumberSpinBox.setEnabled(TRUE)
             else:
                 self.matchNumberSpinBox.setEnabled(FALSE)
+
             match_obj = compile_obj.search(self.matchstring)
         except Exception, e:
             self.update_results(str(e), MATCH_FAIL)
             return
 
-            
+        signal.alarm(0)
+
         if not match_obj:
             self.update_results("Pattern does not match", MATCH_FAIL)
             self.clear_results()
             return
 
-        # match_index is the list element for match_num.  Therefor match_num is for ui display
+        # match_index is the list element for match_num.
+        # Therefor match_num is for ui display
         # and match_index is for application logic.
         match_index = self.match_num - 1 
         
@@ -588,24 +602,7 @@ class KodosMainWindow(QMainWindow):
         self.bookTip.addWidget(self.bookButton)
         self.connect(self.bookButton, SIGNAL("clicked()"), self.reference_guide)
 
-        
-        # hack to move logo to right
-        label = QLabel("", toolbar)
-        toolbar.setStretchableWidget(label)
-        
-        self.logolabel = QLabel("logo", toolbar)
-        self.logolabel.setText("Kodos   ")
-
-        font = QFont(self.logolabel.font())
-        font.setFamily('helvetic')
-        font.setBold(1)
-        self.logolabel.setFont(font)
-
-        cg = QColorGroup()
-        pal =  self.logolabel.palette()
-        cg.setColor(QColorGroup.Foreground,QColor(9,86,16))
-        pal.setActive(cg)
-        self.logolabel.setPalette(pal)
+        self.logolabel = kodos_toolbar_logo(toolbar)
         
 
     def createStatusBar(self):
@@ -759,10 +756,10 @@ class KodosMainWindow(QMainWindow):
         self.ref_win = ReferenceWindow(self)
         
 
-#####################################################################################
+##############################################################################
 #
 #
-#####################################################################################
+##############################################################################
 
 def usage():
     print "kodos.py [-f filename | --file=filename ] [ -d debug | --debug=debug ]"
