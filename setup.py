@@ -6,14 +6,23 @@ import os
 import os.path
 import sys
 from glob import glob
+try:
+     import py2exe
+except:
+     pass
 
 args = sys.argv[1:]
 
-libpath = "/usr/local/kodos"
+if sys.platform == 'win32':
+#     libpath = '.\\'
+     libpath = r"lib\site-packages\kodos"
+else:
+     libpath = "/usr/local/kodos"
 
 for arg in args:
     if arg == "--formats=wininst":
         libpath = "kodos"
+        break
 
 HELP_DIR = os.path.join(libpath, "help")
 HELP_PY_DIR = os.path.join(libpath,  "help", "python")
@@ -30,13 +39,14 @@ setup(name="kodos",
       author="Phil Schwartz",
       author_email="phil_schwartz@users.sourceforge.net",
       url="http://kodos.sourceforge.net",
+      scripts=['kodos.py'],
       ##package_dir={'': 'modules'},
       packages=['modules', "."],
-      data_files=[(HELP_DIR, glob("help/*.html")),
-                  (HELP_PY_DIR, glob("help/python/*.html")),
-                  (IMAGES_DIR, glob("images/*.png")),
-                  (SCREENSHOTS_DIR, glob("screenshots/*.png")),
-                  (libpath, ['kodos.bap']),
+      data_files=[(HELP_DIR, glob(os.path.join("help", "*.html"))),
+                  (HELP_PY_DIR, glob(os.path.join("help", "python", "*.html"))),
+                  (IMAGES_DIR, glob(os.path.join("images", "*.png"))),
+                  (SCREENSHOTS_DIR, glob(os.path.join("screenshots", "*.png"))),
+                  (libpath, glob('kodos.bap')),
                   (MODULES_DIR, glob("modules/*.ui"))
                   ],
       license="GPL",
@@ -46,4 +56,3 @@ setup(name="kodos",
       """
       )
 
-    
