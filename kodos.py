@@ -500,7 +500,7 @@ class KodosMainWindow(QMainWindow):
         self.setCentralWidget(self.kodos)
         self.kodos.show()
         self.show()
-        self.prefs = Prefs(self, 1)
+        self.prefs = Preferences(self, 1)
 
 
     def updateStatus(self, status_string, status_value, duration=0, replace=FALSE, tooltip=''):
@@ -612,7 +612,7 @@ class KodosMainWindow(QMainWindow):
         self.pasteid = self.editmenu.insertItem(QIconSet(QPixmap(xpm.pasteIcon)),
                                                 "&Paste", self.paste, Qt.CTRL+Qt.Key_V )
         self.editmenu.insertSeparator()
-        self.editmenu.insertItem("Select &Font", self.selectFont)
+        self.editmenu.insertItem("P&references", self.preferences)
         self.menubar.insertItem("&Edit", self.editmenu)
 
         # populate "Help"
@@ -652,12 +652,9 @@ class KodosMainWindow(QMainWindow):
             widget == self.kodos.stringMultiLineEdit):
             widget.paste()        
 
-        
-    def selectFont(self):
-        (font, ok) = QFontDialog.getFont(self.getfont())
-        if ok:
-            self.setfont(font)
-            self.prefs.save()
+
+    def preferences(self):
+        self.prefs.showPrefsDialog()
 
             
     def setfont(self, font):
@@ -672,8 +669,9 @@ class KodosMainWindow(QMainWindow):
     def help(self):
         self.helpWindow = help.Help(self, "kodos.html")
 
+
     def regex_help(self):
-        self.helpWindow = help.Help(self, "python" + os.sep + "module-re.html")
+        self.helpWindow = help.Help(self, "python" + os.sep + "module-re.html", str(self.prefs.browserEdit.text()))
         
 
     def about(self):

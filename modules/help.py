@@ -3,30 +3,48 @@
 from qt import *
 from util import *
 import xpm
+from os import execvp, fork, access, X_OK
 
 class textbrowser(QTextBrowser):
     # reimplemented textbrowser that filters out external sources
     # future: launch web browser
     def __init__(self, parent=None, name=None):
+        self.parent = parent
         QTextBrowser.__init__(self, parent, name)
+
 
     def setSource(self, src):
         #print "setSource:", src
         s = str(src)
         if s[:7] == 'http://':
-            x = QMessageBox.warning(None, "Warning", "Cannot access external url: %s" % s)
-            return
+            if self.parent.external_browser == None or \
+                   not access(self.parent.external_browser, X_OK):
+            
+                # also verify path exists
+                QMessageBox.warning(None, "Warning", "You must properly configure your web browser path in Preferences (within the Edit menu).")
+                return
+
+            pid = os.fork()
+            
+            if pid == 0:
+                #child process
+                os.execvp(self.parent.external_browser, [self.parent.external_browser, s])
+            else:
+                #parent process
+                QMessageBox.information(None, "Info", "Launching your web browser")
+                return
+
         QTextBrowser.setSource(self, src)
                 
     
                 
 
 class Help(QMainWindow):
-    def __init__(self, parent, filename):
+    def __init__(self, parent, filename, external_browser=None):
         QMainWindow.__init__(self, None, None,
                              Qt.WType_TopLevel | Qt.WDestructiveClose)
         
-
+        self.external_browser = external_browser
         self.setGeometry(100, 50, 800, 600)
         self.setCaption("Help")
         self.setIcon(getPixmap("ssilogo.png", "PNG"))
