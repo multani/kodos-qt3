@@ -48,7 +48,7 @@ MATCH_PAUSED   = 3
 MATCH_EXAMINED = 4
 
 MSG_NA     = "Enter a regular expression and a string to match against"
-MSG_PAUSED = "Kodos regex processing is paused.  Click the pause icon to unpause",
+MSG_PAUSED = "Kodos regex processing is paused.  Click the pause icon to unpause"
 MSG_FAIL   = "Pattern does not match"
 
 TRUE  = 1
@@ -335,6 +335,9 @@ class Kodos(KodosBA):
             self.regex_saved = self.regex
             length = len(regex)
             found = 0
+            self.regexMultiLineEdit.setReadOnly(1)
+            self.stringMultiLineEdit.setReadOnly(1)
+            self.replaceTextEdit.setReadOnly(1)
             for i in range(length, 0,  -1):
                 regex = regex[:i]
                 self.process_embedded_flags(self.regex)
@@ -343,7 +346,6 @@ class Kodos(KodosBA):
                     if m:
                         if self.debug: print "examined regex:", regex
                         self.__refresh_regex_widget(color, regex)
-                        self.regexMultiLineEdit.setReadOnly(1)
                         return
                 except:
                     pass
@@ -353,6 +355,8 @@ class Kodos(KodosBA):
             regex = self.regex_saved
             color = QCOLOR_WHITE
             self.regexMultiLineEdit.setReadOnly(0)
+            self.stringMultiLineEdit.setReadOnly(0)
+            self.replaceTextEdit.setReadOnly(0)
             self.__refresh_regex_widget(color, regex)
             
 
@@ -377,11 +381,13 @@ class Kodos(KodosBA):
 
     def regex_changed_slot(self):
         self.regex = str(self.regexMultiLineEdit.text())
+        #self.regex = unicode(self.regexMultiLineEdit.text())
         self.process_regex()
 
 
     def string_changed_slot(self):
         self.matchstring = str(self.stringMultiLineEdit.text())
+        #self.matchstring = unicode(self.stringMultiLineEdit.text())
         self.process_regex()
 
 
@@ -401,6 +407,7 @@ class Kodos(KodosBA):
 
     def replace_changed_slot(self):
         self.replace = str(self.replaceTextEdit.text())
+        #self.replace = unicode(self.replaceTextEdit.text())
         self.process_regex()
         if not self.replace:
             self.hide_replace_widgets()
@@ -420,6 +427,7 @@ class Kodos(KodosBA):
             item = QListViewItem(self.groupListView)
             for col in range(num_cols):
                 item.setText(col, str(t[col]))
+                #item.setText(col, unicode(t[col]))
 
 
     def populate_code_textbrowser(self):
@@ -724,6 +732,7 @@ class Kodos(KodosBA):
         self.stringMultiLineEdit.setText("")
         self.replaceTextEdit.setText("")
         self.set_flags(0)
+        self.editstate = 0
 
 
     def importURL(self):
@@ -1040,7 +1049,8 @@ class Kodos(KodosBA):
         lines = fp.readlines()
         html = string.join(lines)
 
-        rawstr = r"""release_id=.*\">.*(kodos-)(?P<version>.*?)</[aA]>"""
+        rawstr = r"""kodos-(?P<version>.*?)\<"""
+        #rawstr = r"""release_id=.*\">.*(kodos-)(?P<version>.*?)</[aA]>"""
         match_obj = re.search(rawstr, html)
         if match_obj:
             latest_version = match_obj.group('version')
@@ -1092,44 +1102,46 @@ def usage():
     print
     sys.exit(0)
 
-filename=None
-debug=0
-kodos_dir = os.path.join(sys.prefix, "kodos")
+if __name__ == '__main__':
 
-args = sys.argv[1:]
-try:
-    (opts, getopts) = getopt.getopt(args, 'd:f:k:?h',
-                                    ["file=", "debug=",
-                                     "help"])
-except:
-    print "\nInvalid command line option detected."
-    usage()
+    filename=None
+    debug=0
+    kodos_dir = os.path.join(sys.prefix, "kodos")
 
-for opt, arg in opts:
-    if opt in ('-h', '-?', '--help'):
+    args = sys.argv[1:]
+    try:
+        (opts, getopts) = getopt.getopt(args, 'd:f:k:?h',
+                                        ["file=", "debug=",
+                                         "help"])
+    except:
+        print "\nInvalid command line option detected."
         usage()
-    if opt == '-k':
-        kodos_dir = arg
-    if opt in ('-d', '--debug'):
-        try:
-            debug = int(arg)
-        except:
-            print "debug value must be an integer"
-            usage()            
-    if opt in ('-f', '--file'):
-        filename = arg
 
-os.environ['KODOS_DIR'] = kodos_dir
+    for opt, arg in opts:
+        if opt in ('-h', '-?', '--help'):
+            usage()
+        if opt == '-k':
+            kodos_dir = arg
+        if opt in ('-d', '--debug'):
+            try:
+                debug = int(arg)
+            except:
+                print "debug value must be an integer"
+                usage()            
+        if opt in ('-f', '--file'):
+            filename = arg
 
-MigrateSettings()
+    os.environ['KODOS_DIR'] = kodos_dir
 
-qApp = QApplication(sys.argv)
+    MigrateSettings()
 
-kodos = Kodos(filename, debug)
+    qApp = QApplication(sys.argv)
 
-qApp.setMainWidget(kodos)
+    kodos = Kodos(filename, debug)
 
-qApp.exec_loop()
+    qApp.setMainWidget(kodos)
 
-#kodos.saveWindowSettings()
+    qApp.exec_loop()
+
+    #kodos.saveWindowSettings()
 

@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=Kodos
-AppVerName=Kodos-2.1.1
+AppVerName=Kodos-2.1.2
 AppPublisherURL=http://kodos.sourceforge.net
 AppSupportURL=http://kodos.sourceforge.net
 AppUpdatesURL=http://kodos.sourceforge.net
@@ -11,7 +11,7 @@ DefaultDirName={pf}\Kodos
 DefaultGroupName=Kodos
 AllowNoIcons=yes
 LicenseFile=LICENSE.txt
-OutputBaseFilename=kodos-2.1.1-installer
+OutputBaseFilename=kodos-2.1.2-installer
 
 [Tasks]
 ; NOTE: The following entry contains English phrases ("Create a desktop icon" and "Additional icons"). You are free to translate them into another language if required.
