@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) #, "modules"))
 ###################################################################
 
 from modules.kodosBA import *
-from modules.util import getPixmap, kodos_toolbar_logo
+from modules.util import *
 from modules.about import *
 import modules.help as help
 from modules.tooltip import *
@@ -37,6 +37,8 @@ from modules.recent_files import RecentFiles
 import modules.xpm as xpm
 from modules.urlDialog import URLDialog
 from modules.migrate_settings import MigrateSettings
+from modules.regexLibrary import RegexLibrary
+from modules.newUserDialogBA import NewUserDialog
 
 # match status
 MATCH_NA       = 0
@@ -57,6 +59,11 @@ TIMEOUT = 3
 # regex to find special flags which must begin at beginning of line
 # or after some spaces
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
+
+STATE_UNEDITED = 0
+STATE_EDITED   = 1
+
+GEO = "kodos_geometry"
 
 # colors for normal & examination mode
 QCOLOR_WHITE  = QColor(Qt.white)     # normal
@@ -98,6 +105,10 @@ class Kodos(KodosBA):
         self.replace_num = 0 # replace all
         self.url = None
         self.group_tuples = None
+        self.editstate = STATE_UNEDITED
+
+        self.ref_win = None
+        self.regexlibwin = None
         
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
@@ -113,6 +124,8 @@ class Kodos(KodosBA):
         
         self.updateStatus(MSG_NA, MATCH_NA)
 
+        restoreWindowSettings(self, GEO)
+        
         self.show()
         self.prefs = Preferences(self, 1)
         self.recent_files = RecentFiles(self,
@@ -131,27 +144,32 @@ class Kodos(KodosBA):
                      SIGNAL('activated(int)'),
                      self.fileMenuHandler)
         
-        self.connect(self, PYSIGNAL('copySymbol()'), self.copy_symbol)
+        self.connect(self, PYSIGNAL('pasteSymbol()'), self.paste_symbol)
 
         self.connect(self, PYSIGNAL('urlImported()'), self.urlImported)
+
+        self.connect(self, PYSIGNAL('pasteRegexLib()'), self.pasteFromRegexLib)
 
         kodos_toolbar_logo(self.toolBar)
         if self.replace:  self.show_replace_widgets()
         else:             self.hide_replace_widgets()
 
+        self.checkForKodosDir()
 
-##    def setToolbarLogo(self):
-##        blankButton = self.toolBar.children()[-1]
-##        logoButton = self.toolBar.children()[-1]
 
-##        self.toolBar.setStretchableWidget(blankButton)
+    def checkForKodosDir(self):
+        kdir = os.path.join(getHomeDirectory(), ".kodos")
+        if os.access(kdir, os.X_OK):
+            return
+
+        try:
+            os.mkdir(kdir, 0755)
+        except:
+            print "Failed to create:", kdir
+
+        self.newuserdialog = NewUserDialog()
+        self.newuserdialog.show()
         
-##        blankButton.hide()
-##        blankButton.show()
-
-##        logolabel = QLabel("kodos_logo", self.toolBar)
-##        logolabel.setPixmap(QPixmap(xpm.kodosTextIcon))
-
 
     def createStatusBar(self):
         self.status_bar = Status_Bar(self, FALSE, "")
@@ -180,6 +198,10 @@ class Kodos(KodosBA):
         # so the code looks cleaner
         create_kodos_tooltips(self)
 
+    def kodos_edited_slot(self):
+        # invoked whenever the user has edited something
+        self.editstate = STATE_EDITED
+        
 
     def checkbox_slot(self):
         self.flags = 0
@@ -549,7 +571,6 @@ class Kodos(KodosBA):
         self.replaceNumberSpinBox.setEnabled(FALSE)
         self.replaceTextBrowser.setText("")
         self.matchAllTextBrowser.setText("")
-        self.filename = ""
         
 
     def process_regex(self):
@@ -677,14 +698,28 @@ class Kodos(KodosBA):
             match_obj = compile_obj.search(self.matchstring, end)
 
         return spans
-        
- 
 
-    def fileExit(self):
-        qApp.quit()
+
+    def closeEvent(self, ev):
+        self.checkEditState("&No, Just Exit Kodos")
+        saveWindowSettings(self, GEO)
+
+        try:
+            self.regexlibwin.close()
+        except:
+            pass
+
+        try:
+            self.ref_win.close()
+        except:
+            pass
+        ev.accept()
 
 
     def fileNew(self):
+        self.checkEditState()
+        self.filename = ""
+        
         self.regexMultiLineEdit.setText("")
         self.stringMultiLineEdit.setText("")
         self.replaceTextEdit.setText("")
@@ -722,7 +757,7 @@ class Kodos(KodosBA):
         self.stringMultiLineEdit.setText(data)
 
         
-    def fileOpen(self):
+    def fileOpen(self):       
         fn = QFileDialog.getOpenFileName(self.filename, "*.kds\nAll (*)",
                                          self, "Open Kodos File")
 
@@ -733,6 +768,8 @@ class Kodos(KodosBA):
 
 
     def openFile(self, filename):
+        self.checkEditState()
+
         self.filename = None
 
         try:
@@ -766,6 +803,7 @@ class Kodos(KodosBA):
             self.filename = filename
             msg = filename + " loaded successfully"
             self.updateStatus(msg, -1, 5, TRUE)
+            self.editstate = STATE_UNEDITED
             return 1
         except Exception, e:
             print str(e)
@@ -794,7 +832,8 @@ class Kodos(KodosBA):
                 self.updateStatus("No file selected to save", -1, 5, TRUE)
                 return
 
-            if filename.find(".") == -1:
+            basename = os.path.basename(filename)
+            if basename.find(".") == -1:
                 filename += ".kds"
 
             if os.access(filename, os.F_OK):
@@ -823,6 +862,7 @@ class Kodos(KodosBA):
             self.updateStatus(msg, -1, 5, TRUE)
             return None
 
+        self.editstate = STATE_UNEDITED
         p = cPickle.Pickler(fp)
         p.dump(self.regex)
         p.dump(self.matchstring)
@@ -835,7 +875,7 @@ class Kodos(KodosBA):
         self.recent_files.add(self.filename)
 
 
-    def copy_symbol(self, symbol):
+    def paste_symbol(self, symbol):
         self.regexMultiLineEdit.insert(symbol)
 
 
@@ -869,6 +909,44 @@ class Kodos(KodosBA):
                 self.verboseCheckBox.setChecked(1)
 
         return 1
+
+
+    def checkEditState(self, noButtonStr="&No"):
+        if self.editstate == STATE_EDITED:
+            message = "You have made changes.  Would you like to save them before continuing?"
+            prompt = QMessageBox.warning(None,
+                                         "Save changes?",
+                                         message,
+                                         "&Yes, Save Changes",
+                                         noButtonStr)
+            
+            if prompt == 0:
+                self.fileSave()
+                if not self.filename: self.checkEditState(noButtonStr)
+
+
+    def pasteFromRegexLib(self, d):
+        self.filename = ""
+        self.checkEditState()
+
+        self.regexMultiLineEdit.setText(d.get('regex'), "")
+        self.stringMultiLineEdit.setText(d.get('text'), "")
+        self.replaceTextEdit.setText(d.get('replace'), "")
+
+        try:
+            # set the current page if applicable
+            self.resultTabWidget.setCurrentPage(int(d['tab']))
+        except:
+            pass
+        self.editstate = STATE_UNEDITED
+
+
+    def revert_file_slot(self):
+        if not self.filename:
+            self.updateStatus("There is no filename to revert", -1, 5, TRUE)
+            return
+
+        self.openFile(self.filename)
 
 
     def getWidget(self):
@@ -936,6 +1014,12 @@ class Kodos(KodosBA):
         self.helpWindow = help.Help(self, "python" + os.sep + "module-re.html", str(self.prefs.browserEdit.text()))
         
 
+    def helpRegexLib(self):
+        f = os.path.join("help", "regex-lib.xml")
+        self.regexlibwin = RegexLibrary(self, f)
+        self.regexlibwin.show()
+
+        
     def helpAbout(self):
         self.aboutWindow = About()
         self.aboutWindow.show()
@@ -986,8 +1070,9 @@ class Kodos(KodosBA):
 
 
     def reference_guide(self):
-        self.ref_win = ReferenceWindow(self)
-
+        self.ref_win = Reference(self)
+        self.ref_win.show()
+        
 
     def report_bug(self):
         self.bug_report_win = reportBugWindow(self)
@@ -1045,3 +1130,6 @@ kodos = Kodos(filename, debug)
 qApp.setMainWidget(kodos)
 
 qApp.exec_loop()
+
+#kodos.saveWindowSettings()
+

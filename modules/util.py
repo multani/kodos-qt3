@@ -119,8 +119,12 @@ def getHomeDirectory():
         except KeyError:
             homedir = "/tmp"
     else:
-        homedir = ""
-    
+        try:
+            homedir = os.path.join(os.environ["HOMEDRIVE"],
+                                   os.environ["HOMEPATH"])
+        except KeyError:
+            homedir = ""
+
     return homedir
 
 
@@ -170,3 +174,68 @@ def kodos_toolbar_logo(toolbar):
     
     logolabel.setPixmap(QPixmap(xpm.kodosTextIcon))
     return logolabel
+
+
+def getSavedWindowSettings(path):
+    try:
+        fp = open(path, "r")
+        line = fp.readline()[:-1]
+        fp.close()
+        geo = line.split(" ")
+
+        x = int(geo[0])
+        y = int(geo[1])
+        width = int(geo[2])
+        height = int(geo[3])
+        
+        return {'x': x,
+                'y': y,
+                'width': width,
+                'height': height}
+    except:
+        return None
+
+
+def saveWindowSettings(window, filename):
+    path = os.path.join(getHomeDirectory(), ".kodos", filename)
+
+    try:
+        s = window.size()
+        x = window.x()
+        y = window.y()
+
+        #print x, y
+        if x == 0 and y == 0 and sys.platform != 'win32':
+            # hack because some window managers (sawfish for instance)
+            # seem to have an issue w/ repositioning window coords.
+            d = getSavedWindowSettings(path)
+            if d:
+                x = d['x']
+                y = d['y']
+
+                #print "save:", d
+        fp = open(path, "w")
+        fp.write("%d %d %d %d\n" % (x, y, s.width(), s.height()))
+        fp.close()
+    except:
+        pass
+
+
+def restoreWindowSettings(window, filename):
+    path = os.path.join(getHomeDirectory(), ".kodos", filename)
+
+    try:
+        d = getSavedWindowSettings(path)
+
+        x = d['x']
+        y = d['y']
+        width = d['width']
+        height = d['height']
+        #print "load:", d
+        sz = QSize(width, height)
+
+        window.move(x, y)
+        window.resize(sz)
+    except:
+        pass
+

@@ -1,6 +1,6 @@
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/urlDialogBA.ui'
 #
-# Created: Fri Nov 28 21:21:29 2003
+# Created: Thu Dec 4 20:08:43 2003
 #      by: The PyQt User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!

@@ -22,12 +22,27 @@
    <pyfile type="file" name="util.py" />
    <pyfile type="file" name="version.py" />
    <pyfile type="file" name="webbrowser.py" />
-   <uifile type="file" name="aboutBA.ui" />
-   <uifile type="file" name="prefsBA.ui" />
-   <uifile type="file" name="referenceBA.ui" />
-   <uifile type="file" name="reportBugBA.ui" />
+   <uifile type="file" name="aboutBA.ui" >
+    <pyfile url="/modules/aboutBA.py" type="file" name="aboutBA.py" />
+   </uifile>
+   <uifile type="file" name="prefsBA.ui" >
+    <pyfile url="/modules/prefsBA.py" type="file" name="prefsBA.py" />
+   </uifile>
+   <uifile type="file" name="referenceBA.ui" >
+    <pyfile url="/modules/referenceBA.py" type="file" name="referenceBA.py" />
+   </uifile>
+   <uifile type="file" name="reportBugBA.ui" >
+    <pyfile url="/modules/reportBugBA.py" type="file" name="reportBugBA.py" />
+   </uifile>
    <uifile type="file" name="urlDialogBA.ui" >
+    <uifile type="file" name="regexLibraryBA.ui" />
     <pyfile url="/modules/urlDialogBA.py" type="file" name="urlDialogBA.py" />
+   </uifile>
+   <uifile type="file" name="regexLibraryBA.ui" >
+    <pyfile url="/modules/regexLibraryBA.py" type="file" name="regexLibraryBA.py" />
+   </uifile>
+   <uifile type="file" name="newUserDialogBA.ui" >
+    <pyfile url="/modules/newUserDialogBA.py" type="file" name="newUserDialogBA.py" />
    </uifile>
   </folder>
  </project>

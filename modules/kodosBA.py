@@ -1,6 +1,6 @@
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/kodosBA.ui'
 #
-# Created: Sat Nov 29 15:18:17 2003
+# Created: Thu Dec 4 20:08:33 2003
 #      by: The PyQt User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -735,6 +735,55 @@ image15_data = [
 "................................",
 "................................"
 ]
+image16_data = [
+"34 34 12 1",
+". c None",
+"# c #000000",
+"a c #333366",
+"g c #336666",
+"h c #33ff99",
+"f c #444444",
+"j c #555555",
+"b c #6666cc",
+"i c #777777",
+"e c #aaaaaa",
+"c c #cc9966",
+"d c #ffcc99",
+"..................................",
+"...........######.................",
+"...........#abaa#.................",
+"...........#abaa#.................",
+"...........#abaa#.................",
+"...........#abaa#.................",
+"......######abaa#######...........",
+"......#cdcc#bbba#eeeee#...........",
+"......#cdcc######eeeee#####.......",
+"......#d.dd#bbba#ee.fe#ghg#.......",
+"......#feif######eefee#ghg#.......",
+"......#cdcc#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+"......#jeij#abaa#eeeee#ghg#.......",
+".....##jeij#abaa#eeeee#ghg##......",
+"....#f#cdcc#abaa#eeeee#ghg#f#.....",
+"...#ff#d.dd#abaa#eeeee#ghg#ff#....",
+"...#ff#feif#abaa#eeeee#ghg#ff#....",
+"..#fff#cdcc#abaa#eeeee#ghg#fff#...",
+"..#fff#cdcc#bbba#eeeee#ghg#fff#...",
+"..#fff#cdcc######eeeee#ghg#fff#...",
+"..#fff#cdcc#bbba#eeeee#ghg#fff#...",
+"..#fff#cdcc######eeeee#ghg#fff#...",
+"..#fff#cdcc#abaa#eeeee#ghg#fff#...",
+"..#fff#cdcc#abaa#eeeee#ghg#fff#...",
+"..#fff#cdcc#abaa#ee.fe#ghg#fff#...",
+"..#fff#cdcc#abaa#eefee#ghg#fff#...",
+"..#fff#cdcc#abaa#eeeee#ghg#fff#...",
+"..#############################...",
+".................................."
+]
 
 class KodosBA(QMainWindow):
     def __init__(self,parent = None,name = None,fl = 0):
@@ -757,6 +806,7 @@ class KodosBA(QMainWindow):
         image13 = QPixmap(image13_data)
         image14 = QPixmap(image14_data)
         image15 = QPixmap(image15_data)
+        image16 = QPixmap(image16_data)
 
         if not name:
             self.setName("KodosBA")
@@ -946,7 +996,9 @@ class KodosBA(QMainWindow):
         self.noopAction.setIconSet(QIconSet(image15))
         self.fileImportFileAction = QAction(self,"fileImportFileAction")
         self.fileImportURLAction = QAction(self,"fileImportURLAction")
-        self.Action = QAction(self,"Action")
+        self.helpRegexLibAction = QAction(self,"helpRegexLibAction")
+        self.helpRegexLibAction.setIconSet(QIconSet(image16))
+        self.FileRevertAction = QAction(self,"FileRevertAction")
 
 
         self.toolBar = QToolBar("",self,Qt.DockTop)
@@ -962,6 +1014,7 @@ class KodosBA(QMainWindow):
         self.examineAction.addTo(self.toolBar)
         self.toolBar.addSeparator()
         self.helpRegexReferenceAction.addTo(self.toolBar)
+        self.helpRegexLibAction.addTo(self.toolBar)
 
 
         self.menubar = QMenuBar(self,"menubar")
@@ -971,6 +1024,8 @@ class KodosBA(QMainWindow):
         self.fileOpenAction.addTo(self.fileMenu)
         self.fileSaveAction.addTo(self.fileMenu)
         self.fileSaveAsAction.addTo(self.fileMenu)
+        self.fileMenu.insertSeparator()
+        self.FileRevertAction.addTo(self.fileMenu)
         self.fileMenu.insertSeparator()
         self.fileImportFileAction.addTo(self.fileMenu)
         self.fileImportURLAction.addTo(self.fileMenu)
@@ -999,6 +1054,7 @@ class KodosBA(QMainWindow):
         self.helpPythonHelpAction.addTo(self.helpMenu)
         self.helpMenu.insertSeparator()
         self.helpRegexReferenceAction.addTo(self.helpMenu)
+        self.helpRegexLibAction.addTo(self.helpMenu)
         self.helpMenu.insertSeparator()
         self.helpVisitWebsiteAction.addTo(self.helpMenu)
         self.helpCheckForUpdateAction.addTo(self.helpMenu)
@@ -1011,7 +1067,7 @@ class KodosBA(QMainWindow):
 
         self.languageChange()
 
-        self.resize(QSize(532,647).expandedTo(self.minimumSizeHint()))
+        self.resize(QSize(532,668).expandedTo(self.minimumSizeHint()))
 
         self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.checkbox_slot)
         self.connect(self.editCopyAction,SIGNAL("activated()"),self.editCopy)
@@ -1020,7 +1076,7 @@ class KodosBA(QMainWindow):
         self.connect(self.editRedoAction,SIGNAL("activated()"),self.editRedo)
         self.connect(self.editUndoAction,SIGNAL("activated()"),self.editUndo)
         self.connect(self.examineAction,SIGNAL("activated()"),self.examine)
-        self.connect(self.fileExitAction,SIGNAL("activated()"),self.fileExit)
+        self.connect(self.fileExitAction,SIGNAL("activated()"),self,SLOT("close()"))
         self.connect(self.fileNewAction,SIGNAL("activated()"),self.fileNew)
         self.connect(self.fileOpenAction,SIGNAL("activated()"),self.fileOpen)
         self.connect(self.fileSaveAction,SIGNAL("activated()"),self.fileSave)
@@ -1048,6 +1104,17 @@ class KodosBA(QMainWindow):
         self.connect(self.replaceNumberSpinBox,SIGNAL("valueChanged(int)"),self.replace_num_slot)
         self.connect(self.fileImportFileAction,SIGNAL("activated()"),self.importFile)
         self.connect(self.fileImportURLAction,SIGNAL("activated()"),self.importURL)
+        self.connect(self.helpRegexLibAction,SIGNAL("activated()"),self.helpRegexLib)
+        self.connect(self.regexMultiLineEdit,SIGNAL("textChanged()"),self.kodos_edited_slot)
+        self.connect(self.stringMultiLineEdit,SIGNAL("textChanged()"),self.kodos_edited_slot)
+        self.connect(self.ignorecaseCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.replaceTextEdit,SIGNAL("textChanged()"),self.kodos_edited_slot)
+        self.connect(self.multilineCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.verboseCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.localeCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.unicodeCheckBox,SIGNAL("toggled(bool)"),self.kodos_edited_slot)
+        self.connect(self.FileRevertAction,SIGNAL("activated()"),self.revert_file_slot)
 
         self.setTabOrder(self.regexMultiLineEdit,self.stringMultiLineEdit)
         self.setTabOrder(self.stringMultiLineEdit,self.resultTabWidget)
@@ -1146,8 +1213,15 @@ class KodosBA(QMainWindow):
         self.helpReportBugAction.setMenuText(self.tr("Report a &Bug"))
         self.noopAction.setText(QString.null)
         self.fileImportFileAction.setText(self.tr("Import File"))
+        self.fileImportFileAction.setMenuText(self.tr("Import &File"))
         self.fileImportURLAction.setText(self.tr("Import URL"))
-        self.Action.setText(self.tr("Unnamed"))
+        self.fileImportURLAction.setMenuText(self.tr("Import &URL"))
+        self.helpRegexLibAction.setText(self.tr("Regex Library"))
+        self.helpRegexLibAction.setMenuText(self.tr("Regex &Library"))
+        self.helpRegexLibAction.setToolTip(self.tr("Open the Regex Library"))
+        self.helpRegexLibAction.setAccel(self.tr("Ctrl+L"))
+        self.FileRevertAction.setText(self.tr("Revert Kodos File"))
+        self.FileRevertAction.setMenuText(self.tr("&Revert Kodos File"))
         self.toolBar.setLabel(self.tr("Tools"))
         self.menubar.findItem(0).setText(self.tr("&File"))
         self.menubar.findItem(1).setText(self.tr("&Edit"))
@@ -1245,3 +1319,12 @@ class KodosBA(QMainWindow):
 
     def importURL(self):
         print "KodosBA.importURL(): Not implemented yet"
+
+    def helpRegexLib(self):
+        print "KodosBA.helpRegexLib(): Not implemented yet"
+
+    def kodos_edited_slot(self):
+        print "KodosBA.kodos_edited_slot(): Not implemented yet"
+
+    def revert_file_slot(self):
+        print "KodosBA.revert_file_slot(): Not implemented yet"

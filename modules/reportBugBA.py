@@ -1,7 +1,7 @@
-# Form implementation generated from reading ui file '/www/kodos/modules/reportBugBA.ui'
+# Form implementation generated from reading ui file '/home/phil/work/kodos/modules/reportBugBA.ui'
 #
-# Created: Fri Apr 11 10:08:38 2003
-#      by: The Python User Interface Compiler (pyuic)
+# Created: Thu Dec 4 20:08:41 2003
+#      by: The PyQt User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,64 +13,48 @@ class reportBugBA(QWidget):
     def __init__(self,parent = None,name = None,fl = 0):
         QWidget.__init__(self,parent,name,fl)
 
-        if name == None:
-            self.setName('reportBugBA')
+        if not name:
+            self.setName("reportBugBA")
 
-        self.resize(750,645)
-        self.setCaption(self.tr('Form1'))
-        reportBugBALayout = QGridLayout(self)
-        reportBugBALayout.setSpacing(6)
-        reportBugBALayout.setMargin(11)
 
-        Layout8 = QHBoxLayout()
-        Layout8.setSpacing(6)
-        Layout8.setMargin(0)
+        reportBugBALayout = QGridLayout(self,1,1,11,6,"reportBugBALayout")
+
+        Layout8 = QHBoxLayout(None,0,6,"Layout8")
         spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
         Layout8.addItem(spacer)
 
-        self.submitButton = QPushButton(self,'submitButton')
-        self.submitButton.setText(self.tr('Submit Bug Report'))
+        self.submitButton = QPushButton(self,"submitButton")
         Layout8.addWidget(self.submitButton)
 
-        self.cancelButton = QPushButton(self,'cancelButton')
-        self.cancelButton.setText(self.tr('Cancel'))
+        self.cancelButton = QPushButton(self,"cancelButton")
         Layout8.addWidget(self.cancelButton)
 
         reportBugBALayout.addLayout(Layout8,3,0)
 
-        self.GroupBox6 = QGroupBox(self,'GroupBox6')
-        self.GroupBox6.setTitle(self.tr('Kodos State Information'))
+        self.GroupBox6 = QGroupBox(self,"GroupBox6")
         self.GroupBox6.setColumnLayout(0,Qt.Vertical)
-        self.GroupBox6.layout().setSpacing(0)
-        self.GroupBox6.layout().setMargin(0)
+        self.GroupBox6.layout().setSpacing(6)
+        self.GroupBox6.layout().setMargin(11)
         GroupBox6Layout = QGridLayout(self.GroupBox6.layout())
         GroupBox6Layout.setAlignment(Qt.AlignTop)
-        GroupBox6Layout.setSpacing(6)
-        GroupBox6Layout.setMargin(11)
 
-        Layout10 = QVBoxLayout()
-        Layout10.setSpacing(6)
-        Layout10.setMargin(0)
+        Layout10 = QVBoxLayout(None,0,6,"Layout10")
 
-        self.TextLabel4 = QLabel(self.GroupBox6,'TextLabel4')
-        self.TextLabel4.setText(self.tr('Regular Expression:'))
+        self.TextLabel4 = QLabel(self.GroupBox6,"TextLabel4")
         Layout10.addWidget(self.TextLabel4)
 
-        self.TextLabel5 = QLabel(self.GroupBox6,'TextLabel5')
-        self.TextLabel5.setText(self.tr('Match String:'))
+        self.TextLabel5 = QLabel(self.GroupBox6,"TextLabel5")
         Layout10.addWidget(self.TextLabel5)
 
         GroupBox6Layout.addLayout(Layout10,0,0)
 
-        Layout11 = QVBoxLayout()
-        Layout11.setSpacing(6)
-        Layout11.setMargin(0)
+        Layout11 = QVBoxLayout(None,0,6,"Layout11")
 
-        self.regexMultiLineEdit = QMultiLineEdit(self.GroupBox6,'regexMultiLineEdit')
+        self.regexMultiLineEdit = QMultiLineEdit(self.GroupBox6,"regexMultiLineEdit")
         self.regexMultiLineEdit.setReadOnly(1)
         Layout11.addWidget(self.regexMultiLineEdit)
 
-        self.stringMultiLineEdit = QMultiLineEdit(self.GroupBox6,'stringMultiLineEdit')
+        self.stringMultiLineEdit = QMultiLineEdit(self.GroupBox6,"stringMultiLineEdit")
         self.stringMultiLineEdit.setReadOnly(1)
         Layout11.addWidget(self.stringMultiLineEdit)
 
@@ -78,75 +62,62 @@ class reportBugBA(QWidget):
 
         reportBugBALayout.addWidget(self.GroupBox6,1,0)
 
-        self.GroupBox5 = QGroupBox(self,'GroupBox5')
-        self.GroupBox5.setTitle(self.tr('System Information'))
+        self.GroupBox5 = QGroupBox(self,"GroupBox5")
         self.GroupBox5.setColumnLayout(0,Qt.Vertical)
-        self.GroupBox5.layout().setSpacing(0)
-        self.GroupBox5.layout().setMargin(0)
+        self.GroupBox5.layout().setSpacing(6)
+        self.GroupBox5.layout().setMargin(11)
         GroupBox5Layout = QGridLayout(self.GroupBox5.layout())
         GroupBox5Layout.setAlignment(Qt.AlignTop)
-        GroupBox5Layout.setSpacing(6)
-        GroupBox5Layout.setMargin(11)
 
-        self.TextLabel1 = QLabel(self.GroupBox5,'TextLabel1')
-        self.TextLabel1.setText(self.tr('Operating System:'))
+        self.TextLabel1 = QLabel(self.GroupBox5,"TextLabel1")
 
         GroupBox5Layout.addWidget(self.TextLabel1,0,0)
 
-        self.TextLabel3 = QLabel(self.GroupBox5,'TextLabel3')
-        self.TextLabel3.setText(self.tr('PyQt Version:'))
+        self.TextLabel3 = QLabel(self.GroupBox5,"TextLabel3")
 
         GroupBox5Layout.addWidget(self.TextLabel3,2,0)
 
-        self.TextLabel2 = QLabel(self.GroupBox5,'TextLabel2')
-        self.TextLabel2.setText(self.tr('Python Version:'))
+        self.TextLabel2 = QLabel(self.GroupBox5,"TextLabel2")
 
         GroupBox5Layout.addWidget(self.TextLabel2,1,0)
 
-        self.OSEdit = QLineEdit(self.GroupBox5,'OSEdit')
+        self.OSEdit = QLineEdit(self.GroupBox5,"OSEdit")
 
         GroupBox5Layout.addWidget(self.OSEdit,0,1)
 
-        self.pythonVersionEdit = QLineEdit(self.GroupBox5,'pythonVersionEdit')
+        self.pythonVersionEdit = QLineEdit(self.GroupBox5,"pythonVersionEdit")
 
         GroupBox5Layout.addWidget(self.pythonVersionEdit,1,1)
 
-        self.PyQtVersionEdit = QLineEdit(self.GroupBox5,'PyQtVersionEdit')
+        self.PyQtVersionEdit = QLineEdit(self.GroupBox5,"PyQtVersionEdit")
 
         GroupBox5Layout.addWidget(self.PyQtVersionEdit,2,1)
 
         reportBugBALayout.addWidget(self.GroupBox5,0,0)
 
-        self.GroupBox7 = QGroupBox(self,'GroupBox7')
-        self.GroupBox7.setTitle(self.tr('Comments'))
+        self.GroupBox7 = QGroupBox(self,"GroupBox7")
         self.GroupBox7.setColumnLayout(0,Qt.Vertical)
-        self.GroupBox7.layout().setSpacing(0)
-        self.GroupBox7.layout().setMargin(0)
+        self.GroupBox7.layout().setSpacing(6)
+        self.GroupBox7.layout().setMargin(11)
         GroupBox7Layout = QGridLayout(self.GroupBox7.layout())
         GroupBox7Layout.setAlignment(Qt.AlignTop)
-        GroupBox7Layout.setSpacing(6)
-        GroupBox7Layout.setMargin(11)
 
-        Layout22 = QGridLayout()
-        Layout22.setSpacing(6)
-        Layout22.setMargin(0)
+        Layout22 = QGridLayout(None,1,1,0,6,"Layout22")
 
-        self.commentsMultiLineEdit = QMultiLineEdit(self.GroupBox7,'commentsMultiLineEdit')
+        self.commentsMultiLineEdit = QMultiLineEdit(self.GroupBox7,"commentsMultiLineEdit")
 
         Layout22.addWidget(self.commentsMultiLineEdit,1,1)
 
-        self.TextLabel3_2 = QLabel(self.GroupBox7,'TextLabel3_2')
-        self.TextLabel3_2.setText(self.tr('Comments:'))
+        self.TextLabel3_2 = QLabel(self.GroupBox7,"TextLabel3_2")
 
         Layout22.addWidget(self.TextLabel3_2,1,0)
 
-        self.emailAddressEdit = QLineEdit(self.GroupBox7,'emailAddressEdit')
+        self.emailAddressEdit = QLineEdit(self.GroupBox7,"emailAddressEdit")
 
         Layout22.addWidget(self.emailAddressEdit,0,1)
 
-        self.TextLabel2_2 = QLabel(self.GroupBox7,'TextLabel2_2')
-        self.TextLabel2_2.setSizePolicy(QSizePolicy(1,0,self.TextLabel2_2.sizePolicy().hasHeightForWidth()))
-        self.TextLabel2_2.setText(self.tr('Email address:'))
+        self.TextLabel2_2 = QLabel(self.GroupBox7,"TextLabel2_2")
+        self.TextLabel2_2.setSizePolicy(QSizePolicy(1,0,0,0,self.TextLabel2_2.sizePolicy().hasHeightForWidth()))
 
         Layout22.addWidget(self.TextLabel2_2,0,0)
 
@@ -154,8 +125,12 @@ class reportBugBA(QWidget):
 
         reportBugBALayout.addWidget(self.GroupBox7,2,0)
 
-        self.connect(self.submitButton,SIGNAL('clicked()'),self.submit_slot)
-        self.connect(self.cancelButton,SIGNAL('clicked()'),self.cancel_slot)
+        self.languageChange()
+
+        self.resize(QSize(750,645).expandedTo(self.minimumSizeHint()))
+
+        self.connect(self.submitButton,SIGNAL("clicked()"),self.submit_slot)
+        self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancel_slot)
 
         self.setTabOrder(self.OSEdit,self.pythonVersionEdit)
         self.setTabOrder(self.pythonVersionEdit,self.PyQtVersionEdit)
@@ -166,8 +141,23 @@ class reportBugBA(QWidget):
         self.setTabOrder(self.cancelButton,self.regexMultiLineEdit)
         self.setTabOrder(self.regexMultiLineEdit,self.stringMultiLineEdit)
 
+    def languageChange(self):
+        self.setCaption(self.tr("Form1"))
+        self.submitButton.setText(self.tr("Submit Bug Report"))
+        self.cancelButton.setText(self.tr("Cancel"))
+        self.GroupBox6.setTitle(self.tr("Kodos State Information"))
+        self.TextLabel4.setText(self.tr("Regular Expression:"))
+        self.TextLabel5.setText(self.tr("Match String:"))
+        self.GroupBox5.setTitle(self.tr("System Information"))
+        self.TextLabel1.setText(self.tr("Operating System:"))
+        self.TextLabel3.setText(self.tr("PyQt Version:"))
+        self.TextLabel2.setText(self.tr("Python Version:"))
+        self.GroupBox7.setTitle(self.tr("Comments"))
+        self.TextLabel3_2.setText(self.tr("Comments:"))
+        self.TextLabel2_2.setText(self.tr("Email address:"))
+
     def cancel_slot(self):
-        print 'reportBugBA.cancel_slot(): not implemented yet'
+        print "reportBugBA.cancel_slot(): Not implemented yet"
 
     def submit_slot(self):
-        print 'reportBugBA.submit_slot(): not implemented yet'
+        print "reportBugBA.submit_slot(): Not implemented yet"

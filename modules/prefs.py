@@ -9,6 +9,11 @@ import help
 ##        print type(self)
 ##        PrefsBA.__init__(self, parent, name, modal)
 ##        self.parent = parent
+
+def get_font_value(s):
+    if s in ('0', 'False'): return 0
+    else:                   return 1
+
         
 class Preferences(PrefsBA):
     def __init__(self, parent, autoload=0):
@@ -59,7 +64,7 @@ class Preferences(PrefsBA):
         fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.text()))
         fp.close()
         self.parent.emit(PYSIGNAL('prefsSaved()'), () )
-                                
+
 
     def parseFontStr(self, fontstr):
         # parse a font in the form: family:pt size:bold:italic:underline:strikeout
@@ -69,10 +74,10 @@ class Preferences(PrefsBA):
         f = QFont()
         f.setFamily(parts[0])
         f.setPointSize(int(parts[1]))
-        f.setBold(int(parts[2]))
-        f.setItalic(int(parts[3]))
-        f.setUnderline(int(parts[4]))
-        f.setStrikeOut(int(parts[5]))
+        f.setBold(get_font_value(parts[2]))
+        f.setItalic(get_font_value(parts[3]))
+        f.setUnderline(get_font_value(parts[4]))
+        f.setStrikeOut(get_font_value(parts[5]))
         self.parent.setfont(f)
 
 

@@ -4,12 +4,13 @@ import os.path
 import sys
 from util import *
 from stat import *
+from shutil import copytree
 
 OLD_SETTINGS = getHomeDirectory() + os.sep + ".kodos"
 TMP_SETTINGS = OLD_SETTINGS + "1"
 NEW_SETTINGS = OLD_SETTINGS + os.sep + "prefs"
 
-class MigrateSettings:
+class MigrateSettings1:
     def __init__(self):
         if os.path.exists(OLD_SETTINGS):
             stat = os.stat(OLD_SETTINGS)
@@ -43,3 +44,20 @@ class MigrateSettings:
             
         print "...Done migrating Kodos preferences"
 
+
+class MigrateSettings:
+    def __init__(self):
+        # Kodos 2.1 -> .kodos dir moved from \ to environ HOMEDRIVE\HOMEDIR
+        # on win32
+        if sys.platform != 'win32': return
+
+        oldkodosdir = os.path.join("\\", ".kodos")
+        newkodosdir = os.path.join(getHomeDirectory(), ".kodos")
+
+        if oldkodosdir == newkodosdir: return
+        
+        try:
+            copytree(oldkodosdir, newkodosdir)
+        except Exception, e:
+            pass
+        

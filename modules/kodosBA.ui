@@ -1,8 +1,5 @@
 <!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>KodosBA</class>
-<comment>
-Python:from SQLEntry.h import *
-</comment>
 <widget class="QMainWindow">
     <property name="name">
         <cstring>KodosBA</cstring>
@@ -12,7 +9,7 @@ Python:from SQLEntry.h import *
             <x>0</x>
             <y>0</y>
             <width>532</width>
-            <height>647</height>
+            <height>668</height>
         </rect>
     </property>
     <property name="caption">
@@ -392,6 +389,8 @@ Python:from SQLEntry.h import *
         <action name="fileSaveAction"/>
         <action name="fileSaveAsAction"/>
         <separator/>
+        <action name="FileRevertAction"/>
+        <separator/>
         <action name="fileImportFileAction"/>
         <action name="fileImportURLAction"/>
         <separator/>
@@ -417,6 +416,7 @@ Python:from SQLEntry.h import *
         <action name="helpPythonHelpAction"/>
         <separator/>
         <action name="helpRegexReferenceAction"/>
+        <action name="helpRegexLibAction"/>
         <separator/>
         <action name="helpVisitWebsiteAction"/>
         <action name="helpCheckForUpdateAction"/>
@@ -444,6 +444,7 @@ Python:from SQLEntry.h import *
         <action name="examineAction"/>
         <separator/>
         <action name="helpRegexReferenceAction"/>
+        <action name="helpRegexLibAction"/>
     </toolbar>
 </toolbars>
 <actions>
@@ -805,6 +806,9 @@ Python:from SQLEntry.h import *
         <property name="text">
             <string>Import File</string>
         </property>
+        <property name="menuText">
+            <string>Import &amp;File</string>
+        </property>
     </action>
     <action>
         <property name="name">
@@ -813,13 +817,39 @@ Python:from SQLEntry.h import *
         <property name="text">
             <string>Import URL</string>
         </property>
+        <property name="menuText">
+            <string>Import &amp;URL</string>
+        </property>
     </action>
     <action>
         <property name="name">
-            <cstring>Action</cstring>
+            <cstring>helpRegexLibAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image16</iconset>
         </property>
         <property name="text">
-            <string>Unnamed</string>
+            <string>Regex Library</string>
+        </property>
+        <property name="menuText">
+            <string>Regex &amp;Library</string>
+        </property>
+        <property name="toolTip">
+            <string>Open the Regex Library</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+L</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>FileRevertAction</cstring>
+        </property>
+        <property name="text">
+            <string>Revert Kodos File</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Revert Kodos File</string>
         </property>
     </action>
 </actions>
@@ -872,6 +902,9 @@ Python:from SQLEntry.h import *
     <image name="image15">
         <data format="XPM.GZ" length="1214">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523236520022430543251d2e253d856405e53430007309805135a36a46d58caaa1899a5a6b2e0001ccd7cc</data>
     </image>
+    <image name="image16">
+        <data format="XPM.GZ" length="1517">789cdd94cf4ac4301087ef7d8ad0dc8a745d77ad14f111148f8278482699fe8175615d0f22bebb99190ab1db661541167ff4d0af7c9d99366917857ab8bf55c5227bd99b7d070a5ab353857bdd6cde1e9f6edeb37cb556e1585ea8657e96e5a50275b77df674aec3b93ee7101ac25548551136825525d80a22d6352112ae39843de12587d012d29d00841de11587d0131a0e211002d4b5347284887481073e9a91a539472d638d392d4b0667ebe019220b1c80b6d61aed29298b2356542fb25ce9dc50ab44af9bb699b0d07738d4423f6771479e5e3a4e5bbdeffaff6de9494b7fb5344ebe2fd4b115be0259a1b1255a64f10aa5ac40331d451b5bd1fe4a58d1fefaa35adf9bfe47d6b0efd316fea2632ae5c17f6226f9c775f609ae646b88</data>
+    </image>
 </images>
 <connections>
     <connection>
@@ -920,7 +953,7 @@ Python:from SQLEntry.h import *
         <sender>fileExitAction</sender>
         <signal>activated()</signal>
         <receiver>KodosBA</receiver>
-        <slot>fileExit()</slot>
+        <slot>close()</slot>
     </connection>
     <connection>
         <sender>fileNewAction</sender>
@@ -1084,6 +1117,72 @@ Python:from SQLEntry.h import *
         <receiver>KodosBA</receiver>
         <slot>importURL()</slot>
     </connection>
+    <connection>
+        <sender>helpRegexLibAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpRegexLib()</slot>
+    </connection>
+    <connection>
+        <sender>regexMultiLineEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>stringMultiLineEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>ignorecaseCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>replaceTextEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>multilineCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>dotallCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>verboseCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>localeCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>unicodeCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_edited_slot()</slot>
+    </connection>
+    <connection>
+        <sender>FileRevertAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>revert_file_slot()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>regexMultiLineEdit</tabstop>
@@ -1132,6 +1231,9 @@ Python:from SQLEntry.h import *
     <slot>replace_num_slot()</slot>
     <slot>importFile()</slot>
     <slot>importURL()</slot>
+    <slot>helpRegexLib()</slot>
+    <slot>kodos_edited_slot()</slot>
+    <slot>revert_file_slot()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
