@@ -27,6 +27,9 @@ MATCH_FAIL = 2
 TRUE = 1
 FALSE = 0
 
+# regex to find special flags which must begin at beginning of line or after some spaces
+EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
+
 ########################################################################################
 #
 # The Kodos class which defines the main functionality and user interaction
@@ -43,6 +46,9 @@ class Kodos(KodosBA):
         self.createTooltips()
         self.filename = ""
         self.match_num = 0
+        self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
+        self.embedded_flags = ""
+        self.regex_embedded_flags_removed = ""
 
         
     def createTooltips(self):
@@ -131,6 +137,32 @@ class Kodos(KodosBA):
             flags_str += ", re.UNICODE"
 
         return flags_str
+
+    def get_embedded_flags_string(self):
+        flags_str = flags = ""
+        
+        if self.ignorecaseCheckBox.isChecked():
+            flags += "i"
+
+        if self.multilineCheckBox.isChecked():
+            flags += "m"
+
+        if self.dotallCheckBox.isChecked():
+            flags += "s"
+
+        if self.verboseCheckBox.isChecked():
+            flags += "x"
+
+        if self.localeCheckBox.isChecked():
+            flags += "L"
+
+        if self.unicodeCheckBox.isChecked():
+            flags += "u"
+
+        if flags:
+            flags_str = "(?" + flags + ")"
+
+        return flags_str
         
 
     def match_num_slot(self, num):
@@ -165,11 +197,29 @@ class Kodos(KodosBA):
     def populate_code_textbrowser(self):
         self.codeTextBrowser.setText("")
         code =  "import re\n"
-        code += "rawstr = r\"\"\"" + self.regex + "\"\"\"\n"
+        code += "# common variables\n"
+        #code += "rawstr = r\"\"\"" + self.regex + "\"\"\"\n"
+        code += "rawstr = r\"\"\"" + self.regex_embedded_flags_removed + "\"\"\"\n"
+        code += "embedded_rawstr = r\"\"\"" + self.get_embedded_flags_string() + \
+                self.regex_embedded_flags_removed + "\"\"\"\n"
+        code += 'matchstr = \"\"\"' + self.matchstring + '\"\"\"'
+        code += "\n"
+        code += "# method 1: using a compile object\n"
         code += "compile_obj = re.compile(rawstr"
         if self.flags != 0:
             code += self.get_flags_string()
         code += ")\n"
+        code += "match_obj = compile_obj.search(matchstr)\n\n"
+        
+        code += "# method 2: using search function (w/ external flags)\n"
+        code += "match_obj = re.search(rawstr, matchstr"
+        if self.flags != 0:
+            code += self.get_flags_string()
+        code += ")\n\n"
+
+        code += "# method 3: using search function (w/ embedded flags)\n"
+        embedded_str = self.get_embedded_flags_string() + self.regex_embedded_flags_removed
+        code += "match_obj = re.search(embedded_rawstr, matchstr)\n\n"
 
         self.codeTextBrowser.setText(code)
 
@@ -225,6 +275,8 @@ class Kodos(KodosBA):
             self.update_results("Enter a regular expression and a string to match against", MATCH_NA)
             self.clear_results()
             return
+
+        self.process_embedded_flags(self.regex)
 
         try:
             compile_obj = re.compile(self.regex, self.flags)
@@ -388,6 +440,38 @@ class Kodos(KodosBA):
     def copy_symbol(self, symbol):
         self.regexMultiLineEdit.insert(symbol)
 
+
+    def process_embedded_flags(self, regex):
+        # determine if the regex contains embedded regex flags.
+        # if not, return 0 -- inidicating that the regex has no embedded flags
+        # if it does, set the appropriate checkboxes on the UI to reflect the flags that are embedded
+        #   and return 1 to indicate that the string has embedded flags
+
+        match = self.embedded_flags_obj.match(regex)
+        if not match:
+            self.embedded_flags = ""
+            self.regex_embedded_flags_removed = regex
+            return 0
+
+        self.embedded_flags = match.group('flags')
+        self.regex_embedded_flags_removed = self.embedded_flags_obj.sub("", regex, 1)
+        
+        for flag in self.embedded_flags:
+            if flag == 'i':
+                self.ignorecaseCheckBox.setChecked(1)
+            elif flag == 'L':
+                self.localeCheckBox.setChecked(1)
+            elif flag == 'm':
+                self.multilineCheckBox.setChecked(1)
+            elif flag == 's':
+                self.dotallCheckBox.setChecked(1)
+            elif flag == 'u':
+                self.unicodeCheckBox.setChecked(1)
+            elif flag == 'x':
+                self.verboseCheckBox.setChecked(1)
+
+        return 1
+        
 #############################################################################################
 #
 # The Kodos Main Window which includes the menubar, toolbar, statusbar, etc...
