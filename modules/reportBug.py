@@ -58,7 +58,7 @@ class reportBug(reportBugBA):
         msg += "String:\n%s\n" % str(self.stringMultiLineEdit.text())
         msg += "=" * 70 + "\n"
         msg += "Comments:\n%s\n" % str(self.commentsMultiLineEdit.text())
-        email_server = str(self.kodos_main.parent.prefs.emailServerEdit.text()) or "localhost"
+        email_server = str(self.kodos_main.prefs.emailServerEdit.text()) or "localhost"
         try:
             server = smtplib.SMTP(email_server)
             server.sendmail(addr, AUTHOR_ADDR, msg)

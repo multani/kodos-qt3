@@ -56,7 +56,7 @@ class RecentFiles:
     def clearMenu(self):
         # clear each menu entry...
         for idx in self.__indecies:
-            self.parent.filemenu.removeItem(idx)
+            self.parent.fileMenu.removeItem(idx)
 
         # clear list of menu entry indecies
         self.__indecies = []
@@ -69,7 +69,7 @@ class RecentFiles:
         num = min(self.numShown, len(self.__recent_files))
         for i in range(num):
             filename = self.__recent_files[i]
-            idx = self.parent.filemenu.insertItem(
+            idx = self.parent.fileMenu.insertItem(
                 QIconSet(QPixmap(xpm.newIcon)),
                 filename)
 
@@ -92,7 +92,7 @@ class RecentFiles:
 
     def move(self, filename, menuid):
         # fix me....
-        menu = self.parent.filemenu
+        menu = self.parent.fileMenu
         idx = menu.indexOf(self.__indecies[0])
         menu.removeItem(menuid)
         menu.insertItem(QIconSet(QPixmap(xpm.newIcon)),

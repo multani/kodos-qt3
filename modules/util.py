@@ -163,7 +163,7 @@ def kodos_toolbar_logo(toolbar):
     blanklabel = QLabel("", toolbar)
     toolbar.setStretchableWidget(blanklabel)
     
-    banner = getPixmap("kodos_text_logo.gif", "GIF")
+    #banner = getPixmap("kodos_text_logo.gif", "GIF")
     
     logolabel = QLabel("kodos_logo", toolbar)
     #logolabel.setPixmap(banner)

@@ -91,11 +91,11 @@ class ReferenceWindow(QMainWindow):
         # populate "Help"
         self.helpmenu = QPopupMenu()
         self.id = self.helpmenu.insertItem(QIconSet(QPixmap(xpm.helpIcon)),
-                                           "&Help", self.kodos.help)
+                                           "&Help", self.kodos.helpHelp)
         self.id = self.helpmenu.insertItem(QIconSet(QPixmap(xpm.pythonIcon)),
-                                           "&Python regex help", self.kodos.regex_help)
+                                           "&Python regex help", self.kodos.helpPythonRegex)
         self.helpmenu.insertSeparator()
-        self.id = self.helpmenu.insertItem("&About...", self.kodos.about)
+        self.id = self.helpmenu.insertItem("&About...", self.kodos.helpAbout)
         self.menubar.insertItem("&Help", self.helpmenu)       
 
 

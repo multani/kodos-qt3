@@ -1,740 +1,1137 @@
-<!DOCTYPE UI><UI>
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>KodosBA</class>
-<widget>
-    <class>QWidget</class>
-    <property stdset="1">
-        <name>name</name>
+<comment>
+Python:from SQLEntry.h import *
+</comment>
+<widget class="QMainWindow">
+    <property name="name">
         <cstring>KodosBA</cstring>
     </property>
-    <property stdset="1">
-        <name>geometry</name>
+    <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>705</width>
-            <height>675</height>
+            <width>532</width>
+            <height>647</height>
         </rect>
     </property>
-    <property stdset="1">
-        <name>caption</name>
-        <string>Form1</string>
+    <property name="caption">
+        <string>Kodos - The Python Regex Debugger</string>
+    </property>
+    <property name="icon">
+        <pixmap>image0</pixmap>
+    </property>
+    <property name="iconText">
+        <string>Kodos</string>
     </property>
     <grid>
-        <property stdset="1">
-            <name>margin</name>
-            <number>11</number>
+        <property name="name">
+            <cstring>unnamed</cstring>
         </property>
-        <property stdset="1">
-            <name>spacing</name>
-            <number>6</number>
-        </property>
-        <widget row="3"  column="0"  rowspan="1"  colspan="3" >
-            <class>Line</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Line1</cstring>
+        <widget class="QButtonGroup" row="1" column="0">
+            <property name="name">
+                <cstring>buttonGroup2</cstring>
             </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Horizontal</enum>
-            </property>
-        </widget>
-        <widget row="1"  column="0"  rowspan="1"  colspan="3" >
-            <class>QGroupBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>GroupBox3</cstring>
-            </property>
-            <property stdset="1">
-                <name>title</name>
+            <property name="title">
                 <string>Flags</string>
             </property>
             <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
+                <property name="name">
+                    <cstring>unnamed</cstring>
                 </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>ignorecaseCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Ignore Case</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>multilineCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Multi Line</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>dotallCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Dot All</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>verboseCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Verbose</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>localeCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Locale</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QCheckBox">
+                    <property name="name">
                         <cstring>unicodeCheckBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>Unicode</string>
                     </property>
                 </widget>
             </hbox>
         </widget>
-        <widget row="0"  column="0"  rowspan="1"  colspan="3" >
-            <class>QGroupBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>GroupBox1</cstring>
+        <widget class="QGroupBox" row="0" column="0">
+            <property name="name">
+                <cstring>groupBox1</cstring>
             </property>
-            <property stdset="1">
-                <name>title</name>
-                <string>Regular Expression</string>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>7</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
             </property>
-            <vbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
+            <property name="lineWidth">
+                <number>1</number>
+            </property>
+            <property name="title">
+                <string>Regular Expression Pattern</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
                 </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QMultiLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QTextEdit" row="0" column="0">
+                    <property name="name">
                         <cstring>regexMultiLineEdit</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>palette</name>
-                        <palette>
-                            <active>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>223</red>
-                                    <green>223</green>
-                                    <blue>223</blue>
-                                </color>
-                                <color>
-                                    <red>96</red>
-                                    <green>96</green>
-                                    <blue>96</blue>
-                                </color>
-                                <color>
-                                    <red>128</red>
-                                    <green>128</green>
-                                    <blue>128</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                            </active>
-                            <disabled>
-                                <color>
-                                    <red>128</red>
-                                    <green>128</green>
-                                    <blue>128</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>220</red>
-                                    <green>220</green>
-                                    <blue>220</blue>
-                                </color>
-                                <color>
-                                    <red>96</red>
-                                    <green>96</green>
-                                    <blue>96</blue>
-                                </color>
-                                <color>
-                                    <red>128</red>
-                                    <green>128</green>
-                                    <blue>128</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>128</red>
-                                    <green>128</green>
-                                    <blue>128</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                            </disabled>
-                            <inactive>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>220</red>
-                                    <green>220</green>
-                                    <blue>220</blue>
-                                </color>
-                                <color>
-                                    <red>96</red>
-                                    <green>96</green>
-                                    <blue>96</blue>
-                                </color>
-                                <color>
-                                    <red>128</red>
-                                    <green>128</green>
-                                    <blue>128</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                                <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>0</red>
-                                    <green>0</green>
-                                    <blue>0</blue>
-                                </color>
-                                <color>
-                                    <red>255</red>
-                                    <green>255</green>
-                                    <blue>255</blue>
-                                </color>
-                            </inactive>
-                        </palette>
-                    </property>
-                    <property stdset="1">
-                        <name>font</name>
-                        <font>
-                            <family>adobe-helvetica</family>
-                            <pointsize>14</pointsize>
-                        </font>
-                    </property>
-                    <property stdset="1">
-                        <name>wordWrap</name>
-                        <enum>NoWrap</enum>
+                    <property name="textFormat">
+                        <enum>PlainText</enum>
                     </property>
                 </widget>
-            </vbox>
+            </grid>
         </widget>
-        <widget row="2"  column="0"  rowspan="1"  colspan="3" >
-            <class>QGroupBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>GroupBox2</cstring>
+        <widget class="QTabWidget" row="4" column="0">
+            <property name="name">
+                <cstring>resultTabWidget</cstring>
             </property>
-            <property stdset="1">
-                <name>title</name>
-                <string>String</string>
-            </property>
-            <vbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QMultiLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>stringMultiLineEdit</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>font</name>
-                        <font>
-                            <family>adobe-helvetica</family>
-                            <pointsize>14</pointsize>
-                        </font>
-                    </property>
-                    <property stdset="1">
-                        <name>wordWrap</name>
-                        <enum>NoWrap</enum>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-        <widget row="5"  column="0"  rowspan="1"  colspan="3" >
-            <class>QTabWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>infoTabWidget</cstring>
-            </property>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>Group</string>
                 </attribute>
-                <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QListView</class>
+                    <widget class="QListView" row="0" column="0">
                         <column>
-                            <property>
-                                <name>text</name>
+                            <property name="text">
                                 <string>Group #</string>
                             </property>
-                            <property>
-                                <name>clickable</name>
+                            <property name="clickable">
                                 <bool>true</bool>
                             </property>
-                            <property>
-                                <name>resizeable</name>
+                            <property name="resizable">
                                 <bool>true</bool>
                             </property>
                         </column>
                         <column>
-                            <property>
-                                <name>text</name>
+                            <property name="text">
                                 <string>Group Name</string>
                             </property>
-                            <property>
-                                <name>clickable</name>
+                            <property name="clickable">
                                 <bool>true</bool>
                             </property>
-                            <property>
-                                <name>resizeable</name>
+                            <property name="resizable">
                                 <bool>true</bool>
                             </property>
                         </column>
                         <column>
-                            <property>
-                                <name>text</name>
+                            <property name="text">
                                 <string>Match</string>
                             </property>
-                            <property>
-                                <name>clickable</name>
+                            <property name="clickable">
                                 <bool>true</bool>
                             </property>
-                            <property>
-                                <name>resizeable</name>
+                            <property name="resizable">
                                 <bool>true</bool>
                             </property>
                         </column>
-                        <property stdset="1">
-                            <name>name</name>
+                        <property name="name">
                             <cstring>groupListView</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>allColumnsShowFocus</name>
-                            <bool>true</bool>
-                        </property>
-                        <property stdset="1">
-                            <name>showSortIndicator</name>
-                            <bool>true</bool>
-                        </property>
                     </widget>
-                </vbox>
+                </grid>
             </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>Match</string>
                 </attribute>
-                <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QTextBrowser</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QTextBrowser" row="0" column="0">
+                        <property name="name">
                             <cstring>matchTextBrowser</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>textFormat</name>
-                            <enum>RichText</enum>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Match All</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextBrowser" row="0" column="0">
+                        <property name="name">
+                            <cstring>matchAllTextBrowser</cstring>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Replace</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextBrowser">
+                        <property name="name">
+                            <cstring>replaceTextBrowser</cstring>
                         </property>
                     </widget>
                 </vbox>
             </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>tab</cstring>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>Sample Code</string>
                 </attribute>
-                <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QTextBrowser</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QTextBrowser" row="0" column="0">
+                        <property name="name">
                             <cstring>codeTextBrowser</cstring>
                         </property>
                     </widget>
-                </vbox>
+                </grid>
             </widget>
         </widget>
-        <widget row="4"  column="1" >
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout4</cstring>
+        <widget class="QTabWidget" row="2" column="0">
+            <property name="name">
+                <cstring>tabWidget3</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Search String</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextEdit" row="0" column="0">
+                        <property name="name">
+                            <cstring>stringMultiLineEdit</cstring>
+                        </property>
+                        <property name="textFormat">
+                            <enum>PlainText</enum>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Replace String</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextEdit" row="0" column="0">
+                        <property name="name">
+                            <cstring>replaceTextEdit</cstring>
+                        </property>
+                        <property name="textFormat">
+                            <enum>PlainText</enum>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+        <widget class="QLayoutWidget" row="3" column="0">
+            <property name="name">
+                <cstring>layout3</cstring>
             </property>
             <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
+                <property name="name">
+                    <cstring>unnamed</cstring>
                 </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel3</cstring>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Match number:</string>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>70</width>
+                            <height>31</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Match Number</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QSpinBox</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QSpinBox">
+                    <property name="name">
                         <cstring>matchNumberSpinBox</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>enabled</name>
-                        <bool>false</bool>
+                    <property name="maxValue">
+                        <number>9999</number>
                     </property>
-                    <property stdset="1">
-                        <name>sizePolicy</name>
-                        <sizepolicy>
-                            <hsizetype>0</hsizetype>
-                            <vsizetype>0</vsizetype>
-                        </sizepolicy>
-                    </property>
-                    <property stdset="1">
-                        <name>minValue</name>
+                    <property name="minValue">
                         <number>1</number>
                     </property>
                 </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>spacerLabel</cstring>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image1</pixmap>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>replaceLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Replace Number</string>
+                    </property>
+                </widget>
+                <widget class="QSpinBox">
+                    <property name="name">
+                        <cstring>replaceNumberSpinBox</cstring>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>118</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
             </hbox>
         </widget>
-        <spacer row="4"  column="2" >
-            <property>
-                <name>name</name>
-                <cstring>Spacer1</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Horizontal</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
-                <size>
-                    <width>20</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer row="4"  column="0" >
-            <property>
-                <name>name</name>
-                <cstring>Spacer2</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Horizontal</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
-                <size>
-                    <width>20</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
     </grid>
 </widget>
+<menubar>
+    <property name="name">
+        <cstring>menubar</cstring>
+    </property>
+    <item text="&amp;File" name="fileMenu">
+        <action name="fileNewAction"/>
+        <action name="fileOpenAction"/>
+        <action name="fileSaveAction"/>
+        <action name="fileSaveAsAction"/>
+        <separator/>
+        <action name="fileImportFileAction"/>
+        <action name="fileImportURLAction"/>
+        <separator/>
+        <action name="fileExitAction"/>
+        <separator/>
+    </item>
+    <item text="&amp;Edit" name="editMenu">
+        <action name="editUndoAction"/>
+        <action name="editRedoAction"/>
+        <separator/>
+        <action name="editCutAction"/>
+        <action name="editCopyAction"/>
+        <action name="editPasteAction"/>
+        <separator/>
+        <action name="examineAction"/>
+        <action name="editPauseAction"/>
+        <separator/>
+        <action name="editPreferencesAction"/>
+    </item>
+    <item text="&amp;Help" name="helpMenu">
+        <separator/>
+        <action name="helpHelpAction"/>
+        <action name="helpPythonHelpAction"/>
+        <separator/>
+        <action name="helpRegexReferenceAction"/>
+        <separator/>
+        <action name="helpVisitWebsiteAction"/>
+        <action name="helpCheckForUpdateAction"/>
+        <action name="helpReportBugAction"/>
+        <separator/>
+        <action name="helpAboutAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>toolBar</cstring>
+        </property>
+        <property name="label">
+            <string>Tools</string>
+        </property>
+        <action name="fileOpenAction"/>
+        <action name="fileSaveAction"/>
+        <separator/>
+        <action name="editCutAction"/>
+        <action name="editCopyAction"/>
+        <action name="editPasteAction"/>
+        <separator/>
+        <action name="editPauseAction"/>
+        <action name="examineAction"/>
+        <separator/>
+        <action name="helpRegexReferenceAction"/>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>fileNewAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image2</iconset>
+        </property>
+        <property name="text">
+            <string>New</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;New</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+N</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileOpenAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image3</iconset>
+        </property>
+        <property name="text">
+            <string>Open</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Open...</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+O</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileSaveAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image4</iconset>
+        </property>
+        <property name="text">
+            <string>Save</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Save</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+S</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileSaveAsAction</cstring>
+        </property>
+        <property name="text">
+            <string>Save As</string>
+        </property>
+        <property name="menuText">
+            <string>Save &amp;As...</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileExitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Exit</string>
+        </property>
+        <property name="menuText">
+            <string>E&amp;xit</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editUndoAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image5</iconset>
+        </property>
+        <property name="text">
+            <string>Undo</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Undo</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+Z</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editRedoAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image6</iconset>
+        </property>
+        <property name="text">
+            <string>Redo</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Redo</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+Y</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editCutAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image7</iconset>
+        </property>
+        <property name="text">
+            <string>Cut</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Cut</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+X</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editCopyAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image8</iconset>
+        </property>
+        <property name="text">
+            <string>Copy</string>
+        </property>
+        <property name="menuText">
+            <string>C&amp;opy</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+C</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editPasteAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image9</iconset>
+        </property>
+        <property name="text">
+            <string>Paste</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Paste</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+V</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>examineAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="iconSet">
+            <iconset>image10</iconset>
+        </property>
+        <property name="text">
+            <string>Examine Regex for Match</string>
+        </property>
+        <property name="menuText">
+            <string>E&amp;xamine Regex</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+X</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpContentsAction</cstring>
+        </property>
+        <property name="text">
+            <string>Contents</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Contents...</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpIndexAction</cstring>
+        </property>
+        <property name="text">
+            <string>Index</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Index...</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpAboutAction</cstring>
+        </property>
+        <property name="text">
+            <string>About</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;About</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>regexChangedAction</cstring>
+        </property>
+        <property name="text">
+            <string>Action</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editPauseAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="iconSet">
+            <iconset>image11</iconset>
+        </property>
+        <property name="text">
+            <string>Pause Processing</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+P</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>editPreferencesAction</cstring>
+        </property>
+        <property name="text">
+            <string>Preferences</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpHelpAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image12</iconset>
+        </property>
+        <property name="text">
+            <string>Help</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+/</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpPythonHelpAction</cstring>
+        </property>
+        <property name="text">
+            <string>Python Regex Help</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Python Regex Help</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpRegexReferenceAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image13</iconset>
+        </property>
+        <property name="text">
+            <string>Regex Reference Guide</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Regex Reference Guide</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+R</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpVisitWebsiteAction</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>image14</iconset>
+        </property>
+        <property name="text">
+            <string>Visit Kodos Website</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Visit Kodos Website</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpCheckForUpdateAction</cstring>
+        </property>
+        <property name="text">
+            <string>Check for Kodos Update</string>
+        </property>
+        <property name="menuText">
+            <string>&amp;Check for Kodos Update</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>helpReportBugAction</cstring>
+        </property>
+        <property name="text">
+            <string>Report a Bug</string>
+        </property>
+        <property name="menuText">
+            <string>Report a &amp;Bug</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>noopAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="iconSet">
+            <iconset>image15</iconset>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileImportFileAction</cstring>
+        </property>
+        <property name="text">
+            <string>Import File</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>fileImportURLAction</cstring>
+        </property>
+        <property name="text">
+            <string>Import URL</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>Action</cstring>
+        </property>
+        <property name="text">
+            <string>Unnamed</string>
+        </property>
+    </action>
+</actions>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="1437">789c7d94cf4ec3300cc6ef7d8a68be4da8a35d5369423c02882312e2d0a44d9b7529128c0342bc3bb1932cfdb77953972ff9e9b31d6fdb6dd9ebcb13dbee92af7375d692c9aefa64dbfadb989fb7f7c7df64b3cf997d6725cb3677c92665923d7f0c0daec1aee19e026517e441a2d4412a85523ac9b9837b274bee4e0dca7da694932dca222b8a82921e51f29c739ea31428cb5c367b3a6d501e64286370b2e4b24679425915555615282b94b2968d4b54a3c4ac2539ab20dd691a0362c4cd090350c588d498017f8641ab25e3f641482984240ae68c4384052c625f119a338410769d11a1ad359f80049f1134652ce48d8488adcd7d04d4141e5a3080b9ea3a40801b0b061cd37806d6183165c40a83e58ceac182d66a1ef775a3f7cb052d7b9f1a0971635e539f75063c05708da11c23a3c8b86f258c67ba98bbd581014556f8316722d42a5b896a3b7d4905e0198488d19d3aaa56eb3e30d6906a761031bdee4e2df4a60fa902938267008cc1f6b5369ec193c8b8ebb5496c68a3978cbf3afbecc9a70fd733f12160340a744e97b9c4e58743310c7eb8a12fa0c7300d67efe645ff247025ec3dff3d24ff497e58df</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="2415">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523237523036540042251d2e253d856405bffcbc54309b4a60d4ac51b346cd1a356bd4ac51b346cd1a356bd89a556bcd050072b8af7d</data>
+    </image>
+    <image name="image2">
+        <data format="XPM.GZ" length="721">789cedd2310ac23014c6f13da778245b11ab29c114f1088aa3200eaf2f151daaa07510f1eef64553ac696fe04787fcf90dc9d03481cd7a09492aae35d647023ae0051277abaafb76b77808a93534df0ca67224e4180856e753c967d59cd5c48fb3e0d4b9269d7312a741e30c723a4e9b596333ce92930c69329cc8b9f7f3b7f42e886a1709bea70a3524142812172892325024182892f681bff2f1bf74a5bb2f19fe0f7ae439172f13a0a94f</data>
+    </image>
+    <image name="image3">
+        <data format="XPM.GZ" length="691">789cad914d0ac2301085f739c5d0d905b1b62214c423282e05713189165d5441eb42c4bb9b9fa6a67644045f0299978f3713482a61b59c834cc5a5a6faa041efe90c727badaadb7a33bb8b24cfc1ec0964c9402443d0b0381d77b64653e3c8c95a6d6d312e326fc9dad2c85b156c59ba3eacfe41d0c89defc4dfa2dd7c37fc44b025a179043c4152a4b055f4365414ad0e8901fd94c1ae5e19441da9211c68e7f44098d3074d86019e70a0210c089958df7ffb31154f9c7397a6</data>
+    </image>
+    <image name="image4">
+        <data format="XPM.GZ" length="691">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523232520022530543251d2e253d856405bffcbc54105b19c856360003103711c4b530b63084709340dc64d364a36453103719cc4d49324b0173f5b002b08c32160095494c544e4202400e6932c9406174d39293617a807c226510f6d04e2611d9ff892832688028196554e3b0c9e076010d65b04437341d604f21b5d65c008f8da445</data>
+    </image>
+    <image name="image5">
+        <data format="XPM.GZ" length="661">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523232520022630543251d2e253d856405bffcbc54105b19c8563600020b63103711c4b530b6308470f5b082019251068344848c32b23808206494a1e23015890819653db8b81e44255c0659025d460fa70c6e3d78ec814b21b90d052422fb070540f50ebaf84196a9b5e6020008a373c8</data>
+    </image>
+    <image name="image6">
+        <data format="XPM.GZ" length="661">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523232520022630543251d2e253d856405bffcbc54103b11c8563600020b63105719c4b530b6308470f5b0027acb28278201a64c221c4084136132ca7011885c225c06c91890542256193d98a198327a386570ea49449581bb4d2f114d0624a08c230c50fd4f5cb80da04cad351700eee4866e</data>
+    </image>
+    <image name="image7">
+        <data format="XPM.GZ" length="661">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523232520022630543251d2e253d856405bffcbc54105b19c856360003103711c6b53006abc40a90649491482ac92863955146d6822ca387474619c9301419a03842825819245bd064129513b1cb242602512216994430d44bc4904984c8c1a5e032897a3019a8144c26518f800c92715864d0ec81ab4dc4701b924fb0850e8a4cad351700fe117ccc</data>
+    </image>
+    <image name="image8">
+        <data format="XPM.GZ" length="706">789c9d92cb0ac2301045f7f98aa1d915b1da82b4889fa0b814c4c54c6ad14515b42e44fc773b79d057ace04da073399c5042a21076db358491b857589d15a813de20cc1f65f9dc1f562f11c431d47b01f36022822928d85c2f479e653dcb990e5772354db82aae4996a8a2e09a734d29cd4c45ae858e3ed69b71226d3c04757ac81036b05edf1ceca0b643364387ccd7a2c69148c625453d079d936be47350239f637ec3e318ec733aa4edd8f997633374dc4d0d9d86fce1b433f60ede4bf101a375a557</data>
+    </image>
+    <image name="image9">
+        <data format="XPM.GZ" length="736">789c7d92d10a82301486ef7d8ae1ee24321561103d42d165105dcce3465d54507611d1bbb7736cbaadd93f85fd7efb183af38cedb66b96e5c9bd93dd09181ce58d65ede37c7eee0fab57929625339760453a4bd23903b6b95e14ceb999f30505abb255545801aba844d1d3c6d69eb658a186126aac12ab36e9176b5bb5a64da37108c784841e7229251f319101b8885e8837d018c2e9a6b925585a1b6a9640030ec1e63a6302c71faee38fd051434247f51f4c2bad4247936008a2b88368c23128ea50628e9e741ce23bdfcd9cf3e1bf8e3d5fe5e5cf1ff25e261ff1b8c16c</data>
+    </image>
+    <image name="image10">
+        <data format="XPM.GZ" length="2798">789cb5d5594f23471007f0773e8545bda1e8bfbe66ecd16a1fcc7d3ab017ec46799899ee010c0603365794ef9e9afe574f2201118a14350ffcd4d555d5c7c08795d6c9e1416be5c3d2dd3c9f9f97adf22cbf6dadb8c574faf4dbef9ffe585aee765bfad369a7adeef22f4bcb47f356d91a5f5ff91a325648b75d8fe0dde0ac3bec66c17bb57b596fd8a30f6af73bfd76bf531bd3da499e64491ee66fe94127a54774e686bde0d5da6937eda4a1198ccd99c56fd1cdfa7b3af7c322783b388ff128e94167c0fcebe68cc665e3b01ec7f43031cfcd8e96473a4bacdf073af7593fc42f6a0f7ab11eeecdb1de6963e65fa787b67f0ce826bf6bccfacfb41e68193ca38b94f5e5daec398f22b868eafd4a0f63fe9c8efdcb4d63e63fa7353ff325e6385f44e75c7f4697162f4fd19cc7b0f6b017eba31f5d70fe8cce9cf57345e749cefadfcdb1de061dfb93cd689b9f9863fc9c8efdc8a5d95b7ee62bf43e78dea7d1850b163ab37e654ae7dee64b3ad6c73eadf598ffabd9ea49156dfb0ff791f5b3c4ded315dddcf722ba0cf5704117b1ff03baa997465bfe5573acd7a15d9c5f6bccfc99d9f687f0bd676596b824d8999dbd8f07bab0fc8268c6cb1d5dc67cdd68db4f9b6eea7da17dece76774c9fadf6ae77a5e8e7faff6697d2fdccf882e52cea317ede91d3ad6970bda79cb7f4737f5c27de5651ecf7b37daf27da69b7ae77419f31dd22ee69b98637d4f6b3dee37bcb742fbb5fbd9367bcb7f44bbe85bdadb7923e42b5c11cff3992ed32a0d7ea25d5a55c127b44f6dfd8d39e6ff4157b63f09e7572665dccf23edbce59fd155ea8325bcaf52ebd9feb6ccdeea5fd35565e719be67975415f31dcddf3ffe7b3c04390a943a0a38f87f8f4785539ce11c131d17b8d435f276bc464f71856b1d33dce016779863f15a0dde1feef1a071333ce209cf1861156b58c7c61bf14e3bd9d4f82d6c6347c72ef6b08f038c5ff6c4ff0738d44e8ef059f37ec157cdff0ddff5f763b857e34f71821ff8a9a38d0ebae8a18f04290618be113fd13db691a123404f447229a414f746fc3d0ec56be68e5418c9291239937399683f2f76ccbfd79aeb4263f7e552a67225d732d37123b7a85e8dd7bb923b99eb286481bedccb838ec7d76ec0ee6b03737992423b7916a7b9473a56e1644d73f957e23d0a59970dd99489769eebc94cebb344a5aba6ffecaa793f5e6b8c655df7782c5bb2cd18d9d13cbbb2a773fee57bd617ea7426977dd9f93ba3ea40d75886f7bc7fadbd90b156c9dfffbde8def774cdf6fbbf2f48bdf7fffdfbfdf3e3d25f9a24cea0</data>
+    </image>
+    <image name="image11">
+        <data format="XPM.GZ" length="1038">789cd5cdbf0ac2301006f03d4f11daad8835a548417c04c1511087cb25fddf45eb20e2bb6b924b855a37877a64c88f2f5f2e8ef861bfe351cc2e3df415722ce1cc2375edbadbf1b4bdb32059f3d7112917c18205c091872b3b867a6066a888a9237a0afbb824662e6d3d5d5a3b8a34b19496995f1412e9e78a48dd86888e85a11816e5444a9786b91dcbaf33f7340409682e08a0609c8206d0946a3d4e95ef2a39d58577173ed27fdc2b21d7b60bc544b7ac34d6e6d240db56bfdc3b35334d1f1bf604bdd1d730</data>
+    </image>
+    <image name="image12">
+        <data format="XPM.GZ" length="825">789c6d91df4e83301487ef798a66dc2d86416164c4f8081a2f4d8c17a7ff2814c636e78531bebb3d3d3259dd0f08fdbe9653386cd6ece5f991ad37c9fb19ce9d64d2c289add5c7387ebebe3d7c252b9e333a8bd55db2ca98644fd35ee358f8719a8720ee118b1d1e8847449ef38a87d9036259947919eab8804d29cb0651226ef9f6b71420d6bc2e6a8e780a08b5aa017140dc95bb8216f7884dd56c09534451895a54885d402580662744a595265488c600d04b6a4259d3468650732a35121a43cfda1969713ba331a151294449b3f07a20a2401a3e5948a51751520079a5cd326af6dab4aded7a704367ad357ae1ede8060b623fc57e12077f892ef6f600b7bdcf20dcbf3a98234cd1be419fba708bfde4fa9bdeb7e3a6ef858bbcd2f612ff532e7d90ca20477dcb7c6113965df739f3131aadbbfe2fe883cdfe327b7c365bfaeffbe4078b9aec5e</data>
+    </image>
+    <image name="image13">
+        <data format="XPM.GZ" length="1032">789ced93bb0ac2401045fb7cc590e9826c4cd64040fc04c152108bd915d1228dc642c47f37b3d99751d442acbc90c7610e372976f20c968b396479726ca9dd6bd03b3a40b63935cd79b59e5d92544a282b9840918e921441038e4d1815632deba2968cc4a82b5dea8a51306e4d0cbe8b97b08f1fc46c253fb6cf80e8247ef51d682f0b3ceb250a12f1a0bb7b899e48820889c46b894427fd9bbed644bff8277bc85c93e35842d507d134c51c24e5d3c1009d1407d580fdf10db19f8b221e57ea7e694c3edbbbeb34b90144f9d184</data>
+    </image>
+    <image name="image14">
+        <data format="XPM.GZ" length="3869">789cedd64b53dc461007f03b9f4245dfa8541b693592a65239e0b731af056cc0a91c469a11cbb2cbc2b26b1b52f9eee9e96e2949193f703987a44005333ff5cc7fa491768b476bc9f1de76b2f668e57ae116674dd28cdc3c59f3cbe9f4e6d7df7ef97d6535cf92ac4a2a9364ab3fadac0e174993eccc2e42048e09905963b375f633b557c7c130487bbf1517a97ab7b78d86b1da68fd23dbf6deefcde3f15a6dd5afd45ef3303a4f0b3b48b99ea9fd40c66f894b5d1f076c57a65287d03997f927ea6efddbce5a7f1a6db2d2e68ebd1457a9ac0f23b62bbde1cdc4545ca5ea976aa3d7b7a9b6ea37d145561923f9cfd5563d5177f737175bbd1fdc61bbca17bc1e4cc5b6bbbf4bb5de0fcca2cb018de77cb8105b530e78fc546d75fe95daebfc965d5b5bd65c97bcdaa5ba3fefd4467d185dd17c190f57629756b25ea90e3a7ebdb3ec1f3836e5e9f8bddeb2fe07719de9f889bad0fdcfa3e9e139190fb59802a45ea983eef706bb71c1e63cde8bebc2365c3f1337858eb7d12eefeb376ae7783e6eb39b3aa82fc44dd0e7d5887d26c6f7d175ee0bf5716f59efb5daa99fb07d136acf0e621fb47e2e0e99fa20ba31dd783817f7f5425dc8fb0073b5d3f7e388ed43d03aef87379e6e81eb2375f086edc56da6f34fd585be3ffc3ef9d03a75a36ef57de1ef835084c2cbf7d30bb50b05bb16b7adbc1f00ecf8c37538ed2df38db8cdc4c09f8fb68807d79dbad5fc21bb6d5ddbb241ddd51f7796fa70f1e30fc9454077bfe31b736b6cee77fc8f733d063a5aeab5dc93fe5dc729d546df9c7b86633acea937e1def4b3577b11ebf7ce9d717bf9855df89edc2bfe3befef788ad7b8c025be677fc08fe449978b37784bfd5bdcc0c7a427f894f40c9fe38b4f72c79a2eb92fa9ff0a37f95cc0d7dc6ed14ccec56d6a17b883bbd4eee110f7a93dc0437c83db77e4bed594068fb8774cbd136adfe13aaf12af5a72536a0fa9dda036a37640ed3ea5e6683ec9ddc482af6749678afe492ea99d61497f4f4895e6c6bbdea3d6e21870b80000476bc5d9e99def03ef31c4735bbcd23a5b9f1755b734378fd7091e02555b38a5df119cd12ed3d93b738f68d7c630460fe7bc03b48b30e1fd9ef30a53cd1d82ac3486195cd2f55ee94eeee2c1d73f6f30e7bdfe4b477fffbca1c1119a4e003882ebfff8f7c343ee43ee43ee3f73ffa5ff4b7efcb1fac7cf2b7f0238472cc3</data>
+    </image>
+    <image name="image15">
+        <data format="XPM.GZ" length="1214">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523236520022430543251d2e253d856405e53430007309805135a36a46d58caaa1899a5a6b2e0001ccd7cc</data>
+    </image>
+</images>
 <connections>
     <connection>
-        <sender>regexMultiLineEdit</sender>
-        <signal>textChanged()</signal>
-        <receiver>regexMultiLineEdit</receiver>
-        <slot>regex_changed_slot()</slot>
+        <sender>dotallCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>checkbox_slot()</slot>
     </connection>
     <connection>
-        <sender>stringMultiLineEdit</sender>
-        <signal>textChanged()</signal>
-        <receiver>stringMultiLineEdit</receiver>
-        <slot>string_changed_slot()</slot>
+        <sender>editCopyAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>editCopy()</slot>
+    </connection>
+    <connection>
+        <sender>editCutAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>editCut()</slot>
+    </connection>
+    <connection>
+        <sender>editPasteAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>editPaste()</slot>
+    </connection>
+    <connection>
+        <sender>editRedoAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>editRedo()</slot>
+    </connection>
+    <connection>
+        <sender>editUndoAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>editUndo()</slot>
+    </connection>
+    <connection>
+        <sender>examineAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>examine()</slot>
+    </connection>
+    <connection>
+        <sender>fileExitAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>fileExit()</slot>
+    </connection>
+    <connection>
+        <sender>fileNewAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>fileNew()</slot>
+    </connection>
+    <connection>
+        <sender>fileOpenAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>fileOpen()</slot>
+    </connection>
+    <connection>
+        <sender>fileSaveAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>fileSave()</slot>
+    </connection>
+    <connection>
+        <sender>fileSaveAsAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>fileSaveAs()</slot>
+    </connection>
+    <connection>
+        <sender>helpAboutAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpAbout()</slot>
+    </connection>
+    <connection>
+        <sender>helpContentsAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpContents()</slot>
+    </connection>
+    <connection>
+        <sender>helpHelpAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpHelp()</slot>
+    </connection>
+    <connection>
+        <sender>helpIndexAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpIndex()</slot>
     </connection>
     <connection>
         <sender>ignorecaseCheckBox</sender>
         <signal>toggled(bool)</signal>
-        <receiver>ignorecaseCheckBox</receiver>
-        <slot>checkbox_slot()</slot>
-    </connection>
-    <connection>
-        <sender>multilineCheckBox</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>multilineCheckBox</receiver>
-        <slot>checkbox_slot()</slot>
-    </connection>
-    <connection>
-        <sender>dotallCheckBox</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>dotallCheckBox</receiver>
-        <slot>checkbox_slot()</slot>
-    </connection>
-    <connection>
-        <sender>verboseCheckBox</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>verboseCheckBox</receiver>
+        <receiver>KodosBA</receiver>
         <slot>checkbox_slot()</slot>
     </connection>
     <connection>
         <sender>localeCheckBox</sender>
         <signal>toggled(bool)</signal>
-        <receiver>localeCheckBox</receiver>
-        <slot>checkbox_slot()</slot>
-    </connection>
-    <connection>
-        <sender>unicodeCheckBox</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>unicodeCheckBox</receiver>
+        <receiver>KodosBA</receiver>
         <slot>checkbox_slot()</slot>
     </connection>
     <connection>
         <sender>matchNumberSpinBox</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>matchNumberSpinBox</receiver>
+        <receiver>KodosBA</receiver>
         <slot>match_num_slot()</slot>
     </connection>
-    <slot access="public">regex_changed_slot()</slot>
-    <slot access="public">string_changed_slot()</slot>
-    <slot access="public">checkbox_slot()</slot>
-    <slot access="public">match_num_slot()</slot>
+    <connection>
+        <sender>multilineCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>checkbox_slot()</slot>
+    </connection>
+    <connection>
+        <sender>regexMultiLineEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>regex_changed_slot()</slot>
+    </connection>
+    <connection>
+        <sender>stringMultiLineEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>string_changed_slot()</slot>
+    </connection>
+    <connection>
+        <sender>unicodeCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>checkbox_slot()</slot>
+    </connection>
+    <connection>
+        <sender>verboseCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>checkbox_slot()</slot>
+    </connection>
+    <connection>
+        <sender>editPauseAction</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>pause()</slot>
+    </connection>
+    <connection>
+        <sender>editPreferencesAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>preferences()</slot>
+    </connection>
+    <connection>
+        <sender>helpReportBugAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>report_bug()</slot>
+    </connection>
+    <connection>
+        <sender>helpPythonHelpAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>helpPythonRegex()</slot>
+    </connection>
+    <connection>
+        <sender>helpRegexReferenceAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>reference_guide()</slot>
+    </connection>
+    <connection>
+        <sender>helpVisitWebsiteAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>kodos_website()</slot>
+    </connection>
+    <connection>
+        <sender>helpCheckForUpdateAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>check_for_update()</slot>
+    </connection>
+    <connection>
+        <sender>replaceTextEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>replace_changed_slot()</slot>
+    </connection>
+    <connection>
+        <sender>replaceNumberSpinBox</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>KodosBA</receiver>
+        <slot>replace_num_slot()</slot>
+    </connection>
+    <connection>
+        <sender>fileImportFileAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>importFile()</slot>
+    </connection>
+    <connection>
+        <sender>fileImportURLAction</sender>
+        <signal>activated()</signal>
+        <receiver>KodosBA</receiver>
+        <slot>importURL()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>regexMultiLineEdit</tabstop>
+    <tabstop>stringMultiLineEdit</tabstop>
+    <tabstop>resultTabWidget</tabstop>
     <tabstop>ignorecaseCheckBox</tabstop>
     <tabstop>multilineCheckBox</tabstop>
     <tabstop>dotallCheckBox</tabstop>
     <tabstop>verboseCheckBox</tabstop>
     <tabstop>localeCheckBox</tabstop>
     <tabstop>unicodeCheckBox</tabstop>
-    <tabstop>stringMultiLineEdit</tabstop>
     <tabstop>matchNumberSpinBox</tabstop>
-    <tabstop>infoTabWidget</tabstop>
     <tabstop>groupListView</tabstop>
+    <tabstop>matchTextBrowser</tabstop>
+    <tabstop>codeTextBrowser</tabstop>
 </tabstops>
+<slots>
+    <slot>fileNew()</slot>
+    <slot>fileOpen()</slot>
+    <slot>fileSave()</slot>
+    <slot>fileSaveAs()</slot>
+    <slot>filePrint()</slot>
+    <slot>fileExit()</slot>
+    <slot>editUndo()</slot>
+    <slot>editRedo()</slot>
+    <slot>editCut()</slot>
+    <slot>editCopy()</slot>
+    <slot>editPaste()</slot>
+    <slot>examine()</slot>
+    <slot>helpIndex()</slot>
+    <slot>helpContents()</slot>
+    <slot>helpAbout()</slot>
+    <slot>regex_changed_slot()</slot>
+    <slot>string_changed_slot()</slot>
+    <slot>checkbox_slot()</slot>
+    <slot>match_num_slot()</slot>
+    <slot>helpHelp()</slot>
+    <slot>pause()</slot>
+    <slot>preferences()</slot>
+    <slot>helpPythonRegex()</slot>
+    <slot>reference_guide()</slot>
+    <slot>kodos_website()</slot>
+    <slot>check_for_update()</slot>
+    <slot>report_bug()</slot>
+    <slot>replace_changed_slot()</slot>
+    <slot>replace_num_slot()</slot>
+    <slot>importFile()</slot>
+    <slot>importURL()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
 </UI>
