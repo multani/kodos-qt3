@@ -428,6 +428,7 @@ class Kodos(KodosBA):
 
 
     def populate_group_listview(self, tuples):
+        # deprecated as of 2.4.0 - now uses QTable instead of QListView
         self.groupListView.clear()
 
         num_cols = 3
@@ -438,6 +439,20 @@ class Kodos(KodosBA):
                     item.setText(col, str(t[col]))
                 except UnicodeError:
                     item.setText(col, unicode(t[col]))
+
+
+    def populate_group_table(self, tuples):
+        self.groupTable.setNumRows(len(tuples))
+
+        row = 0
+        for t in tuples:
+            self.groupTable.setText(row, 0, unicode(t[1]))
+            self.groupTable.setText(row, 1, unicode(t[2]))
+            self.groupTable.adjustRow(row)
+            row += 1
+            
+        self.groupTable.adjustColumn(0)
+        self.groupTable.adjustColumn(1)
 
 
     def populate_code_textbrowser(self):
@@ -582,7 +597,8 @@ class Kodos(KodosBA):
 
         
     def clear_results(self):
-        self.groupListView.clear()
+        #self.groupListView.clear()
+        self.groupTable.setNumRows(0)
         self.codeTextBrowser.setText("")
         self.matchTextBrowser.setText("")
         self.matchNumberSpinBox.setEnabled(FALSE)
@@ -680,7 +696,8 @@ class Kodos(KodosBA):
                 self.group_tuples.append( (1, group_nums.get(1, ""), g) )
                         
             #print group_tuples
-            self.populate_group_listview(self.group_tuples)
+            self.populate_group_table(self.group_tuples)
+            #self.populate_group_listview(self.group_tuples)
 
         str_pattern_matches = unicode(self.tr("Pattern matches"))
         str_found = unicode(self.tr("found"))
@@ -1096,7 +1113,7 @@ class Kodos(KodosBA):
             if latest_version == VERSION:
                 QMessageBox.information(None,
                                         self.tr("No Update is Available"),
-                                        self.tr("You are currently using the latest version of Kodos") + "(%s)" % VERSION)
+                                        unicode(self.tr("You are currently using the latest version of Kodos")) + " (%s)" % VERSION)
             else:
                 message =  "%s\n\n%s: %s.\n%s: %s.\n\n%s\n" % \
                           (unicode(self.tr("There is a newer version of Kodos available.")),

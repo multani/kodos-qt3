@@ -2,13 +2,14 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/kodosBA.ui'
 #
-# Created: Sat Jan 10 12:26:07 2004
+# Created: Sat Feb 7 19:08:33 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
 
 from qt import *
+from qttable import QTable
 
 image0_data = [
 "32 32 16 1",
@@ -870,12 +871,18 @@ class KodosBA(QMainWindow):
         self.tab = QWidget(self.resultTabWidget,"tab")
         tabLayout = QGridLayout(self.tab,1,1,11,6,"tabLayout")
 
-        self.groupListView = QListView(self.tab,"groupListView")
-        self.groupListView.addColumn(self.__tr("Group #"))
-        self.groupListView.addColumn(self.__tr("Group Name"))
-        self.groupListView.addColumn(self.__tr("Match"))
+        self.groupTable = QTable(self.tab,"groupTable")
+        self.groupTable.setNumCols(self.groupTable.numCols() + 1)
+        self.groupTable.horizontalHeader().setLabel(self.groupTable.numCols() - 1,self.__tr("Group Name"))
+        self.groupTable.setNumCols(self.groupTable.numCols() + 1)
+        self.groupTable.horizontalHeader().setLabel(self.groupTable.numCols() - 1,self.__tr("Match"))
+        self.groupTable.setNumRows(0)
+        self.groupTable.setNumCols(2)
+        self.groupTable.setColumnMovingEnabled(1)
+        self.groupTable.setReadOnly(1)
+        self.groupTable.setSelectionMode(QTable.SingleRow)
 
-        tabLayout.addWidget(self.groupListView,0,0)
+        tabLayout.addWidget(self.groupTable,0,0)
         self.resultTabWidget.insertTab(self.tab,QString(""))
 
         self.tab_2 = QWidget(self.resultTabWidget,"tab_2")
@@ -1073,7 +1080,7 @@ class KodosBA(QMainWindow):
 
         self.languageChange()
 
-        self.resize(QSize(532,672).expandedTo(self.minimumSizeHint()))
+        self.resize(QSize(532,674).expandedTo(self.minimumSizeHint()))
         self.clearWState(Qt.WState_Polished)
 
         self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.checkbox_slot)
@@ -1132,8 +1139,7 @@ class KodosBA(QMainWindow):
         self.setTabOrder(self.verboseCheckBox,self.localeCheckBox)
         self.setTabOrder(self.localeCheckBox,self.unicodeCheckBox)
         self.setTabOrder(self.unicodeCheckBox,self.matchNumberSpinBox)
-        self.setTabOrder(self.matchNumberSpinBox,self.groupListView)
-        self.setTabOrder(self.groupListView,self.matchTextBrowser)
+        self.setTabOrder(self.matchNumberSpinBox,self.matchTextBrowser)
         self.setTabOrder(self.matchTextBrowser,self.codeTextBrowser)
 
 
@@ -1167,9 +1173,8 @@ class KodosBA(QMainWindow):
 "database. New in Python version 2.0."))
         self.groupBox1.setTitle(self.__tr("Regular Expression Pattern"))
         self.regexMultiLineEdit.setText(QString.null)
-        self.groupListView.header().setLabel(0,self.__tr("Group #"))
-        self.groupListView.header().setLabel(1,self.__tr("Group Name"))
-        self.groupListView.header().setLabel(2,self.__tr("Match"))
+        self.groupTable.horizontalHeader().setLabel(0,self.__tr("Group Name"))
+        self.groupTable.horizontalHeader().setLabel(1,self.__tr("Match"))
         self.resultTabWidget.changeTab(self.tab,self.__tr("Group"))
         self.resultTabWidget.changeTab(self.tab_2,self.__tr("Match"))
         self.resultTabWidget.changeTab(self.TabPage,self.__tr("Match All"))
