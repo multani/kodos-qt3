@@ -56,7 +56,8 @@ class Kodos(KodosBA):
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
-        self.matchTextBrowser.setTextFormat(QTextEdit.RichText)
+        if QT_VERS > 2:
+            self.matchTextBrowser.setTextFormat(QTextEdit.RichText)
 
         if filename and self.openFile(filename):
             qApp.processEvents()
