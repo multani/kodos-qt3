@@ -1,6 +1,6 @@
-# Form implementation generated from reading ui file '/home/phil/tools/kodos/modules/prefsBA.ui'
+# Form implementation generated from reading ui file '/www/kodos/modules/prefsBA.ui'
 #
-# Created: Sun Feb 23 13:13:21 2003
+# Created: Fri Apr 11 10:06:41 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -75,40 +75,9 @@ class PrefsBA(QDialog):
         self.setCaption(self.tr('Preferences'))
         self.setIcon(image0)
         self.setSizeGripEnabled(0)
-        PrefsBALayout = QVBoxLayout(self)
+        PrefsBALayout = QGridLayout(self)
         PrefsBALayout.setSpacing(6)
         PrefsBALayout.setMargin(11)
-
-        Layout5 = QGridLayout()
-        Layout5.setSpacing(6)
-        Layout5.setMargin(0)
-
-        self.fontButton = QPushButton(self,'fontButton')
-        self.fontButton.setText(self.tr(''))
-
-        Layout5.addMultiCellWidget(self.fontButton,1,1,1,2)
-
-        self.TextLabel2 = QLabel(self,'TextLabel2')
-        self.TextLabel2.setText(self.tr('Editor Font:'))
-
-        Layout5.addWidget(self.TextLabel2,1,0)
-
-        self.browserEdit = QLineEdit(self,'browserEdit')
-
-        Layout5.addWidget(self.browserEdit,0,1)
-
-        self.TextLabel1 = QLabel(self,'TextLabel1')
-        self.TextLabel1.setText(self.tr('Web Browser:'))
-
-        Layout5.addWidget(self.TextLabel1,0,0)
-
-        self.browserButton = QPushButton(self,'browserButton')
-        self.browserButton.setText(self.tr('...'))
-
-        Layout5.addWidget(self.browserButton,0,2)
-        PrefsBALayout.addLayout(Layout5)
-        spacer = QSpacerItem(20,20,QSizePolicy.Minimum,QSizePolicy.Expanding)
-        PrefsBALayout.addItem(spacer)
 
         Layout1 = QHBoxLayout()
         Layout1.setSpacing(6)
@@ -118,8 +87,8 @@ class PrefsBA(QDialog):
         self.buttonHelp.setText(self.tr('&Help'))
         self.buttonHelp.setAutoDefault(1)
         Layout1.addWidget(self.buttonHelp)
-        spacer_2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(spacer_2)
+        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout1.addItem(spacer)
 
         self.buttonApply = QPushButton(self,'buttonApply')
         self.buttonApply.setText(self.tr('&Apply'))
@@ -136,7 +105,50 @@ class PrefsBA(QDialog):
         self.buttonCancel.setText(self.tr('&Cancel'))
         self.buttonCancel.setAutoDefault(1)
         Layout1.addWidget(self.buttonCancel)
-        PrefsBALayout.addLayout(Layout1)
+
+        PrefsBALayout.addLayout(Layout1,2,0)
+        spacer_2 = QSpacerItem(20,20,QSizePolicy.Minimum,QSizePolicy.Expanding)
+        PrefsBALayout.addItem(spacer_2,1,0)
+
+        Layout11 = QGridLayout()
+        Layout11.setSpacing(6)
+        Layout11.setMargin(0)
+
+        self.emailServerEdit = QLineEdit(self,'emailServerEdit')
+
+        Layout11.addMultiCellWidget(self.emailServerEdit,2,2,1,2)
+
+        self.TextLabel2 = QLabel(self,'TextLabel2')
+        self.TextLabel2.setText(self.tr('Editor Font:'))
+
+        Layout11.addWidget(self.TextLabel2,1,0)
+
+        self.fontButton = QPushButton(self,'fontButton')
+        self.fontButton.setText(self.tr(''))
+
+        Layout11.addMultiCellWidget(self.fontButton,1,1,1,2)
+
+        self.browserButton = QPushButton(self,'browserButton')
+        self.browserButton.setSizePolicy(QSizePolicy(0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
+        self.browserButton.setText(self.tr('...'))
+
+        Layout11.addWidget(self.browserButton,0,2)
+
+        self.browserEdit = QLineEdit(self,'browserEdit')
+
+        Layout11.addWidget(self.browserEdit,0,1)
+
+        self.TextLabel1 = QLabel(self,'TextLabel1')
+        self.TextLabel1.setText(self.tr('Web Browser:'))
+
+        Layout11.addWidget(self.TextLabel1,0,0)
+
+        self.TextLabel1_2Emaii = QLabel(self,'TextLabel1_2Emaii')
+        self.TextLabel1_2Emaii.setText(self.tr('Email Server:'))
+
+        Layout11.addWidget(self.TextLabel1_2Emaii,2,0)
+
+        PrefsBALayout.addLayout(Layout11,0,0)
 
         self.connect(self.buttonOk,SIGNAL('clicked()'),self,SLOT('accept()'))
         self.connect(self.buttonCancel,SIGNAL('clicked()'),self,SLOT('reject()'))
@@ -144,6 +156,14 @@ class PrefsBA(QDialog):
         self.connect(self.fontButton,SIGNAL('pressed()'),self.font_slot)
         self.connect(self.buttonHelp,SIGNAL('pressed()'),self.help_slot)
         self.connect(self.buttonApply,SIGNAL('pressed()'),self.apply_slot)
+
+        self.setTabOrder(self.browserEdit,self.browserButton)
+        self.setTabOrder(self.browserButton,self.fontButton)
+        self.setTabOrder(self.fontButton,self.emailServerEdit)
+        self.setTabOrder(self.emailServerEdit,self.buttonHelp)
+        self.setTabOrder(self.buttonHelp,self.buttonApply)
+        self.setTabOrder(self.buttonApply,self.buttonOk)
+        self.setTabOrder(self.buttonOk,self.buttonCancel)
 
     def font_slot(self):
         print 'PrefsBA.font_slot(): not implemented yet'

@@ -11,6 +11,7 @@ from modules.status_bar import *
 from modules.reference import *
 from modules.prefs import *
 from modules.webbrowser import launch_browser
+from modules.reportBug import reportBugWindow
 from modules.version import VERSION
 import modules.xpm as xpm
 import sys
@@ -668,6 +669,7 @@ class KodosMainWindow(QMainWindow):
         self.helpmenu.insertSeparator()
         self.id = self.helpmenu.insertItem("&Visit the Kodos Website", self.kodos_website)
         self.id = self.helpmenu.insertItem("&Check for Update", self.check_for_update)
+        self.id = self.helpmenu.insertItem("Report a &Bug", self.report_bug)
         self.helpmenu.insertSeparator()
         self.id = self.helpmenu.insertItem("&About...", self.about)
         self.menubar.insertItem("&Help", self.helpmenu)       
@@ -764,7 +766,10 @@ class KodosMainWindow(QMainWindow):
 
     def reference_guide(self):
         self.ref_win = ReferenceWindow(self)
-        
+
+
+    def report_bug(self):
+        self.bug_report_win = reportBugWindow(self.kodos)
 
 ##############################################################################
 #

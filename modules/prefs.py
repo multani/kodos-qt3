@@ -32,6 +32,8 @@ class Preferences(PrefsBA):
                 self.parseFontStr(setting)
             if preference == 'Web Browser' and setting:
                 self.browserEdit.setText(setting)
+            if preference == 'Email Server' and setting:
+                self.emailServerEdit.setText(setting)
 
 
     def save(self):
@@ -50,6 +52,7 @@ class Preferences(PrefsBA):
                   f.underline(), f.strikeOut()))
 
         fp.write("Web Browser: %s\n" % str(self.browserEdit.text()))
+        fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
         fp.close()
 
                                 
