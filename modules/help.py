@@ -4,6 +4,23 @@ from qt import *
 from util import *
 import xpm
 
+class textbrowser(QTextBrowser):
+    # reimplemented textbrowser that filters out external sources
+    # future: launch web browser
+    def __init__(self, parent=None, name=None):
+        QTextBrowser.__init__(self, parent, name)
+
+    def setSource(self, src):
+        #print "setSource:", src
+        s = str(src)
+        if s[:7] == 'http://':
+            x = QMessageBox.warning(None, "Warning", "Cannot access external url: %s" % s)
+            return
+        QTextBrowser.setSource(self, src)
+                
+    
+                
+
 class Help(QMainWindow):
     def __init__(self, parent, filename):
         QMainWindow.__init__(self, None, None,
@@ -14,7 +31,7 @@ class Help(QMainWindow):
         self.setCaption("Help")
         self.setIcon(getPixmap("ssilogo.png", "PNG"))
 
-        self.textBrowser = QTextBrowser(self)
+        self.textBrowser = textbrowser(self)
         absPath = self.getHelpFile(filename)
 
         self.setCentralWidget(self.textBrowser)
@@ -103,8 +120,6 @@ class Help(QMainWindow):
         if self.fwdAvailable:
             self.textBrowser.forward()
     
-        
-        
     def getHelpFile(self, filename):
         return getAppPath() + os.sep + "help" + os.sep + filename
         
