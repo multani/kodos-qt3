@@ -55,6 +55,10 @@ EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 
 QT_VERS = int(QT_VERSION_STR[0])
 
+if QT_VERS < 3:
+    print "Qt versions prior to 3.0 are no longer supported"
+    sys.exit(0)
+
 try:
     signal.SIGALRM
     HAS_ALARM = 1
@@ -87,7 +91,7 @@ class Kodos(KodosBA):
         self.regex_embedded_flags_removed = ""
 
         if QT_VERS > 2:
-            self.matchTextBrowser.setTextFormat(QTextEdit.RichText)
+            self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
 
         if filename and self.openFile(filename):
             qApp.processEvents()
@@ -317,37 +321,35 @@ class Kodos(KodosBA):
         self.codeTextBrowser.setText(code)
 
 
-    def format_html(self, s):
-        # replace newlines w/ "<BR>" and replace spaces w/ "&nbsp;"
-        if QT_VERS == 3:
-            # Note: scrollToAnchor doesn't work properly in qt3 wrt
-            # the <BR> tag.  Therefor there will be additional whitespace in
-            # the match tab display.
-            s = string.replace(s, "\n", "&nbsp;<p>")
-        else:
-            s = string.replace(s, "\n", "&nbsp;<br>")
-        s = string.replace(s, " ", "&nbsp;")
-        return s
-
-                
     def populate_match_textbrowser(self, startpos, endpos):
+        
+        # create 3 strings:
+        #  pre: portion prior to the matching string
+        #  match: the portion that matches
+        #  post: the portion after the match
         pre = post = match = ""
         
-        # highlight the matching section
-        match = '<a name="match"><font color=blue size=+2><b>' + \
-                self.matchstring[startpos:endpos] + \
-                "</b></font>"
+        match = self.matchstring[startpos:endpos]
 
         # prepend the beginning that didn't match
         if startpos > 0:
-            pre = self.format_html(self.matchstring[0:startpos])
+            pre = self.matchstring[0:startpos]
             
         # append the end that didn't match
         if endpos < len(self.matchstring):
-            post = self.format_html(self.matchstring[endpos:])
+            post = self.matchstring[endpos:]
 
-        self.matchTextBrowser.setText(pre + match + post)
-        self.matchTextBrowser.scrollToAnchor("match")
+        self.matchTextBrowser.clear()
+        
+        self.matchTextBrowser.setColor(QColor(Qt.black))
+        self.matchTextBrowser.insert(pre)
+        pos =  self.matchTextBrowser.getCursorPosition()
+        self.matchTextBrowser.setColor(QColor(Qt.blue))
+        self.matchTextBrowser.insert(match)
+        self.matchTextBrowser.setColor(QColor(Qt.black))
+        self.matchTextBrowser.insert(post)
+        self.matchTextBrowser.setCursorPosition(pos[0], pos[1])
+        
 
 
     def clear_results(self):
