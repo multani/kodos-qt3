@@ -3,6 +3,7 @@
 from qt import *
 from util import *
 import xpm
+from webbrowser import launch_browser
 from os import execvp, fork, access, X_OK
 
 class textbrowser(QTextBrowser):
@@ -17,22 +18,8 @@ class textbrowser(QTextBrowser):
         #print "setSource:", src
         s = str(src)
         if s[:7] == 'http://':
-            if self.parent.external_browser == None or \
-                   not access(self.parent.external_browser, X_OK):
-            
-                # also verify path exists
-                QMessageBox.warning(None, "Warning", "You must properly configure your web browser path in Preferences (within the Edit menu).")
-                return
-
-            pid = os.fork()
-            
-            if pid == 0:
-                #child process
-                os.execvp(self.parent.external_browser, [self.parent.external_browser, s])
-            else:
-                #parent process
-                QMessageBox.information(None, "Info", "Launching your web browser")
-                return
+            launch_browser(self.parent.external_browser, s)
+            return
 
         QTextBrowser.setSource(self, src)
                 

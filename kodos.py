@@ -10,6 +10,8 @@ from modules.tooltips import *
 from modules.status_bar import *
 from modules.reference import *
 from modules.prefs import *
+from modules.webbrowser import launch_browser
+from modules.version import VERSION
 import modules.xpm as xpm
 import sys
 import os
@@ -19,6 +21,7 @@ import copy
 import cPickle
 import types
 import getopt
+import urllib
 
 # match status
 MATCH_NA = 0
@@ -630,12 +633,15 @@ class KodosMainWindow(QMainWindow):
         self.id = self.helpmenu.insertItem(QIconSet(QPixmap(xpm.helpIcon)),
                                            "&Help", self.help)
         self.id = self.helpmenu.insertItem(QIconSet(QPixmap(xpm.pythonIcon)),
-                                           "&Python regex help",
+                                           "&Python Regex Help",
                                            self.regex_help)
         self.helpmenu.insertSeparator()
         self.id = self.helpmenu.insertItem(QIconSet(QPixmap(xpm.bookIcon)),
-                                           "Regex &Reference guide",
+                                           "&Regex Reference Guide",
                                            self.reference_guide)
+        self.helpmenu.insertSeparator()
+        self.id = self.helpmenu.insertItem("&Visit the Kodos Website", self.kodos_website)
+        self.id = self.helpmenu.insertItem("&Check for Update", self.check_for_update)
         self.helpmenu.insertSeparator()
         self.id = self.helpmenu.insertItem("&About...", self.about)
         self.menubar.insertItem("&Help", self.helpmenu)       
@@ -687,6 +693,43 @@ class KodosMainWindow(QMainWindow):
     def about(self):
         self.aboutWindow = About()
         self.aboutWindow.show()
+
+
+    def kodos_website(self):
+        browser = str(self.prefs.browserEdit.text())
+        launch_browser(browser, "http://kodos.sourceforge.net")
+
+    def check_for_update(self):
+        browser = str(self.prefs.browserEdit.text())
+        url = "https://sourceforge.net/project/showfiles.php?group_id=43860"
+        try:
+            fp = urllib.urlopen(url)
+        except:
+            self.status_bar.set_message("Failed to open url", 5, TRUE)
+            return
+
+        lines = fp.readlines()
+        html = string.join(lines)
+
+        rawstr = r"""release_id=.*\">kodos-(?P<version>.*?)<"""
+        match_obj = re.search(rawstr, html)
+        if match_obj:
+            latest_version = match_obj.group('version')
+            if latest_version == VERSION:
+                QMessageBox.information(None, "No Update is Available",
+                                        "You are currently using the latest version of Kodos (%s)" % VERSION)
+            else:
+                self.status_bar.set_message("A new version of Kodos is available", 5, TRUE)
+                launch_browser(browser, url)
+##                QMessageBox.information(None, "Update Available",
+##                                        "There is a newer version of Kodos available.\n\n"
+##                                        "You are using version: %s.\n"
+##                                        "The latest version is: %s.\n\n"
+##                                        "Press OK to close this dialog\n"
+##                                        "Press DOWNLOAD to retrieve the latest version\n"
+##                                        % (VERSION, latest_version),
+##                                        "Ok", "Download")
+
 
 
     def reference_guide(self):

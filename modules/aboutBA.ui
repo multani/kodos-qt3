@@ -377,10 +377,16 @@
                             <cstring>TextLabel1</cstring>
                         </property>
                         <property stdset="1">
+                            <name>sizePolicy</name>
+                            <sizepolicy>
+                                <hsizetype>7</hsizetype>
+                                <vsizetype>1</vsizetype>
+                            </sizepolicy>
+                        </property>
+                        <property stdset="1">
                             <name>font</name>
                             <font>
-                                <family>adobe-helvetica</family>
-                                <pointsize>14</pointsize>
+                                <family>helvetic</family>
                             </font>
                         </property>
                         <property stdset="1">

@@ -1,6 +1,6 @@
 # Form implementation generated from reading ui file '/home/phil/tools/kodos/modules/aboutBA.ui'
 #
-# Created: Sat Feb 22 18:47:46 2003
+# Created: Fri Feb 28 07:00:14 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -636,9 +636,9 @@ class AboutBA(QDialog):
         Layout6.addWidget(self.versionLabel,1,1)
 
         self.TextLabel1 = QLabel(LayoutWidget,'TextLabel1')
+        self.TextLabel1.setSizePolicy(QSizePolicy(7,1,self.TextLabel1.sizePolicy().hasHeightForWidth()))
         TextLabel1_font = QFont(self.TextLabel1.font())
-        TextLabel1_font.setFamily('adobe-helvetica')
-        TextLabel1_font.setPointSize(14)
+        TextLabel1_font.setFamily('helvetic')
         self.TextLabel1.setFont(TextLabel1_font)
         self.TextLabel1.setText(self.tr('Kodos\n\nDeveloped by: Phil Schwartz\n\nphil_schwartz@users.sourceforge.net'))
 
@@ -658,8 +658,7 @@ class AboutBA(QDialog):
 
         if ev.type() == QEvent.ApplicationFontChange:
             TextLabel1_font = QFont(self.TextLabel1.font())
-            TextLabel1_font.setFamily('adobe-helvetica')
-            TextLabel1_font.setPointSize(14)
+            TextLabel1_font.setFamily('helvetic')
             self.TextLabel1.setFont(TextLabel1_font)
 
         return ret
