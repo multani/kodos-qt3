@@ -39,7 +39,15 @@ TIMEOUT=3
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 
 QT_VERS = int(QT_VERSION_STR[0])
-    
+
+try:
+    signal.SIGALRM
+    HAS_ALARM = 1
+except:
+    HAS_ALARM = 0
+
+
+
 ##############################################################################
 #
 # The Kodos class which defines the main functionality and user interaction
@@ -289,9 +297,10 @@ class Kodos(KodosBA):
             return
         
         self.process_embedded_flags(self.regex)
-        
-        signal.signal(signal.SIGALRM, timeout)
-        signal.alarm(TIMEOUT)
+
+        if HAS_ALARM:
+            signal.signal(signal.SIGALRM, timeout)
+            signal.alarm(TIMEOUT)
 
         try:
             compile_obj = re.compile(self.regex, self.flags)
@@ -309,7 +318,8 @@ class Kodos(KodosBA):
             self.update_results(str(e), MATCH_FAIL)
             return
 
-        signal.alarm(0)
+        if HAS_ALARM:
+            signal.alarm(0)
 
         if not match_obj:
             self.update_results("Pattern does not match", MATCH_FAIL)
