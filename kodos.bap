@@ -1,0 +1,29 @@
+[File1]
+Active = 1
+Comments = 
+FileName = modules/kodosBA.ui
+Position = 0
+Type = Form
+[File2]
+Active = 0
+Comments = 
+FileName = modules/aboutBA.ui
+Position = 1
+Type = Form
+[File3]
+Active = 0
+Comments = 
+FileName = modules/referenceBA.ui
+Position = 2
+Type = Form
+[ProjectInfo]
+BackTrace = 1
+Comments = 
+Explorer = 0
+HierarchyView = 0
+Layout = 1,705,238,1
+MainScript = 0
+NrFiles = 3
+ProjectLanguage = Python
+PropertyEditor = 1
+RunFolder = 
