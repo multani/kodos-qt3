@@ -29,11 +29,10 @@ import signal
 MATCH_NA = 0
 MATCH_OK = 1
 MATCH_FAIL = 2
+MATCH_PAUSED = 3
 
 TRUE = 1
 FALSE = 0
-
-TIMEOUT=3
 
 # regex to find special flags which must begin at beginning of line
 # or after some spaces
@@ -63,6 +62,7 @@ class Kodos(KodosBA):
         self.regex = ""
         self.matchstring = ""
         self.flags = 0
+        self.is_paused = 0
         self.createTooltips()
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
@@ -191,6 +191,15 @@ class Kodos(KodosBA):
         return flags_str
         
 
+    def pause(self):
+        self.is_paused = not self.is_paused
+        if self.debug: print "is_paused:", self.is_paused
+        if self.is_paused:
+            self.update_results("Kodos regex processing is paused.  Click the pause icon to unpause", MATCH_PAUSED)
+        else:
+            self.process_regex()
+
+
     def match_num_slot(self, num):
         self.match_num = num
         self.process_regex()
@@ -291,6 +300,9 @@ class Kodos(KodosBA):
     def process_regex(self):
         def timeout(signum, frame):
             raise Exception, "Timed out parsing regex"
+
+        if self.is_paused:
+            return
         
         if not self.regex or not self.matchstring:
             self.update_results("Enter a regular expression and a string to match against", MATCH_NA)
@@ -301,26 +313,27 @@ class Kodos(KodosBA):
 
         if HAS_ALARM:
             signal.signal(signal.SIGALRM, timeout)
-            signal.alarm(TIMEOUT)
+            signal.alarm(self.parent.prefs.timeout)
 
         try:
-            compile_obj = re.compile(self.regex, self.flags)
-            #print "find all"
-            allmatches = compile_obj.findall(self.matchstring)
-            #print "found all"
-            if allmatches and len(allmatches):
-                self.matchNumberSpinBox.setMaxValue(len(allmatches))
-                self.matchNumberSpinBox.setEnabled(TRUE)
-            else:
-                self.matchNumberSpinBox.setEnabled(FALSE)
+            try:
+                compile_obj = re.compile(self.regex, self.flags)
+                #print "find all"
+                allmatches = compile_obj.findall(self.matchstring)
+                #print "found all"
+                if allmatches and len(allmatches):
+                    self.matchNumberSpinBox.setMaxValue(len(allmatches))
+                    self.matchNumberSpinBox.setEnabled(TRUE)
+                else:
+                    self.matchNumberSpinBox.setEnabled(FALSE)
 
-            match_obj = compile_obj.search(self.matchstring)
+                match_obj = compile_obj.search(self.matchstring)
+            finally:
+                if HAS_ALARM: signal.alarm(0)
         except Exception, e:
             self.update_results(str(e), MATCH_FAIL)
             return
 
-        if HAS_ALARM:
-            signal.alarm(0)
 
         if not match_obj:
             self.update_results("Pattern does not match", MATCH_FAIL)
@@ -381,6 +394,28 @@ class Kodos(KodosBA):
         self.regexMultiLineEdit.setText("")
         self.stringMultiLineEdit.setText("")
         self.set_flags(0)
+
+
+    def importFile(self):
+        fn = QFileDialog.getOpenFileName(self.filename, "All (*)",
+                                         self, "Import File")
+        
+        if fn.isEmpty():
+            self.parent.updateStatus("A file was not selected for import", -1, 5, TRUE)
+            return None
+
+        filename = str(fn)
+        
+        try:
+            fp = open(filename, "r")
+        except:
+            msg = "Could not open file for reading: " + filename
+            self.parent.updateStatus(msg, -1, 5, TRUE)
+            return None
+        
+        data = fp.read()
+        fp.close()
+        self.stringMultiLineEdit.setText(data)
         
 
     def openFileDialog(self):
@@ -559,6 +594,8 @@ class KodosMainWindow(QMainWindow):
             pixmap = getPixmap("green.png", "PNG")
         elif status_value == MATCH_FAIL:
             pixmap = getPixmap("red.png", "PNG")
+        elif status_value == MATCH_PAUSED:
+            pixmap = getPixmap("pause.png", "PNG")
         else:
             pixmap = None
 
@@ -607,6 +644,14 @@ class KodosMainWindow(QMainWindow):
 
         toolbar.addSeparator()
 
+        self.pauseButton = QToolButton(toolbar, "pause")
+        self.pauseButton.setPixmap(QPixmap(xpm.pauseIcon))
+        self.pauseTip = Tooltip("(un)pause regex processing")
+        self.pauseTip.addWidget(self.pauseButton)
+        self.connect(self.pauseButton, SIGNAL("clicked()"), self.kodos.pause)
+
+        toolbar.addSeparator()
+
         self.bookButton = QToolButton(toolbar, "book")
         self.bookButton.setPixmap(QPixmap(xpm.bookIcon))
         self.bookTip = Tooltip("Regex Reference Guide")
@@ -635,6 +680,8 @@ class KodosMainWindow(QMainWindow):
                                                "&Save", self.kodos.saveFile)
         self.saveasid = self.filemenu.insertItem("Save As", self.kodos.saveFileAsDialog)
         self.filemenu.insertSeparator()
+        self.importid = self.filemenu.insertItem("Import file", self.kodos.importFile)
+        self.filemenu.insertSeparator()     
         self.saveasid = self.filemenu.insertItem("Clear All", self.kodos.clearAll)
         self.filemenu.insertSeparator()
         self.filemenu.insertItem(QIconSet(QPixmap(xpm.exitIcon)),
