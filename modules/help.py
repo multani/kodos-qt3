@@ -4,8 +4,7 @@ from qt import *
 from util import *
 import xpm
 from webbrowser import launch_browser
-import os.path
-import sys
+
 
 class textbrowser(QTextBrowser):
     # reimplemented textbrowser that filters out external sources
@@ -116,7 +115,7 @@ class Help(QMainWindow):
         #print "fwdAvail?: ", self.fwdAvailable
         if self.fwdAvailable:
             self.textBrowser.forward()
-
+    
     def getHelpFile(self, filename):
-        return os.path.join(getKodosDir(), "help", filename)
+        return getAppPath() + os.sep + "help" + os.sep + filename
         

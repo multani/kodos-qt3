@@ -76,20 +76,22 @@ Kodos - The Python Regex GUI Debugger
 
 </td>
 <td width=80%>
-    <h3>Overview</h3>
+    <h3>Pausing processing of a regex</h3>
 
-    Kodos is an application to aid in the creation and debugging of regular
-expressions in python.  The GUI for Kodos should eliminate the need for using
-the python interpreter for regex design in most instances.
-
-    <h1>Requirements</h1>
-Kodos requires:
-<ol>
-<li>Linux or Windows
-<li>a python interpreter (version 1.5+)
-<li>PyQT and SIP
-</ol>
-
+The pause button is a toggle button that allows you to suspend the 
+processing of a regular expression.  This is useful in cases where the
+regex seems to take a long time to be processed. If Kodos is paused the regex
+will no longer be processed in real-time. A pause state is indicated by the
+toggled toolbar icon and a status message.  To unpause Kodos, simple select
+the pause button again.  This will cause Kodos to process the regex 
+immediately.
+<center>
+<img src=../screenshots/toolbarpaused.png>
+<br><b>Fig. Pause toolbar indicator</b><br>
+<p>
+<img src=../screenshots/statuspaused.png>
+<br><b>Fig. Pause status bar indicator</b>
+</center>
 
 
 </td>

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #  kodos.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-
 import sys
 import os
 import string
@@ -43,6 +42,7 @@ MATCH_NA = 0
 MATCH_OK = 1
 MATCH_FAIL = 2
 MATCH_PAUSED = 3
+MATCH_EXAMINED = 4
 
 TRUE = 1
 FALSE = 0
@@ -78,6 +78,7 @@ class Kodos(KodosBA):
         self.matchstring = ""
         self.flags = 0
         self.is_paused = 0
+        self.is_examined = 0
         self.createTooltips()
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
@@ -215,6 +216,48 @@ class Kodos(KodosBA):
         else:
             self.process_regex()
 
+    def examine(self):
+        self.is_examined = not self.is_examined
+        if self.debug: print "is_examined:", self.is_examined
+        
+        if self.is_examined:
+            color = QColor(255,255,127)
+            regex = self.regex
+            self.regex_saved = self.regex
+            length = len(regex)
+            found = 0
+            for i in range(length, 0,  -1):
+                regex = regex[:i]
+                self.process_embedded_flags(self.regex)
+                try:
+                    m = re.search(regex, self.matchstring, self.flags)
+                    if m:
+                        if self.debug: print "examined regex:", regex
+                        self.__refresh_regex_widget(color, regex)
+                        self.regexMultiLineEdit.setReadOnly(1)
+                        return
+                except:
+                    pass
+                
+            self.__refresh_regex_widget(color, "")
+        else:
+            regex = self.regex_saved
+            color = QColor(Qt.white)
+            self.regexMultiLineEdit.setReadOnly(0)
+            self.__refresh_regex_widget(color, regex)
+            
+
+    def __refresh_regex_widget(self, base_qcolor, regex):
+        pal = self.regexMultiLineEdit.palette()
+        cg = pal.active()
+        cg.setColor(QColorGroup.Base,base_qcolor)
+        pal.setActive(cg)
+        
+        self.regexMultiLineEdit.blockSignals(1)
+        self.regexMultiLineEdit.clear()
+        self.regexMultiLineEdit.blockSignals(0)
+        self.regexMultiLineEdit.setText(regex)
+
 
     def match_num_slot(self, num):
         self.match_num = num
@@ -311,7 +354,9 @@ class Kodos(KodosBA):
         self.groupListView.clear()
         self.codeTextBrowser.setText("")
         self.matchTextBrowser.setText("")
-
+        self.matchNumberSpinBox.setEnabled(FALSE)
+        self.filename = ""
+        
 
     def process_regex(self):
         def timeout(signum, frame):
@@ -655,6 +700,7 @@ class KodosMainWindow(QMainWindow):
         self.connect(self.saveButton, SIGNAL("clicked()"), self.kodos.saveFile)
 
         toolbar.addSeparator()
+        toolbar.addSeparator()
 
         self.cutButton = QToolButton(toolbar, "cut")
         self.cutButton.setPixmap(QPixmap(xpm.cutIcon))
@@ -675,13 +721,29 @@ class KodosMainWindow(QMainWindow):
         self.connect(self.pasteButton, SIGNAL("clicked()"), self.paste)
 
         toolbar.addSeparator()
+        toolbar.addSeparator()
 
         self.pauseButton = QToolButton(toolbar, "pause")
         self.pauseButton.setPixmap(QPixmap(xpm.pauseIcon))
+        self.pauseButton.setToggleButton(TRUE)
         self.pauseTip = Tooltip("(un)pause regex processing")
         self.pauseTip.addWidget(self.pauseButton)
         self.connect(self.pauseButton, SIGNAL("clicked()"), self.kodos.pause)
 
+        #toolbar.addSeparator()
+
+        #iconset = QIconSet()
+        #iconset.setPixmap(QPixmap(xpm.magnifyIcon), QIconSet.Small, QIconSet.Active)
+        #iconset.setPixmap(QPixmap(xpm.magnifyDisableIcon), QIconSet.Small, QIconSet.Disabled)
+        self.examineButton = QToolButton(toolbar, "examine")
+        #self.examineButton.setIconSet(iconset)
+        self.examineButton.setPixmap(QPixmap(xpm.magnifyIcon))
+        self.examineButton.setToggleButton(TRUE)
+        self.examineTip = Tooltip("Examine regex for match")
+        self.examineTip.addWidget(self.examineButton)
+        self.connect(self.examineButton, SIGNAL("clicked()"), self.kodos.examine)
+
+        toolbar.addSeparator()
         toolbar.addSeparator()
 
         self.bookButton = QToolButton(toolbar, "book")

@@ -1,5 +1,5 @@
 [File1]
-Active = 0
+Active = 1
 Comments = 
 FileName = modules/kodosBA.ui
 Position = 0
@@ -17,7 +17,7 @@ FileName = modules/referenceBA.ui
 Position = 2
 Type = Form
 [File4]
-Active = 1
+Active = 0
 Comments = 
 FileName = modules/prefsBA.ui
 Position = 3
