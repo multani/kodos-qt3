@@ -9,6 +9,7 @@ from modules.tooltip import *
 from modules.tooltips import *
 from modules.status_bar import *
 from modules.reference import *
+from modules.prefs import *
 import modules.xpm as xpm
 import sys
 import os
@@ -43,6 +44,7 @@ class Kodos(KodosBA):
         self.filename = ""
         self.match_num = 0
 
+        
     def createTooltips(self):
         # we store the actual messages in a seperate module
         # so the code looks cleaner
@@ -414,6 +416,7 @@ class KodosMainWindow(QMainWindow):
         self.setCentralWidget(self.kodos)
         self.kodos.show()
         self.show()
+        self.prefs = Prefs(self, 1)
 
 
     def updateStatus(self, status_string, status_value, duration=0, replace=FALSE, tooltip=''):
@@ -567,11 +570,20 @@ class KodosMainWindow(QMainWindow):
 
         
     def selectFont(self):
-        (font, ok) = QFontDialog.getFont(self, "Font Dialog")
+        (font, ok) = QFontDialog.getFont(self.getfont())
         if ok:
-            self.kodos.regexMultiLineEdit.setFont(font)
-            self.kodos.stringMultiLineEdit.setFont(font)
+            self.setfont(font)
+            self.prefs.save()
+
             
+    def setfont(self, font):
+        self.kodos.regexMultiLineEdit.setFont(font)
+        self.kodos.stringMultiLineEdit.setFont(font)
+
+
+    def getfont(self):
+        return self.kodos.regexMultiLineEdit.font()
+
 
     def help(self):
         self.helpWindow = help.Help(self, "kodos.html")
@@ -583,6 +595,7 @@ class KodosMainWindow(QMainWindow):
     def about(self):
         self.aboutWindow = About()
         self.aboutWindow.show()
+
 
     def reference_guide(self):
         self.ref_win = ReferenceWindow(self)
