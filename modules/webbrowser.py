@@ -2,6 +2,7 @@
 
 from os import access, X_OK, spawnv, P_NOWAIT 
 from qt import QMessageBox
+import sys
 
 def launch_browser(browser, url, caption=None, message=None):
     if not caption: caption = "Info"
@@ -15,6 +16,9 @@ def launch_browser(browser, url, caption=None, message=None):
     cancel = QMessageBox.information(None, caption, message, "&Ok", "&Cancel")
     if cancel: return 0
 
-    return spawnv(P_NOWAIT, browser, (browser, url))
+    if sys.platform == 'win32':
+        return spawnv(P_NOWAIT, browser, (" ", url))
+    else:
+        return spawnv(P_NOWAIT, browser, (browser, url))
 
         

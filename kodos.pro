@@ -17,8 +17,6 @@
    <pyfile type="file" name="reference.py" />
    <pyfile type="file" name="reportBug.py" />
    <pyfile type="file" name="status_bar.py" />
-   <pyfile type="file" name="tooltip.py" />
-   <pyfile type="file" name="tooltips.py" />
    <pyfile type="file" name="util.py" />
    <pyfile type="file" name="version.py" />
    <pyfile type="file" name="webbrowser.py" />

@@ -29,7 +29,7 @@ HELP_PY_DIR = os.path.join(libpath,  "help", "python")
 IMAGES_DIR = os.path.join(libpath, "images")
 SCREENSHOTS_DIR = os.path.join(libpath, "screenshots")
 MODULES_DIR = os.path.join(libpath, "modules")
-
+TRANSLATIONS_DIR = os.path.join(libpath, "translations")
 
 #########################################################################
 
@@ -47,6 +47,8 @@ setup(name="kodos",
                   (IMAGES_DIR, glob(os.path.join("images", "*.png"))),
                   (SCREENSHOTS_DIR, glob(os.path.join("screenshots", "*.png"))),
                   (libpath, glob('kodos.pro')),
+                  (libpath, glob('kodosqt.pro')),
+                  (TRANSLATIONS_DIR, glob(os.path.join("translations", "*"))),
                   (MODULES_DIR, glob("modules/*.ui"))
                   ],
       license="GPL",

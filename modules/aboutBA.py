@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/aboutBA.ui'
 #
-# Created: Thu Dec 4 20:08:31 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:26:09 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -539,7 +541,7 @@ class AboutBA(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
         QDialog.__init__(self,parent,name,modal,fl)
 
-        image0 = QPixmap(image0_data)
+        self.image0 = QPixmap(image0_data)
 
         if not name:
             self.setName("AboutBA")
@@ -608,7 +610,7 @@ class AboutBA(QDialog):
         AboutBALayout.addMultiCellLayout(Layout1,1,1,0,1)
 
         self.PixmapLabel1 = QLabel(self,"PixmapLabel1")
-        self.PixmapLabel1.setPixmap(image0)
+        self.PixmapLabel1.setPixmap(self.image0)
         self.PixmapLabel1.setScaledContents(1)
 
         AboutBALayout.addWidget(self.PixmapLabel1,0,0)
@@ -640,17 +642,23 @@ class AboutBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(525,400).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self,SLOT("accept()"))
 
+
     def languageChange(self):
-        self.setCaption(self.tr("About Kodos"))
-        self.buttonOk.setText(self.tr("&OK"))
-        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setTitle(self.tr("About..."))
-        self.versionLabel.setText(self.tr("0.8"))
-        self.TextLabel1.setText(self.tr("Kodos\n"
+        self.setCaption(self.__tr("About Kodos"))
+        self.buttonOk.setText(self.__tr("&OK"))
+        self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setTitle(self.__tr("About..."))
+        self.versionLabel.setText(self.__tr("0.8"))
+        self.TextLabel1.setText(self.__tr("Kodos\n"
 "\n"
 "Developed by: Phil Schwartz\n"
 "\n"
 "phil_schwartz@users.sourceforge.net"))
-        self.TextLabel1_2.setText(self.tr("Version:"))
+        self.TextLabel1_2.setText(self.__tr("Version:"))
+
+
+    def __tr(self,s,c = None):
+        return qApp.translate("AboutBA",s,c)

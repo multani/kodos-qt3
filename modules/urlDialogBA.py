@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/urlDialogBA.ui'
 #
-# Created: Thu Dec 4 20:08:43 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:25:57 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -64,12 +66,12 @@ class URLDialogBA(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
         QDialog.__init__(self,parent,name,modal,fl)
 
-        image0 = QPixmap(image0_data)
+        self.image0 = QPixmap(image0_data)
 
         if not name:
             self.setName("URLDialogBA")
 
-        self.setIcon(image0)
+        self.setIcon(self.image0)
         self.setSizeGripEnabled(1)
 
         URLDialogBALayout = QGridLayout(self,1,1,11,6,"URLDialogBALayout")
@@ -110,24 +112,30 @@ class URLDialogBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(443,170).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self.ok_slot)
         self.connect(self.buttonCancel,SIGNAL("clicked()"),self,SLOT("reject()"))
         self.connect(self.buttonHelp,SIGNAL("clicked()"),self.help_slot)
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Import URL"))
-        self.buttonHelp.setText(self.tr("&Help"))
-        self.buttonHelp.setAccel(self.tr("F1"))
-        self.buttonOk.setText(self.tr("&OK"))
-        self.buttonOk.setAccel(QString.null)
-        self.buttonCancel.setText(self.tr("&Cancel"))
-        self.buttonCancel.setAccel(QString.null)
-        self.groupBox1.setTitle(self.tr("Enter URL to import"))
-        self.URLTextEdit.setText(self.tr("http://kodos.sourceforge.net"))
+        self.setCaption(self.__tr("Import URL"))
+        self.buttonHelp.setText(self.__tr("&Help"))
+        self.buttonHelp.setAccel(QKeySequence(self.__tr("F1")))
+        self.buttonOk.setText(self.__tr("&OK"))
+        self.buttonOk.setAccel(QKeySequence(QString.null))
+        self.buttonCancel.setText(self.__tr("&Cancel"))
+        self.buttonCancel.setAccel(QKeySequence(QString.null))
+        self.groupBox1.setTitle(self.__tr("Enter URL to import"))
+        self.URLTextEdit.setText(self.__tr("http://kodos.sourceforge.net"))
+
 
     def help_slot(self):
         print "URLDialogBA.help_slot(): Not implemented yet"
 
     def ok_slot(self):
         print "URLDialogBA.ok_slot(): Not implemented yet"
+
+    def __tr(self,s,c = None):
+        return qApp.translate("URLDialogBA",s,c)

@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>532</width>
-            <height>668</height>
+            <height>672</height>
         </rect>
     </property>
     <property name="caption">
@@ -43,6 +43,10 @@
                     <property name="text">
                         <string>Ignore Case</string>
                     </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Perform case-insensitive matching; expressions like [A-Z] will match
+lowercase letters, too. This is not affected by the current locale.</string>
+                    </property>
                 </widget>
                 <widget class="QCheckBox">
                     <property name="name">
@@ -50,6 +54,14 @@
                     </property>
                     <property name="text">
                         <string>Multi Line</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>When specified, the pattern character "^" matches at the beginning of the 
+string and at the beginning of each line (immediately following each newline); 
+and the pattern character "$" matches at the end of the string and at the end 
+of each line (immediately preceding each newline). By default, "^" matches 
+only at the beginning of the string, and "$" only at the end of the string and 
+immediately before the newline (if any) at the end of the string.</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">
@@ -59,6 +71,10 @@
                     <property name="text">
                         <string>Dot All</string>
                     </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Make the "." special character match any character at all, including a 
+newline; without this flag, "." will match anything except a newline.</string>
+                    </property>
                 </widget>
                 <widget class="QCheckBox">
                     <property name="name">
@@ -66,6 +82,13 @@
                     </property>
                     <property name="text">
                         <string>Verbose</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>This flag allows you to write regular expressions that look nicer. Whitespace 
+within the pattern is ignored, except when in a character class or preceded by 
+an unescaped backslash, and, when a line contains a "#" neither in a character
+class or preceded by an unescaped backslash, all characters from the leftmost 
+such "#" through the end of the line are ignored.</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">
@@ -75,6 +98,9 @@
                     <property name="text">
                         <string>Locale</string>
                     </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Make \w, \W, \b, and \B dependent on the current locale.</string>
+                    </property>
                 </widget>
                 <widget class="QCheckBox">
                     <property name="name">
@@ -82,6 +108,10 @@
                     </property>
                     <property name="text">
                         <string>Unicode</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>"Make \w, \W, \b, and \B dependent on the Unicode character properties 
+database. New in Python version 2.0.</string>
                     </property>
                 </widget>
             </hbox>
@@ -112,8 +142,19 @@
                     <property name="name">
                         <cstring>regexMultiLineEdit</cstring>
                     </property>
+                    <property name="font">
+                        <font>
+                            <family>Helvetica [Adobe]</family>
+                        </font>
+                    </property>
                     <property name="textFormat">
                         <enum>PlainText</enum>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="wordWrap">
+                        <enum>WidgetWidth</enum>
                     </property>
                 </widget>
             </grid>
@@ -903,7 +944,7 @@
         <data format="XPM.GZ" length="1214">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523236520022430543251d2e253d856405e53430007309805135a36a46d58caaa1899a5a6b2e0001ccd7cc</data>
     </image>
     <image name="image16">
-        <data format="XPM.GZ" length="1517">789cdd94cf4ac4301087ef7d8ad0dc8a745d77ad14f111148f8278482699fe8175615d0f22bebb99190ab1db661541167ff4d0af7c9d99366917857ab8bf55c5227bd99b7d070a5ab353857bdd6cde1e9f6edeb37cb556e1585ea8657e96e5a50275b77df674aec3b93ee7101ac25548551136825525d80a22d6352112ae39843de12587d012d29d00841de11587d0131a0e211002d4b5347284887481073e9a91a539472d638d392d4b0667ebe019220b1c80b6d61aed29298b2356542fb25ce9dc50ab44af9bb699b0d07738d4423f6771479e5e3a4e5bbdeffaff6de9494b7fb5344ebe2fd4b115be0259a1b1255a64f10aa5ac40331d451b5bd1fe4a58d1fefaa35adf9bfe47d6b0efd316fea2632ae5c17f6226f9c775f609ae646b88</data>
+        <data format="XPM.GZ" length="1517">789cdd944d4bc4301086effd15a1b915e96e3fd252167f82e251100fd349a61fb02ee87a10f1bfdb4928c46edb5504597ce9210f3ccc4c9ab49b48dcdfdd886813bc1ce1d8a1c0169e45a45ff7fbb787c7ebf720cc72313c492a92f02a086381e2f6f064782d87b5dcda3002639664db22656c1c16ca61eb90a8424662cc933ccf6dd99e51a54a292bd78c455a28d48c1d639995aacc180d232000d852c888baaa5c23cd4884c6358acf6662499bb316d4009765b9c1ad75b207cf428d28ebba0669386b968db3bc7a9ea563adc75a3119d9b4cd8c45a6a3b1169925cb76b4d3bb8ef3566fbafe7f5b72d6925f2d49b3ef8ba46f0d5f813ba1a9e534cfb227b4660db4d0d16953cbbb5f2b9677bffea8d6f7a6ff9135defb758b7ed1712df1c97f6221e1c72ef8048a1c6bb3</data>
     </image>
 </images>
 <connections>

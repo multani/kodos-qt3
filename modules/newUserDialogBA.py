@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/newUserDialogBA.ui'
 #
-# Created: Sat Dec 6 14:17:50 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:26:05 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -167,15 +169,15 @@ class NewUserDialog(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
         QDialog.__init__(self,parent,name,modal,fl)
 
-        image0 = QPixmap(image0_data)
-        image1 = QPixmap(image1_data)
-        image2 = QPixmap(image2_data)
+        self.image0 = QPixmap(image0_data)
+        self.image1 = QPixmap(image1_data)
+        self.image2 = QPixmap(image2_data)
 
         if not name:
             self.setName("NewUserDialog")
 
         self.setSizePolicy(QSizePolicy(1,5,0,0,self.sizePolicy().hasHeightForWidth()))
-        self.setIcon(image0)
+        self.setIcon(self.image0)
 
         NewUserDialogLayout = QVBoxLayout(self,11,6,"NewUserDialogLayout")
 
@@ -189,7 +191,7 @@ class NewUserDialog(QDialog):
 
         self.pixmapLabel2 = QLabel(self,"pixmapLabel2")
         self.pixmapLabel2.setSizePolicy(QSizePolicy(0,0,0,0,self.pixmapLabel2.sizePolicy().hasHeightForWidth()))
-        self.pixmapLabel2.setPixmap(image1)
+        self.pixmapLabel2.setPixmap(self.image1)
         self.pixmapLabel2.setScaledContents(1)
 
         layout13.addWidget(self.pixmapLabel2,1,1)
@@ -200,7 +202,7 @@ class NewUserDialog(QDialog):
 
         self.pixmapLabel1 = QLabel(self,"pixmapLabel1")
         self.pixmapLabel1.setSizePolicy(QSizePolicy(0,0,0,0,self.pixmapLabel1.sizePolicy().hasHeightForWidth()))
-        self.pixmapLabel1.setPixmap(image2)
+        self.pixmapLabel1.setPixmap(self.image2)
         self.pixmapLabel1.setScaledContents(1)
 
         layout13.addWidget(self.pixmapLabel1,0,1)
@@ -223,12 +225,14 @@ class NewUserDialog(QDialog):
         self.languageChange()
 
         self.resize(QSize(338,326).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.okButton,SIGNAL("clicked()"),self,SLOT("accept()"))
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Kodos new user information"))
-        self.textLabel1.setText(self.tr("<h3>Welcome to Kodos.</h3>\n"
+        self.setCaption(self.__tr("Kodos new user information"))
+        self.textLabel1.setText(self.__tr("<h3>Welcome to Kodos.</h3>\n"
 "<p></p>\n"
 "It appears that this is your first time using \n"
 "Kodos - The Python Regular Expression Debugger.\n"
@@ -236,7 +240,11 @@ class NewUserDialog(QDialog):
 "In order to help you familiarize yourself with Kodos, you may wish to explore\n"
 "the Regex Library.  Additionally, Kodos contains a Python Regex Reference Guide. \n"
 "You can access these tools by clicking on the appropriate toolbar icon."))
-        self.textLabel4.setText(self.tr("<b>Regex Reference Guide</b>"))
-        self.textLabel3.setText(self.tr("<b>Regex Library</b>"))
-        self.okButton.setText(self.tr("&OK"))
-        self.okButton.setAccel(self.tr("Alt+O"))
+        self.textLabel4.setText(self.__tr("<b>Regex Reference Guide</b>"))
+        self.textLabel3.setText(self.__tr("<b>Regex Library</b>"))
+        self.okButton.setText(self.__tr("&OK"))
+        self.okButton.setAccel(QKeySequence(self.__tr("Alt+O")))
+
+
+    def __tr(self,s,c = None):
+        return qApp.translate("NewUserDialog",s,c)

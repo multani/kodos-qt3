@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/kodosBA.ui'
 #
-# Created: Thu Dec 4 20:08:33 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:26:07 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -739,16 +741,16 @@ image16_data = [
 "34 34 12 1",
 ". c None",
 "# c #000000",
-"a c #333366",
-"g c #336666",
-"h c #33ff99",
-"f c #444444",
-"j c #555555",
-"b c #6666cc",
-"i c #777777",
-"e c #aaaaaa",
-"c c #cc9966",
-"d c #ffcc99",
+"a c #313062",
+"g c #316562",
+"h c #31ff9c",
+"f c #414441",
+"j c #525552",
+"b c #6265cd",
+"i c #737573",
+"e c #acaaac",
+"c c #cd9962",
+"d c #ffce9c",
 "..................................",
 "...........######.................",
 "...........#abaa#.................",
@@ -790,28 +792,28 @@ class KodosBA(QMainWindow):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
 
-        image0 = QPixmap(image0_data)
-        image1 = QPixmap(image1_data)
-        image2 = QPixmap(image2_data)
-        image3 = QPixmap(image3_data)
-        image4 = QPixmap(image4_data)
-        image5 = QPixmap(image5_data)
-        image6 = QPixmap(image6_data)
-        image7 = QPixmap(image7_data)
-        image8 = QPixmap(image8_data)
-        image9 = QPixmap(image9_data)
-        image10 = QPixmap(image10_data)
-        image11 = QPixmap(image11_data)
-        image12 = QPixmap(image12_data)
-        image13 = QPixmap(image13_data)
-        image14 = QPixmap(image14_data)
-        image15 = QPixmap(image15_data)
-        image16 = QPixmap(image16_data)
+        self.image0 = QPixmap(image0_data)
+        self.image1 = QPixmap(image1_data)
+        self.image2 = QPixmap(image2_data)
+        self.image3 = QPixmap(image3_data)
+        self.image4 = QPixmap(image4_data)
+        self.image5 = QPixmap(image5_data)
+        self.image6 = QPixmap(image6_data)
+        self.image7 = QPixmap(image7_data)
+        self.image8 = QPixmap(image8_data)
+        self.image9 = QPixmap(image9_data)
+        self.image10 = QPixmap(image10_data)
+        self.image11 = QPixmap(image11_data)
+        self.image12 = QPixmap(image12_data)
+        self.image13 = QPixmap(image13_data)
+        self.image14 = QPixmap(image14_data)
+        self.image15 = QPixmap(image15_data)
+        self.image16 = QPixmap(image16_data)
 
         if not name:
             self.setName("KodosBA")
 
-        self.setIcon(image0)
+        self.setIcon(self.image0)
 
         self.setCentralWidget(QWidget(self,"qt_central_widget"))
         KodosBALayout = QGridLayout(self.centralWidget(),1,1,11,6,"KodosBALayout")
@@ -853,7 +855,11 @@ class KodosBA(QMainWindow):
         groupBox1Layout.setAlignment(Qt.AlignTop)
 
         self.regexMultiLineEdit = QTextEdit(self.groupBox1,"regexMultiLineEdit")
+        regexMultiLineEdit_font = QFont(self.regexMultiLineEdit.font())
+        regexMultiLineEdit_font.setFamily("Helvetica [Adobe]")
+        self.regexMultiLineEdit.setFont(regexMultiLineEdit_font)
         self.regexMultiLineEdit.setTextFormat(QTextEdit.PlainText)
+        self.regexMultiLineEdit.setWordWrap(QTextEdit.WidgetWidth)
 
         groupBox1Layout.addWidget(self.regexMultiLineEdit,0,0)
 
@@ -865,12 +871,12 @@ class KodosBA(QMainWindow):
         tabLayout = QGridLayout(self.tab,1,1,11,6,"tabLayout")
 
         self.groupListView = QListView(self.tab,"groupListView")
-        self.groupListView.addColumn(self.tr("Group #"))
-        self.groupListView.addColumn(self.tr("Group Name"))
-        self.groupListView.addColumn(self.tr("Match"))
+        self.groupListView.addColumn(self.__tr("Group #"))
+        self.groupListView.addColumn(self.__tr("Group Name"))
+        self.groupListView.addColumn(self.__tr("Match"))
 
         tabLayout.addWidget(self.groupListView,0,0)
-        self.resultTabWidget.insertTab(self.tab,"")
+        self.resultTabWidget.insertTab(self.tab,QString(""))
 
         self.tab_2 = QWidget(self.resultTabWidget,"tab_2")
         tabLayout_2 = QGridLayout(self.tab_2,1,1,11,6,"tabLayout_2")
@@ -878,7 +884,7 @@ class KodosBA(QMainWindow):
         self.matchTextBrowser = QTextBrowser(self.tab_2,"matchTextBrowser")
 
         tabLayout_2.addWidget(self.matchTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.tab_2,"")
+        self.resultTabWidget.insertTab(self.tab_2,QString(""))
 
         self.TabPage = QWidget(self.resultTabWidget,"TabPage")
         TabPageLayout = QGridLayout(self.TabPage,1,1,11,6,"TabPageLayout")
@@ -886,14 +892,14 @@ class KodosBA(QMainWindow):
         self.matchAllTextBrowser = QTextBrowser(self.TabPage,"matchAllTextBrowser")
 
         TabPageLayout.addWidget(self.matchAllTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.TabPage,"")
+        self.resultTabWidget.insertTab(self.TabPage,QString(""))
 
         self.TabPage_2 = QWidget(self.resultTabWidget,"TabPage_2")
         TabPageLayout_2 = QVBoxLayout(self.TabPage_2,11,6,"TabPageLayout_2")
 
         self.replaceTextBrowser = QTextBrowser(self.TabPage_2,"replaceTextBrowser")
         TabPageLayout_2.addWidget(self.replaceTextBrowser)
-        self.resultTabWidget.insertTab(self.TabPage_2,"")
+        self.resultTabWidget.insertTab(self.TabPage_2,QString(""))
 
         self.TabPage_3 = QWidget(self.resultTabWidget,"TabPage_3")
         TabPageLayout_3 = QGridLayout(self.TabPage_3,1,1,11,6,"TabPageLayout_3")
@@ -901,7 +907,7 @@ class KodosBA(QMainWindow):
         self.codeTextBrowser = QTextBrowser(self.TabPage_3,"codeTextBrowser")
 
         TabPageLayout_3.addWidget(self.codeTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.TabPage_3,"")
+        self.resultTabWidget.insertTab(self.TabPage_3,QString(""))
 
         KodosBALayout.addWidget(self.resultTabWidget,4,0)
 
@@ -914,7 +920,7 @@ class KodosBA(QMainWindow):
         self.stringMultiLineEdit.setTextFormat(QTextEdit.PlainText)
 
         tabLayout_3.addWidget(self.stringMultiLineEdit,0,0)
-        self.tabWidget3.insertTab(self.tab_3,"")
+        self.tabWidget3.insertTab(self.tab_3,QString(""))
 
         self.tab_4 = QWidget(self.tabWidget3,"tab_4")
         tabLayout_4 = QGridLayout(self.tab_4,1,1,11,6,"tabLayout_4")
@@ -923,7 +929,7 @@ class KodosBA(QMainWindow):
         self.replaceTextEdit.setTextFormat(QTextEdit.PlainText)
 
         tabLayout_4.addWidget(self.replaceTextEdit,0,0)
-        self.tabWidget3.insertTab(self.tab_4,"")
+        self.tabWidget3.insertTab(self.tab_4,QString(""))
 
         KodosBALayout.addWidget(self.tabWidget3,2,0)
 
@@ -940,7 +946,7 @@ class KodosBA(QMainWindow):
         layout3.addWidget(self.matchNumberSpinBox)
 
         self.spacerLabel = QLabel(self.centralWidget(),"spacerLabel")
-        self.spacerLabel.setPixmap(image1)
+        self.spacerLabel.setPixmap(self.image1)
         layout3.addWidget(self.spacerLabel)
 
         self.replaceLabel = QLabel(self.centralWidget(),"replaceLabel")
@@ -954,54 +960,54 @@ class KodosBA(QMainWindow):
         KodosBALayout.addLayout(layout3,3,0)
 
         self.fileNewAction = QAction(self,"fileNewAction")
-        self.fileNewAction.setIconSet(QIconSet(image2))
+        self.fileNewAction.setIconSet(QIconSet(self.image2))
         self.fileOpenAction = QAction(self,"fileOpenAction")
-        self.fileOpenAction.setIconSet(QIconSet(image3))
+        self.fileOpenAction.setIconSet(QIconSet(self.image3))
         self.fileSaveAction = QAction(self,"fileSaveAction")
-        self.fileSaveAction.setIconSet(QIconSet(image4))
+        self.fileSaveAction.setIconSet(QIconSet(self.image4))
         self.fileSaveAsAction = QAction(self,"fileSaveAsAction")
         self.fileExitAction = QAction(self,"fileExitAction")
         self.editUndoAction = QAction(self,"editUndoAction")
-        self.editUndoAction.setIconSet(QIconSet(image5))
+        self.editUndoAction.setIconSet(QIconSet(self.image5))
         self.editRedoAction = QAction(self,"editRedoAction")
-        self.editRedoAction.setIconSet(QIconSet(image6))
+        self.editRedoAction.setIconSet(QIconSet(self.image6))
         self.editCutAction = QAction(self,"editCutAction")
-        self.editCutAction.setIconSet(QIconSet(image7))
+        self.editCutAction.setIconSet(QIconSet(self.image7))
         self.editCopyAction = QAction(self,"editCopyAction")
-        self.editCopyAction.setIconSet(QIconSet(image8))
+        self.editCopyAction.setIconSet(QIconSet(self.image8))
         self.editPasteAction = QAction(self,"editPasteAction")
-        self.editPasteAction.setIconSet(QIconSet(image9))
+        self.editPasteAction.setIconSet(QIconSet(self.image9))
         self.examineAction = QAction(self,"examineAction")
         self.examineAction.setToggleAction(1)
-        self.examineAction.setIconSet(QIconSet(image10))
+        self.examineAction.setIconSet(QIconSet(self.image10))
         self.helpContentsAction = QAction(self,"helpContentsAction")
         self.helpIndexAction = QAction(self,"helpIndexAction")
         self.helpAboutAction = QAction(self,"helpAboutAction")
         self.regexChangedAction = QAction(self,"regexChangedAction")
         self.editPauseAction = QAction(self,"editPauseAction")
         self.editPauseAction.setToggleAction(1)
-        self.editPauseAction.setIconSet(QIconSet(image11))
+        self.editPauseAction.setIconSet(QIconSet(self.image11))
         self.editPreferencesAction = QAction(self,"editPreferencesAction")
         self.helpHelpAction = QAction(self,"helpHelpAction")
-        self.helpHelpAction.setIconSet(QIconSet(image12))
+        self.helpHelpAction.setIconSet(QIconSet(self.image12))
         self.helpPythonHelpAction = QAction(self,"helpPythonHelpAction")
         self.helpRegexReferenceAction = QAction(self,"helpRegexReferenceAction")
-        self.helpRegexReferenceAction.setIconSet(QIconSet(image13))
+        self.helpRegexReferenceAction.setIconSet(QIconSet(self.image13))
         self.helpVisitWebsiteAction = QAction(self,"helpVisitWebsiteAction")
-        self.helpVisitWebsiteAction.setIconSet(QIconSet(image14))
+        self.helpVisitWebsiteAction.setIconSet(QIconSet(self.image14))
         self.helpCheckForUpdateAction = QAction(self,"helpCheckForUpdateAction")
         self.helpReportBugAction = QAction(self,"helpReportBugAction")
         self.noopAction = QAction(self,"noopAction")
         self.noopAction.setEnabled(1)
-        self.noopAction.setIconSet(QIconSet(image15))
+        self.noopAction.setIconSet(QIconSet(self.image15))
         self.fileImportFileAction = QAction(self,"fileImportFileAction")
         self.fileImportURLAction = QAction(self,"fileImportURLAction")
         self.helpRegexLibAction = QAction(self,"helpRegexLibAction")
-        self.helpRegexLibAction.setIconSet(QIconSet(image16))
+        self.helpRegexLibAction.setIconSet(QIconSet(self.image16))
         self.FileRevertAction = QAction(self,"FileRevertAction")
 
 
-        self.toolBar = QToolBar("",self,Qt.DockTop)
+        self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
 
         self.fileOpenAction.addTo(self.toolBar)
         self.fileSaveAction.addTo(self.toolBar)
@@ -1019,6 +1025,7 @@ class KodosBA(QMainWindow):
 
         self.menubar = QMenuBar(self,"menubar")
 
+
         self.fileMenu = QPopupMenu(self)
         self.fileNewAction.addTo(self.fileMenu)
         self.fileOpenAction.addTo(self.fileMenu)
@@ -1032,7 +1039,7 @@ class KodosBA(QMainWindow):
         self.fileMenu.insertSeparator()
         self.fileExitAction.addTo(self.fileMenu)
         self.fileMenu.insertSeparator()
-        self.menubar.insertItem("",self.fileMenu,0)
+        self.menubar.insertItem(QString(""),self.fileMenu,1)
 
         self.editMenu = QPopupMenu(self)
         self.editUndoAction.addTo(self.editMenu)
@@ -1046,7 +1053,7 @@ class KodosBA(QMainWindow):
         self.editPauseAction.addTo(self.editMenu)
         self.editMenu.insertSeparator()
         self.editPreferencesAction.addTo(self.editMenu)
-        self.menubar.insertItem("",self.editMenu,1)
+        self.menubar.insertItem(QString(""),self.editMenu,2)
 
         self.helpMenu = QPopupMenu(self)
         self.helpMenu.insertSeparator()
@@ -1061,13 +1068,13 @@ class KodosBA(QMainWindow):
         self.helpReportBugAction.addTo(self.helpMenu)
         self.helpMenu.insertSeparator()
         self.helpAboutAction.addTo(self.helpMenu)
-        self.menubar.insertItem("",self.helpMenu,2)
-
+        self.menubar.insertItem(QString(""),self.helpMenu,3)
 
 
         self.languageChange()
 
-        self.resize(QSize(532,668).expandedTo(self.minimumSizeHint()))
+        self.resize(QSize(532,672).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.checkbox_slot)
         self.connect(self.editCopyAction,SIGNAL("activated()"),self.editCopy)
@@ -1129,103 +1136,124 @@ class KodosBA(QMainWindow):
         self.setTabOrder(self.groupListView,self.matchTextBrowser)
         self.setTabOrder(self.matchTextBrowser,self.codeTextBrowser)
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Kodos - The Python Regex Debugger"))
-        self.setIconText(self.tr("Kodos"))
-        self.buttonGroup2.setTitle(self.tr("Flags"))
-        self.ignorecaseCheckBox.setText(self.tr("Ignore Case"))
-        self.multilineCheckBox.setText(self.tr("Multi Line"))
-        self.dotallCheckBox.setText(self.tr("Dot All"))
-        self.verboseCheckBox.setText(self.tr("Verbose"))
-        self.localeCheckBox.setText(self.tr("Locale"))
-        self.unicodeCheckBox.setText(self.tr("Unicode"))
-        self.groupBox1.setTitle(self.tr("Regular Expression Pattern"))
-        self.groupListView.header().setLabel(0,self.tr("Group #"))
-        self.groupListView.header().setLabel(1,self.tr("Group Name"))
-        self.groupListView.header().setLabel(2,self.tr("Match"))
-        self.resultTabWidget.changeTab(self.tab,self.tr("Group"))
-        self.resultTabWidget.changeTab(self.tab_2,self.tr("Match"))
-        self.resultTabWidget.changeTab(self.TabPage,self.tr("Match All"))
-        self.resultTabWidget.changeTab(self.TabPage_2,self.tr("Replace"))
-        self.resultTabWidget.changeTab(self.TabPage_3,self.tr("Sample Code"))
-        self.tabWidget3.changeTab(self.tab_3,self.tr("Search String"))
-        self.tabWidget3.changeTab(self.tab_4,self.tr("Replace String"))
-        self.textLabel1.setText(self.tr("Match Number"))
-        self.replaceLabel.setText(self.tr("Replace Number"))
-        self.fileNewAction.setText(self.tr("New"))
-        self.fileNewAction.setMenuText(self.tr("&New"))
-        self.fileNewAction.setAccel(self.tr("Ctrl+N"))
-        self.fileOpenAction.setText(self.tr("Open"))
-        self.fileOpenAction.setMenuText(self.tr("&Open..."))
-        self.fileOpenAction.setAccel(self.tr("Ctrl+O"))
-        self.fileSaveAction.setText(self.tr("Save"))
-        self.fileSaveAction.setMenuText(self.tr("&Save"))
-        self.fileSaveAction.setAccel(self.tr("Ctrl+S"))
-        self.fileSaveAsAction.setText(self.tr("Save As"))
-        self.fileSaveAsAction.setMenuText(self.tr("Save &As..."))
-        self.fileSaveAsAction.setAccel(QString.null)
-        self.fileExitAction.setText(self.tr("Exit"))
-        self.fileExitAction.setMenuText(self.tr("E&xit"))
-        self.fileExitAction.setAccel(QString.null)
-        self.editUndoAction.setText(self.tr("Undo"))
-        self.editUndoAction.setMenuText(self.tr("&Undo"))
-        self.editUndoAction.setAccel(self.tr("Ctrl+Z"))
-        self.editRedoAction.setText(self.tr("Redo"))
-        self.editRedoAction.setMenuText(self.tr("&Redo"))
-        self.editRedoAction.setAccel(self.tr("Ctrl+Y"))
-        self.editCutAction.setText(self.tr("Cut"))
-        self.editCutAction.setMenuText(self.tr("&Cut"))
-        self.editCutAction.setAccel(self.tr("Ctrl+X"))
-        self.editCopyAction.setText(self.tr("Copy"))
-        self.editCopyAction.setMenuText(self.tr("C&opy"))
-        self.editCopyAction.setAccel(self.tr("Ctrl+C"))
-        self.editPasteAction.setText(self.tr("Paste"))
-        self.editPasteAction.setMenuText(self.tr("&Paste"))
-        self.editPasteAction.setAccel(self.tr("Ctrl+V"))
-        self.examineAction.setText(self.tr("Examine Regex for Match"))
-        self.examineAction.setMenuText(self.tr("E&xamine Regex"))
-        self.examineAction.setAccel(self.tr("Ctrl+X"))
-        self.helpContentsAction.setText(self.tr("Contents"))
-        self.helpContentsAction.setMenuText(self.tr("&Contents..."))
-        self.helpContentsAction.setAccel(QString.null)
-        self.helpIndexAction.setText(self.tr("Index"))
-        self.helpIndexAction.setMenuText(self.tr("&Index..."))
-        self.helpIndexAction.setAccel(QString.null)
-        self.helpAboutAction.setText(self.tr("About"))
-        self.helpAboutAction.setMenuText(self.tr("&About"))
-        self.helpAboutAction.setAccel(QString.null)
-        self.regexChangedAction.setText(self.tr("Action"))
-        self.editPauseAction.setText(self.tr("Pause Processing"))
-        self.editPauseAction.setAccel(self.tr("Ctrl+P"))
-        self.editPreferencesAction.setText(self.tr("Preferences"))
-        self.helpHelpAction.setText(self.tr("Help"))
-        self.helpHelpAction.setAccel(self.tr("Ctrl+/"))
-        self.helpPythonHelpAction.setText(self.tr("Python Regex Help"))
-        self.helpPythonHelpAction.setMenuText(self.tr("&Python Regex Help"))
-        self.helpRegexReferenceAction.setText(self.tr("Regex Reference Guide"))
-        self.helpRegexReferenceAction.setMenuText(self.tr("&Regex Reference Guide"))
-        self.helpRegexReferenceAction.setAccel(self.tr("Ctrl+R"))
-        self.helpVisitWebsiteAction.setText(self.tr("Visit Kodos Website"))
-        self.helpVisitWebsiteAction.setMenuText(self.tr("&Visit Kodos Website"))
-        self.helpCheckForUpdateAction.setText(self.tr("Check for Kodos Update"))
-        self.helpCheckForUpdateAction.setMenuText(self.tr("&Check for Kodos Update"))
-        self.helpReportBugAction.setText(self.tr("Report a Bug"))
-        self.helpReportBugAction.setMenuText(self.tr("Report a &Bug"))
+        self.setCaption(self.__tr("Kodos - The Python Regex Debugger"))
+        self.setIconText(self.__tr("Kodos"))
+        self.buttonGroup2.setTitle(self.__tr("Flags"))
+        self.ignorecaseCheckBox.setText(self.__tr("Ignore Case"))
+        QToolTip.add(self.ignorecaseCheckBox,self.__tr("Perform case-insensitive matching; expressions like [A-Z] will match\n"
+"lowercase letters, too. This is not affected by the current locale."))
+        self.multilineCheckBox.setText(self.__tr("Multi Line"))
+        QToolTip.add(self.multilineCheckBox,self.__tr("When specified, the pattern character \"^\" matches at the beginning of the \n"
+"string and at the beginning of each line (immediately following each newline); \n"
+"and the pattern character \"$\" matches at the end of the string and at the end \n"
+"of each line (immediately preceding each newline). By default, \"^\" matches \n"
+"only at the beginning of the string, and \"$\" only at the end of the string and \n"
+"immediately before the newline (if any) at the end of the string."))
+        self.dotallCheckBox.setText(self.__tr("Dot All"))
+        QToolTip.add(self.dotallCheckBox,self.__tr("Make the \".\" special character match any character at all, including a \n"
+"newline; without this flag, \".\" will match anything except a newline."))
+        self.verboseCheckBox.setText(self.__tr("Verbose"))
+        QToolTip.add(self.verboseCheckBox,self.__tr("This flag allows you to write regular expressions that look nicer. Whitespace \n"
+"within the pattern is ignored, except when in a character class or preceded by \n"
+"an unescaped backslash, and, when a line contains a \"#\" neither in a character\n"
+"class or preceded by an unescaped backslash, all characters from the leftmost \n"
+"such \"#\" through the end of the line are ignored."))
+        self.localeCheckBox.setText(self.__tr("Locale"))
+        QToolTip.add(self.localeCheckBox,self.__tr("Make \\w, \\W, \\b, and \\B dependent on the current locale."))
+        self.unicodeCheckBox.setText(self.__tr("Unicode"))
+        QToolTip.add(self.unicodeCheckBox,self.__tr("\"Make \\w, \\W, \\b, and \\B dependent on the Unicode character properties \n"
+"database. New in Python version 2.0."))
+        self.groupBox1.setTitle(self.__tr("Regular Expression Pattern"))
+        self.regexMultiLineEdit.setText(QString.null)
+        self.groupListView.header().setLabel(0,self.__tr("Group #"))
+        self.groupListView.header().setLabel(1,self.__tr("Group Name"))
+        self.groupListView.header().setLabel(2,self.__tr("Match"))
+        self.resultTabWidget.changeTab(self.tab,self.__tr("Group"))
+        self.resultTabWidget.changeTab(self.tab_2,self.__tr("Match"))
+        self.resultTabWidget.changeTab(self.TabPage,self.__tr("Match All"))
+        self.resultTabWidget.changeTab(self.TabPage_2,self.__tr("Replace"))
+        self.resultTabWidget.changeTab(self.TabPage_3,self.__tr("Sample Code"))
+        self.tabWidget3.changeTab(self.tab_3,self.__tr("Search String"))
+        self.tabWidget3.changeTab(self.tab_4,self.__tr("Replace String"))
+        self.textLabel1.setText(self.__tr("Match Number"))
+        self.replaceLabel.setText(self.__tr("Replace Number"))
+        self.fileNewAction.setText(self.__tr("New"))
+        self.fileNewAction.setMenuText(self.__tr("&New"))
+        self.fileNewAction.setAccel(QKeySequence(self.__tr("Ctrl+N")))
+        self.fileOpenAction.setText(self.__tr("Open"))
+        self.fileOpenAction.setMenuText(self.__tr("&Open..."))
+        self.fileOpenAction.setAccel(QKeySequence(self.__tr("Ctrl+O")))
+        self.fileSaveAction.setText(self.__tr("Save"))
+        self.fileSaveAction.setMenuText(self.__tr("&Save"))
+        self.fileSaveAction.setAccel(QKeySequence(self.__tr("Ctrl+S")))
+        self.fileSaveAsAction.setText(self.__tr("Save As"))
+        self.fileSaveAsAction.setMenuText(self.__tr("Save &As..."))
+        self.fileSaveAsAction.setAccel(QKeySequence(QString.null))
+        self.fileExitAction.setText(self.__tr("Exit"))
+        self.fileExitAction.setMenuText(self.__tr("E&xit"))
+        self.fileExitAction.setAccel(QKeySequence(QString.null))
+        self.editUndoAction.setText(self.__tr("Undo"))
+        self.editUndoAction.setMenuText(self.__tr("&Undo"))
+        self.editUndoAction.setAccel(QKeySequence(self.__tr("Ctrl+Z")))
+        self.editRedoAction.setText(self.__tr("Redo"))
+        self.editRedoAction.setMenuText(self.__tr("&Redo"))
+        self.editRedoAction.setAccel(QKeySequence(self.__tr("Ctrl+Y")))
+        self.editCutAction.setText(self.__tr("Cut"))
+        self.editCutAction.setMenuText(self.__tr("&Cut"))
+        self.editCutAction.setAccel(QKeySequence(self.__tr("Ctrl+X")))
+        self.editCopyAction.setText(self.__tr("Copy"))
+        self.editCopyAction.setMenuText(self.__tr("C&opy"))
+        self.editCopyAction.setAccel(QKeySequence(self.__tr("Ctrl+C")))
+        self.editPasteAction.setText(self.__tr("Paste"))
+        self.editPasteAction.setMenuText(self.__tr("&Paste"))
+        self.editPasteAction.setAccel(QKeySequence(self.__tr("Ctrl+V")))
+        self.examineAction.setText(self.__tr("Examine Regex for Match"))
+        self.examineAction.setMenuText(self.__tr("E&xamine Regex"))
+        self.examineAction.setAccel(QKeySequence(self.__tr("Ctrl+X")))
+        self.helpContentsAction.setText(self.__tr("Contents"))
+        self.helpContentsAction.setMenuText(self.__tr("&Contents..."))
+        self.helpContentsAction.setAccel(QKeySequence(QString.null))
+        self.helpIndexAction.setText(self.__tr("Index"))
+        self.helpIndexAction.setMenuText(self.__tr("&Index..."))
+        self.helpIndexAction.setAccel(QKeySequence(QString.null))
+        self.helpAboutAction.setText(self.__tr("About"))
+        self.helpAboutAction.setMenuText(self.__tr("&About"))
+        self.helpAboutAction.setAccel(QKeySequence(QString.null))
+        self.regexChangedAction.setText(self.__tr("Action"))
+        self.editPauseAction.setText(self.__tr("Pause Processing"))
+        self.editPauseAction.setAccel(QKeySequence(self.__tr("Ctrl+P")))
+        self.editPreferencesAction.setText(self.__tr("Preferences"))
+        self.helpHelpAction.setText(self.__tr("Help"))
+        self.helpHelpAction.setAccel(QKeySequence(self.__tr("Ctrl+/")))
+        self.helpPythonHelpAction.setText(self.__tr("Python Regex Help"))
+        self.helpPythonHelpAction.setMenuText(self.__tr("&Python Regex Help"))
+        self.helpRegexReferenceAction.setText(self.__tr("Regex Reference Guide"))
+        self.helpRegexReferenceAction.setMenuText(self.__tr("&Regex Reference Guide"))
+        self.helpRegexReferenceAction.setAccel(QKeySequence(self.__tr("Ctrl+R")))
+        self.helpVisitWebsiteAction.setText(self.__tr("Visit Kodos Website"))
+        self.helpVisitWebsiteAction.setMenuText(self.__tr("&Visit Kodos Website"))
+        self.helpCheckForUpdateAction.setText(self.__tr("Check for Kodos Update"))
+        self.helpCheckForUpdateAction.setMenuText(self.__tr("&Check for Kodos Update"))
+        self.helpReportBugAction.setText(self.__tr("Report a Bug"))
+        self.helpReportBugAction.setMenuText(self.__tr("Report a &Bug"))
         self.noopAction.setText(QString.null)
-        self.fileImportFileAction.setText(self.tr("Import File"))
-        self.fileImportFileAction.setMenuText(self.tr("Import &File"))
-        self.fileImportURLAction.setText(self.tr("Import URL"))
-        self.fileImportURLAction.setMenuText(self.tr("Import &URL"))
-        self.helpRegexLibAction.setText(self.tr("Regex Library"))
-        self.helpRegexLibAction.setMenuText(self.tr("Regex &Library"))
-        self.helpRegexLibAction.setToolTip(self.tr("Open the Regex Library"))
-        self.helpRegexLibAction.setAccel(self.tr("Ctrl+L"))
-        self.FileRevertAction.setText(self.tr("Revert Kodos File"))
-        self.FileRevertAction.setMenuText(self.tr("&Revert Kodos File"))
-        self.toolBar.setLabel(self.tr("Tools"))
-        self.menubar.findItem(0).setText(self.tr("&File"))
-        self.menubar.findItem(1).setText(self.tr("&Edit"))
-        self.menubar.findItem(2).setText(self.tr("&Help"))
+        self.fileImportFileAction.setText(self.__tr("Import File"))
+        self.fileImportFileAction.setMenuText(self.__tr("Import &File"))
+        self.fileImportURLAction.setText(self.__tr("Import URL"))
+        self.fileImportURLAction.setMenuText(self.__tr("Import &URL"))
+        self.helpRegexLibAction.setText(self.__tr("Regex Library"))
+        self.helpRegexLibAction.setMenuText(self.__tr("Regex &Library"))
+        self.helpRegexLibAction.setToolTip(self.__tr("Open the Regex Library"))
+        self.helpRegexLibAction.setAccel(QKeySequence(self.__tr("Ctrl+L")))
+        self.FileRevertAction.setText(self.__tr("Revert Kodos File"))
+        self.FileRevertAction.setMenuText(self.__tr("&Revert Kodos File"))
+        self.toolBar.setLabel(self.__tr("Tools"))
+        self.menubar.findItem(1).setText(self.__tr("&File"))
+        self.menubar.findItem(2).setText(self.__tr("&Edit"))
+        self.menubar.findItem(3).setText(self.__tr("&Help"))
+
 
     def fileNew(self):
         print "KodosBA.fileNew(): Not implemented yet"
@@ -1328,3 +1356,6 @@ class KodosBA(QMainWindow):
 
     def revert_file_slot(self):
         print "KodosBA.revert_file_slot(): Not implemented yet"
+
+    def __tr(self,s,c = None):
+        return qApp.translate("KodosBA",s,c)

@@ -11,13 +11,19 @@ import types
 import getopt
 import urllib
 import signal
-from qt import *
 
+try:
+    from qt import *
+except:
+    print """Could not locate the PyQt module.  Please make sure that
+you have installed PyQt for the version of Python that you are running."""
+    sys.exit(1)
+    
 ### make sure that this script can find kodos specific modules ###
 import os.path
 from distutils.sysconfig import get_python_lib
 
-sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) #, "modules"))
+sys.path.insert(0, os.path.join(get_python_lib(), "kodos")) 
 
 ###################################################################
 
@@ -25,8 +31,6 @@ from modules.kodosBA import *
 from modules.util import *
 from modules.about import *
 import modules.help as help
-from modules.tooltip import *
-from modules.tooltips import *
 from modules.status_bar import *
 from modules.reference import *
 from modules.prefs import *
@@ -40,16 +44,13 @@ from modules.migrate_settings import MigrateSettings
 from modules.regexLibrary import RegexLibrary
 from modules.newUserDialogBA import NewUserDialog
 
+
 # match status
 MATCH_NA       = 0
 MATCH_OK       = 1
 MATCH_FAIL     = 2
 MATCH_PAUSED   = 3
 MATCH_EXAMINED = 4
-
-MSG_NA     = "Enter a regular expression and a string to match against"
-MSG_PAUSED = "Kodos regex processing is paused.  Click the pause icon to unpause"
-MSG_FAIL   = "Pattern does not match"
 
 TRUE  = 1
 FALSE = 0
@@ -82,7 +83,6 @@ except:
     HAS_ALARM = 0
 
 
-
 ##############################################################################
 #
 # The Kodos class which defines the main functionality and user interaction
@@ -92,6 +92,7 @@ except:
 class Kodos(KodosBA):
     def __init__(self, filename, debug):
         KodosBA.__init__(self)
+
         self.debug = debug
         self.regex = ""
         self.matchstring = ""
@@ -99,7 +100,6 @@ class Kodos(KodosBA):
         self.flags = 0
         self.is_paused = 0
         self.is_examined = 0
-        self.createTooltips()
         self.filename = ""
         self.match_num = 1 # matches are labeled 1..n
         self.replace_num = 0 # replace all
@@ -115,6 +115,11 @@ class Kodos(KodosBA):
         self.regex_embedded_flags_removed = ""
 
         self.createStatusBar()
+
+        self.MSG_NA     = self.tr("Enter a regular expression and a string to match against")
+        self.MSG_PAUSED = self.tr("Kodos regex processing is paused.  Click the pause icon to unpause")
+        self.MSG_FAIL   = self.tr("Pattern does not match")
+
         
         self.statusPixmapsDict = {MATCH_NA: QPixmap(xpm.yellowStatusIcon),
                                   MATCH_OK: QPixmap(xpm.greenStatusIcon),
@@ -122,18 +127,18 @@ class Kodos(KodosBA):
                                   MATCH_PAUSED: QPixmap(xpm.pauseStatusIcon)}
 
         
-        self.updateStatus(MSG_NA, MATCH_NA)
+        self.updateStatus(self.MSG_NA, MATCH_NA)
 
         restoreWindowSettings(self, GEO)
         
         self.show()
+
         self.prefs = Preferences(self, 1)
         self.recent_files = RecentFiles(self,
                                         self.prefs.recentFilesSpinBox.value(),
                                         self.debug)
 
-        if QT_VERS > 2:
-            self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
+        self.matchTextBrowser.setTextFormat(QTextEdit.PlainText)
 
         if filename and self.openFile(filename):
             qApp.processEvents()
@@ -184,8 +189,7 @@ class Kodos(KodosBA):
     def fileMenuHandler(self, menuid):
         if self.recent_files.isRecentFile(menuid):
             fn = str(self.fileMenu.text(menuid))
-            # qt 2.3 seg faults during the removal/addition of menu items
-            if QT_VERS > 2: self.recent_files.add(fn)
+            self.recent_files.add(fn)
             self.openFile(fn)
 
     def prefsSaved(self):
@@ -193,11 +197,6 @@ class Kodos(KodosBA):
         self.recent_files.setNumShown(self.prefs.recentFilesSpinBox.value())   
   
         
-    def createTooltips(self):
-        # we store the actual messages in a seperate module
-        # so the code looks cleaner
-        create_kodos_tooltips(self)
-
     def kodos_edited_slot(self):
         # invoked whenever the user has edited something
         self.editstate = STATE_EDITED
@@ -265,23 +264,24 @@ class Kodos(KodosBA):
         flags_str = ""
         
         if self.ignorecaseCheckBox.isChecked():
-            flags_str += ", re.IGNORECASE"
+            flags_str += "| re.IGNORECASE"
 
         if self.multilineCheckBox.isChecked():
-            flags_str += ", re.MULTILINE"
+            flags_str += "| re.MULTILINE"
 
         if self.dotallCheckBox.isChecked():
-            flags_str += ", re.DOTALL"
+            flags_str += "| re.DOTALL"
 
         if self.verboseCheckBox.isChecked():
-            flags_str += ", re.VERBOSE"
+            flags_str += "| re.VERBOSE"
 
         if self.localeCheckBox.isChecked():
-            flags_str += ", re.LOCALE"
+            flags_str += "| re.LOCALE"
 
         if self.unicodeCheckBox.isChecked():
-            flags_str += ", re.UNICODE"
+            flags_str += "| re.UNICODE"
 
+        if flags_str: flags_str = ", " + flags_str[1:]
         return flags_str
 
 
@@ -317,7 +317,7 @@ class Kodos(KodosBA):
         if self.debug: print "is_paused:", self.is_paused
         
         if self.is_paused:
-            self.update_results(MSG_PAUSED, MATCH_PAUSED)
+            self.update_results(self.MSG_PAUSED, MATCH_PAUSED)
             self.matchNumberSpinBox.setDisabled(1)
 
         else:
@@ -380,14 +380,19 @@ class Kodos(KodosBA):
         
 
     def regex_changed_slot(self):
-        self.regex = str(self.regexMultiLineEdit.text())
-        #self.regex = unicode(self.regexMultiLineEdit.text())
+        try:
+            self.regex = str(self.regexMultiLineEdit.text())
+        except UnicodeError:
+            self.regex = unicode(self.regexMultiLineEdit.text())
+            
         self.process_regex()
 
 
     def string_changed_slot(self):
-        self.matchstring = str(self.stringMultiLineEdit.text())
-        #self.matchstring = unicode(self.stringMultiLineEdit.text())
+        try:
+            self.matchstring = str(self.stringMultiLineEdit.text())
+        except UnicodeError:
+            self.matchstring = unicode(self.stringMultiLineEdit.text())
         self.process_regex()
 
 
@@ -406,8 +411,11 @@ class Kodos(KodosBA):
         self.replaceTextBrowser.setEnabled(TRUE)
 
     def replace_changed_slot(self):
-        self.replace = str(self.replaceTextEdit.text())
-        #self.replace = unicode(self.replaceTextEdit.text())
+        try:
+            self.replace = str(self.replaceTextEdit.text())
+        except UnicodeError:
+            self.replace = unicode(self.replaceTextEdit.text())
+            
         self.process_regex()
         if not self.replace:
             self.hide_replace_widgets()
@@ -426,8 +434,10 @@ class Kodos(KodosBA):
         for t in tuples:
             item = QListViewItem(self.groupListView)
             for col in range(num_cols):
-                item.setText(col, str(t[col]))
-                #item.setText(col, unicode(t[col]))
+                try:
+                    item.setText(col, str(t[col]))
+                except UnicodeError:
+                    item.setText(col, unicode(t[col]))
 
 
     def populate_code_textbrowser(self):
@@ -589,7 +599,7 @@ class Kodos(KodosBA):
             return
         
         if not self.regex or not self.matchstring:
-            self.update_results(MSG_NA, MATCH_NA)
+            self.update_results(self.MSG_NA, MATCH_NA)
             self.clear_results()
             return
 
@@ -624,7 +634,7 @@ class Kodos(KodosBA):
             signal.alarm(0)
 
         if not match_obj:
-            self.update_results(MSG_FAIL, MATCH_FAIL)
+            self.update_results(self.MSG_FAIL, MATCH_FAIL)
 
             self.clear_results()
             return
@@ -672,11 +682,20 @@ class Kodos(KodosBA):
             #print group_tuples
             self.populate_group_listview(self.group_tuples)
 
+        str_pattern_matches = self.tr("Pattern matches")
+        str_found = self.tr("found")
+        str_match = self.tr("match")
+        str_matches = self.tr("matches")
 
         if len(allmatches) == 1:
-            status = "Pattern matches (found 1 match)"
+            status = "%s (%s 1 %s)" % (str_pattern_matches,
+                                       str_found,
+                                       str_match)
         else:
-            status = "Pattern matches (found %d matches)" % len(allmatches)
+            status = "%s (%s %d %s)" % (str_pattern_matches,
+                                        str_found,
+                                        len(allmatches),
+                                        str_match)
             
         self.update_results(status, MATCH_OK)
         self.populate_code_textbrowser()
@@ -709,7 +728,7 @@ class Kodos(KodosBA):
 
 
     def closeEvent(self, ev):
-        self.checkEditState("&No, Just Exit Kodos")
+        self.checkEditState(self.tr("&No, Just Exit Kodos"))
         saveWindowSettings(self, GEO)
 
         try:
@@ -749,7 +768,10 @@ class Kodos(KodosBA):
                                          self, "Import File")
         
         if fn.isEmpty():
-            self.updateStatus("A file was not selected for import", -1, 5, TRUE)
+            self.updateStatus(self.tr("A file was not selected for import"),
+                              -1,
+                              5,
+                              TRUE)
             return None
 
         filename = str(fn)
@@ -757,7 +779,7 @@ class Kodos(KodosBA):
         try:
             fp = open(filename, "r")
         except:
-            msg = "Could not open file for reading: " + filename
+            msg = self.tr("Could not open file for reading: ") + filename
             self.updateStatus(msg, -1, 5, TRUE)
             return None
         
@@ -768,7 +790,7 @@ class Kodos(KodosBA):
         
     def fileOpen(self):       
         fn = QFileDialog.getOpenFileName(self.filename, "*.kds\nAll (*)",
-                                         self, "Open Kodos File")
+                                         self, self.tr("Open Kodos File"))
 
         if not fn.isEmpty():
             filename = str(fn)
@@ -784,7 +806,7 @@ class Kodos(KodosBA):
         try:
             fp = open(filename, "r")
         except:
-            msg = "Could not open file for reading: " + filename
+            msg = self.tr("Could not open file for reading: ") + filename
             self.updateStatus(msg, -1, 5, TRUE)
             return None
 
@@ -810,13 +832,13 @@ class Kodos(KodosBA):
             self.replaceTextEdit.setText(replace)
             
             self.filename = filename
-            msg = filename + " loaded successfully"
+            msg = "%s %s" % (filename, self.tr("loaded successfully"))
             self.updateStatus(msg, -1, 5, TRUE)
             self.editstate = STATE_UNEDITED
             return 1
         except Exception, e:
             print str(e)
-            msg = "Error reading from file: " + filename
+            msg = "%s %s" % (self.tr("Error reading from file:"), filename)
             self.updateStatus(msg, -1, 5, TRUE)
             return 0
 
@@ -825,20 +847,22 @@ class Kodos(KodosBA):
         while 1:
             self.filedialog = QFileDialog(self.filename,
                                           "*.kds\nAll (*)",
-                                          self, "Save Kodos File", TRUE)
-            self.filedialog.setCaption("Save Kodos File")
+                                          self,
+                                          self.tr("Save Kodos File"),
+                                          TRUE)
+            self.filedialog.setCaption(self.tr("Save Kodos File"))
             self.filedialog.setMode(QFileDialog.AnyFile)
             #self.filedialog.show()
             ok = self.filedialog.exec_loop()
 
             selected = self.filedialog.selectedFile()
             if not ok or selected.isEmpty():
-                self.updateStatus("No file selected to save", -1, 5, TRUE)
+                self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
                 return
 
             filename = str(self.filedialog.selectedFile())
             if not filename:
-                self.updateStatus("No file selected to save", -1, 5, TRUE)
+                self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
                 return
 
             basename = os.path.basename(filename)
@@ -846,10 +870,15 @@ class Kodos(KodosBA):
                 filename += ".kds"
 
             if os.access(filename, os.F_OK):
-                message = "The file, %s, already exists.\nWould you like to replace it?" % filename
-                cancel = QMessageBox.information(None, "Replace file?",
-                                                 message, "&Replace",
-                                                 "&Cancel")
+                message = "%s, %s %s\n%s" % (self.tr("The file"),
+                                         filename,
+                                         self.tr("already exists."),
+                                         self.tr("Would you like to replace it?"))
+                cancel = QMessageBox.information(None,
+                                                 self.tr("Replace file?"),
+                                                 message,
+                                                 self.tr("&Replace"),
+                                                 self.tr("&Cancel"))
                 if cancel:
                     # allow user to choose another filename
                     continue
@@ -867,7 +896,8 @@ class Kodos(KodosBA):
         try:
             fp = open(self.filename, "w")
         except:
-            msg = "Could not open file for writing: " + self.filename
+            msg = "%s: %s" % (self.tr("Could not open file for writing:"),
+                              self.filename)
             self.updateStatus(msg, -1, 5, TRUE)
             return None
 
@@ -879,7 +909,7 @@ class Kodos(KodosBA):
         p.dump(self.replace)
         
         fp.close()
-        msg = self.filename + " successfully saved"
+        msg = "%s %s" % (self.filename, self.tr("successfully saved"))
         self.updateStatus(msg, -1, 5, TRUE)
         self.recent_files.add(self.filename)
 
@@ -893,7 +923,6 @@ class Kodos(KodosBA):
         # if not, return 0 -- inidicating that the regex has no embedded flags
         # if it does, set the appropriate checkboxes on the UI to reflect the flags that are embedded
         #   and return 1 to indicate that the string has embedded flags
-
         match = self.embedded_flags_obj.match(regex)
         if not match:
             self.embedded_flags = ""
@@ -920,13 +949,17 @@ class Kodos(KodosBA):
         return 1
 
 
-    def checkEditState(self, noButtonStr="&No"):
+    def checkEditState(self, noButtonStr=None):
+        if not noButtonStr: noButtonStr = self.tr("&No")
+        
         if self.editstate == STATE_EDITED:
-            message = "You have made changes.  Would you like to save them before continuing?"
+            message = "%s. %s?" % \
+                      (self.tr("You have made changes"),
+                       self.tr("Would you like to save them before continuing"))
             prompt = QMessageBox.warning(None,
-                                         "Save changes?",
+                                         self.tr("Save changes?"),
                                          message,
-                                         "&Yes, Save Changes",
+                                         self.tr("&Yes, Save Changes"),
                                          noButtonStr)
             
             if prompt == 0:
@@ -952,7 +985,10 @@ class Kodos(KodosBA):
 
     def revert_file_slot(self):
         if not self.filename:
-            self.updateStatus("There is no filename to revert", -1, 5, TRUE)
+            self.updateStatus(self.tr("There is no filename to revert"),
+                              -1,
+                              5,
+                              TRUE)
             return
 
         self.openFile(self.filename)
@@ -1006,6 +1042,7 @@ class Kodos(KodosBA):
 
             
     def setfont(self, font):
+        return
         self.regexMultiLineEdit.setFont(font)
         self.stringMultiLineEdit.setFont(font)
         self.replaceTextEdit.setFont(font)
@@ -1020,7 +1057,9 @@ class Kodos(KodosBA):
 
 
     def helpPythonRegex(self):
-        self.helpWindow = help.Help(self, "python" + os.sep + "module-re.html", str(self.prefs.browserEdit.text()))
+        self.helpWindow = help.Help(self,
+                                    "python" + os.sep + "module-re.html",
+                                    str(self.prefs.browserEdit.text()))
         
 
     def helpRegexLib(self):
@@ -1043,7 +1082,9 @@ class Kodos(KodosBA):
         try:
             fp = urllib.urlopen(url)
         except:
-            self.status_bar.set_message("Failed to open url", 5, TRUE)
+            self.status_bar.set_message(self.tr("Failed to open url"),
+                                        5,
+                                        TRUE)
             return
 
         lines = fp.readlines()
@@ -1055,28 +1096,40 @@ class Kodos(KodosBA):
         if match_obj:
             latest_version = match_obj.group('version')
             if latest_version == VERSION:
-                QMessageBox.information(None, "No Update is Available",
-                                        "You are currently using the latest version of Kodos (%s)" % VERSION)
+                QMessageBox.information(None,
+                                        self.tr("No Update is Available"),
+                                        self.tr("You are currently using the latest version of Kodos") + "(%s)" % VERSION)
             else:
-                #self.status_bar.set_message("A new version of Kodos is available", 5, TRUE)
-                
-                message =  "There is a newer version of Kodos available.\n\n" + \
-                "You are using version: %s.\n" % VERSION + \
-                "The latest version is: %s.\n\n" % latest_version + \
-                "Press OK to launch browser\n" 
+                message =  "%s\n\n%s: %s.\n%s: %s.\n\n%s\n" % \
+                          (self.tr("There is a newer version of Kodos available."),
+                           self.tr("You are using version:"),
+                           VERSION,
+                           self.tr("The latest version is:"),
+                           latest_version,
+                           self.tr("Press OK to launch browser"))
 
-                self.launch_browser_wrapper(url, "Kodos Update Available", message)
+                self.launch_browser_wrapper(url,
+                                            self.tr("Kodos Update Available"),
+                                            message)
         else:
-            message = "Unable to get version info from Sourceforge.\n\nPress OK to launch browser"
-            self.launch_browser_wrapper(url, "Unknown version available", message)
+            message = "%s.\n\n%s" % \
+                      (self.tr("Unable to get version info from Sourceforge"),
+                       self.tr("Press OK to launch browser"))
+            self.launch_browser_wrapper(url,
+                                        self.tr("Unknown version available"),
+                                        message)
 
 
     def launch_browser_wrapper(self, url, caption=None, message=None):
         browser = str(self.prefs.browserEdit.text())
         if launch_browser(browser, url, caption, message):
-            self.status_bar.set_message("Launching web browser", 3, TRUE)
+            self.status_bar.set_message(self.tr("Launching web browser"),
+                                        3,
+                                        TRUE)
         else:
-            self.status_bar.set_message("Cancelled web browser launch", 3, TRUE)
+            self.status_bar.set_message(self.tr("Cancelled web browser launch"),
+                                        3,
+                                        TRUE)
 
 
     def reference_guide(self):
@@ -1099,20 +1152,21 @@ def usage():
     print "  -f filename | --filename=filename  : Load filename on startup"
     print "  -d debug | --debug=debug           : Set debug to this debug level"
     print "  -k kodos_dir                       : Path containing Kodos images & help subdirs"
+    print "  -l locale | --locale=locale        : 2-letter locale (eg. en)"
     print
     sys.exit(0)
 
-if __name__ == '__main__':
-
-    filename=None
-    debug=0
+def main():
+    filename  = None
+    debug     = 0
     kodos_dir = os.path.join(sys.prefix, "kodos")
+    locale    = None
 
     args = sys.argv[1:]
     try:
-        (opts, getopts) = getopt.getopt(args, 'd:f:k:?h',
+        (opts, getopts) = getopt.getopt(args, 'd:f:k:l:?h',
                                         ["file=", "debug=",
-                                         "help"])
+                                         "help", "locale="])
     except:
         print "\nInvalid command line option detected."
         usage()
@@ -1130,6 +1184,8 @@ if __name__ == '__main__':
                 usage()            
         if opt in ('-f', '--file'):
             filename = arg
+        if opt in ('-l', '--locale'):
+            locale = arg
 
     os.environ['KODOS_DIR'] = kodos_dir
 
@@ -1137,11 +1193,26 @@ if __name__ == '__main__':
 
     qApp = QApplication(sys.argv)
 
+    if locale not in (None, 'en'):
+        localefile = "kodos_%s.qm" % (locale or QTextCodec.locale())
+        localepath = findFile(os.path.join("translations", localefile))
+        if debug:
+            print "locale changed to:", locale
+            print localefile
+            print localepath
+    
+        translator = QTranslator(qApp)
+        translator.load(localepath)
+
+        qApp.installTranslator(translator)
+
     kodos = Kodos(filename, debug)
 
     qApp.setMainWidget(kodos)
 
-    qApp.exec_loop()
+    qApp.exec_loop()    
 
-    #kodos.saveWindowSettings()
 
+
+if __name__ == '__main__':
+    main()

@@ -1,4 +1,6 @@
 recursive-include help *.html
+recursive-include translations *
+recursive-include scripts *
 include help/regex-lib.xml
 include images/*.png
 include images/*.ico
@@ -9,5 +11,6 @@ include README.txt
 include modules/*.ui
 include modules/*.py
 include kodos.pro
+include kodosqt.pro
 include windows/build.bat
 include windows/installer.iss

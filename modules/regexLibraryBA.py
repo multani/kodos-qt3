@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/regexLibraryBA.ui'
 #
-# Created: Thu Dec 4 20:08:39 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:26:01 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -141,14 +143,14 @@ class RegexLibraryBA(QMainWindow):
         QMainWindow.__init__(self,parent,name,fl)
         self.statusBar()
 
-        image0 = QPixmap(image0_data)
-        image1 = QPixmap(image1_data)
-        image2 = QPixmap(image2_data)
+        self.image0 = QPixmap(image0_data)
+        self.image1 = QPixmap(image1_data)
+        self.image2 = QPixmap(image2_data)
 
         if not name:
             self.setName("RegexLibraryBA")
 
-        self.setIcon(image0)
+        self.setIcon(self.image0)
 
         self.setCentralWidget(QWidget(self,"qt_central_widget"))
         RegexLibraryBALayout = QGridLayout(self.centralWidget(),1,1,11,6,"RegexLibraryBALayout")
@@ -175,7 +177,7 @@ class RegexLibraryBA(QMainWindow):
         self.regexTextBrowser.setTextFormat(QTextBrowser.PlainText)
 
         tabLayout.addWidget(self.regexTextBrowser,0,0)
-        self.tabWidget3.insertTab(self.tab,"")
+        self.tabWidget3.insertTab(self.tab,QString(""))
 
         self.tab_2 = QWidget(self.tabWidget3,"tab_2")
         tabLayout_2 = QGridLayout(self.tab_2,1,1,11,6,"tabLayout_2")
@@ -197,68 +199,71 @@ class RegexLibraryBA(QMainWindow):
         layout3.addWidget(self.contribEdit)
 
         tabLayout_2.addLayout(layout3,1,0)
-        self.tabWidget3.insertTab(self.tab_2,"")
+        self.tabWidget3.insertTab(self.tab_2,QString(""))
 
         RegexLibraryBALayout.addWidget(self.tabWidget3,1,0)
 
         self.editPasteAction = QAction(self,"editPasteAction")
-        self.editPasteAction.setIconSet(QIconSet(image1))
+        self.editPasteAction.setIconSet(QIconSet(self.image1))
         self.helpHelpAction = QAction(self,"helpHelpAction")
-        self.helpHelpAction.setIconSet(QIconSet(image2))
+        self.helpHelpAction.setIconSet(QIconSet(self.image2))
         self.exitAction = QAction(self,"exitAction")
 
 
-        self.toolBar = QToolBar("",self,Qt.DockTop)
+        self.toolBar = QToolBar(QString(""),self,Qt.DockTop)
 
         self.editPasteAction.addTo(self.toolBar)
 
 
         self.MenuBar = QMenuBar(self,"MenuBar")
 
+
         self.fileMenu = QPopupMenu(self)
         self.fileMenu.insertSeparator()
         self.exitAction.addTo(self.fileMenu)
-        self.MenuBar.insertItem("",self.fileMenu,0)
+        self.MenuBar.insertItem(QString(""),self.fileMenu,1)
 
         self.editMenu = QPopupMenu(self)
         self.editPasteAction.addTo(self.editMenu)
         self.editMenu.insertSeparator()
-        self.MenuBar.insertItem("",self.editMenu,1)
+        self.MenuBar.insertItem(QString(""),self.editMenu,2)
 
         self.helpMenu = QPopupMenu(self)
         self.helpHelpAction.addTo(self.helpMenu)
-        self.MenuBar.insertItem("",self.helpMenu,2)
-
+        self.MenuBar.insertItem(QString(""),self.helpMenu,3)
 
 
         self.languageChange()
 
         self.resize(QSize(491,490).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
         self.connect(self.descriptionListBox,SIGNAL("highlighted(QListBoxItem*)"),self.descSelectedSlot)
         self.connect(self.exitAction,SIGNAL("activated()"),self,SLOT("close()"))
         self.connect(self.descriptionListBox,SIGNAL("doubleClicked(QListBoxItem*)"),self.editPaste)
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Kodos - Regex Library"))
-        self.groupBox5.setTitle(self.tr("Description"))
-        self.tabWidget3.changeTab(self.tab,self.tr("Regex"))
-        self.textLabel3.setText(self.tr("Contributed By:"))
-        self.tabWidget3.changeTab(self.tab_2,self.tr("Notes"))
-        self.editPasteAction.setText(self.tr("Paste"))
-        self.editPasteAction.setMenuText(self.tr("&Paste Example Into Kodos"))
-        self.editPasteAction.setToolTip(self.tr("Paste This Example Into Kodos"))
-        self.editPasteAction.setAccel(self.tr("Ctrl+V"))
-        self.helpHelpAction.setText(self.tr("Help"))
-        self.helpHelpAction.setMenuText(self.tr("&Help"))
-        self.helpHelpAction.setAccel(self.tr("Ctrl+/"))
-        self.exitAction.setText(self.tr("Exit"))
-        self.exitAction.setMenuText(self.tr("&Exit"))
-        self.toolBar.setLabel(self.tr("Tools"))
-        self.MenuBar.findItem(0).setText(self.tr("&File"))
-        self.MenuBar.findItem(1).setText(self.tr("&Edit"))
-        self.MenuBar.findItem(2).setText(self.tr("&Help"))
+        self.setCaption(self.__tr("Kodos - Regex Library"))
+        self.groupBox5.setTitle(self.__tr("Description"))
+        self.tabWidget3.changeTab(self.tab,self.__tr("Regex"))
+        self.textLabel3.setText(self.__tr("Contributed By:"))
+        self.tabWidget3.changeTab(self.tab_2,self.__tr("Notes"))
+        self.editPasteAction.setText(self.__tr("Paste"))
+        self.editPasteAction.setMenuText(self.__tr("&Paste Example Into Kodos"))
+        self.editPasteAction.setToolTip(self.__tr("Paste This Example Into Kodos"))
+        self.editPasteAction.setAccel(QKeySequence(self.__tr("Ctrl+V")))
+        self.helpHelpAction.setText(self.__tr("Help"))
+        self.helpHelpAction.setMenuText(self.__tr("&Help"))
+        self.helpHelpAction.setAccel(QKeySequence(self.__tr("Ctrl+/")))
+        self.exitAction.setText(self.__tr("Exit"))
+        self.exitAction.setMenuText(self.__tr("&Exit"))
+        self.toolBar.setLabel(self.__tr("Tools"))
+        self.MenuBar.findItem(1).setText(self.__tr("&File"))
+        self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
+        self.MenuBar.findItem(3).setText(self.__tr("&Help"))
+
 
     def fileNew(self):
         print "RegexLibraryBA.fileNew(): Not implemented yet"
@@ -307,3 +312,6 @@ class RegexLibraryBA(QMainWindow):
 
     def descSelectedSlot(self):
         print "RegexLibraryBA.descSelectedSlot(): Not implemented yet"
+
+    def __tr(self,s,c = None):
+        return qApp.translate("RegexLibraryBA",s,c)

@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/prefsBA.ui'
 #
-# Created: Thu Dec 4 20:08:35 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:26:04 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -64,12 +66,12 @@ class PrefsBA(QDialog):
     def __init__(self,parent = None,name = None,modal = 0,fl = 0):
         QDialog.__init__(self,parent,name,modal,fl)
 
-        image0 = QPixmap(image0_data)
+        self.image0 = QPixmap(image0_data)
 
         if not name:
             self.setName("PrefsBA")
 
-        self.setIcon(image0)
+        self.setIcon(self.image0)
         self.setSizeGripEnabled(0)
 
         PrefsBALayout = QVBoxLayout(self,11,6,"PrefsBALayout")
@@ -150,6 +152,7 @@ class PrefsBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(540,260).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self,SLOT("accept()"))
         self.connect(self.buttonCancel,SIGNAL("clicked()"),self,SLOT("reject()"))
@@ -167,18 +170,20 @@ class PrefsBA(QDialog):
         self.setTabOrder(self.buttonApply,self.buttonOk)
         self.setTabOrder(self.buttonOk,self.buttonCancel)
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Preferences"))
-        self.browserButton.setText(self.tr("..."))
-        self.TextLabel1_2.setText(self.tr("Recent Files:"))
-        self.TextLabel1.setText(self.tr("Web Browser:"))
+        self.setCaption(self.__tr("Preferences"))
+        self.browserButton.setText(self.__tr("..."))
+        self.TextLabel1_2.setText(self.__tr("Recent Files:"))
+        self.TextLabel1.setText(self.__tr("Web Browser:"))
         self.fontButton.setText(QString.null)
-        self.TextLabel1_2Emaii.setText(self.tr("Email Server:"))
-        self.TextLabel2.setText(self.tr("Editor Font:"))
-        self.buttonHelp.setText(self.tr("&Help"))
-        self.buttonApply.setText(self.tr("&Apply"))
-        self.buttonOk.setText(self.tr("&OK"))
-        self.buttonCancel.setText(self.tr("&Cancel"))
+        self.TextLabel1_2Emaii.setText(self.__tr("Email Server:"))
+        self.TextLabel2.setText(self.__tr("Editor Font:"))
+        self.buttonHelp.setText(self.__tr("&Help"))
+        self.buttonApply.setText(self.__tr("&Apply"))
+        self.buttonOk.setText(self.__tr("&OK"))
+        self.buttonCancel.setText(self.__tr("&Cancel"))
+
 
     def font_slot(self):
         print "PrefsBA.font_slot(): Not implemented yet"
@@ -191,3 +196,6 @@ class PrefsBA(QDialog):
 
     def apply_slot(self):
         print "PrefsBA.apply_slot(): Not implemented yet"
+
+    def __tr(self,s,c = None):
+        return qApp.translate("PrefsBA",s,c)

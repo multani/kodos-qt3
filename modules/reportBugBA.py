@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/reportBugBA.ui'
 #
-# Created: Thu Dec 4 20:08:41 2003
-#      by: The PyQt User Interface Compiler (pyuic)
+# Created: Sat Jan 10 12:25:59 2004
+#      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -128,6 +130,7 @@ class reportBugBA(QWidget):
         self.languageChange()
 
         self.resize(QSize(750,645).expandedTo(self.minimumSizeHint()))
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.submitButton,SIGNAL("clicked()"),self.submit_slot)
         self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancel_slot)
@@ -141,23 +144,28 @@ class reportBugBA(QWidget):
         self.setTabOrder(self.cancelButton,self.regexMultiLineEdit)
         self.setTabOrder(self.regexMultiLineEdit,self.stringMultiLineEdit)
 
+
     def languageChange(self):
-        self.setCaption(self.tr("Form1"))
-        self.submitButton.setText(self.tr("Submit Bug Report"))
-        self.cancelButton.setText(self.tr("Cancel"))
-        self.GroupBox6.setTitle(self.tr("Kodos State Information"))
-        self.TextLabel4.setText(self.tr("Regular Expression:"))
-        self.TextLabel5.setText(self.tr("Match String:"))
-        self.GroupBox5.setTitle(self.tr("System Information"))
-        self.TextLabel1.setText(self.tr("Operating System:"))
-        self.TextLabel3.setText(self.tr("PyQt Version:"))
-        self.TextLabel2.setText(self.tr("Python Version:"))
-        self.GroupBox7.setTitle(self.tr("Comments"))
-        self.TextLabel3_2.setText(self.tr("Comments:"))
-        self.TextLabel2_2.setText(self.tr("Email address:"))
+        self.setCaption(self.__tr("Form1"))
+        self.submitButton.setText(self.__tr("Submit Bug Report"))
+        self.cancelButton.setText(self.__tr("Cancel"))
+        self.GroupBox6.setTitle(self.__tr("Kodos State Information"))
+        self.TextLabel4.setText(self.__tr("Regular Expression:"))
+        self.TextLabel5.setText(self.__tr("Match String:"))
+        self.GroupBox5.setTitle(self.__tr("System Information"))
+        self.TextLabel1.setText(self.__tr("Operating System:"))
+        self.TextLabel3.setText(self.__tr("PyQt Version:"))
+        self.TextLabel2.setText(self.__tr("Python Version:"))
+        self.GroupBox7.setTitle(self.__tr("Comments"))
+        self.TextLabel3_2.setText(self.__tr("Comments:"))
+        self.TextLabel2_2.setText(self.__tr("Email address:"))
+
 
     def cancel_slot(self):
         print "reportBugBA.cancel_slot(): Not implemented yet"
 
     def submit_slot(self):
         print "reportBugBA.submit_slot(): Not implemented yet"
+
+    def __tr(self,s,c = None):
+        return qApp.translate("reportBugBA",s,c)
