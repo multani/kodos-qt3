@@ -42,7 +42,7 @@ class Status_Bar:
         """
 
         self.__statusTimer.stop()
-        self.last_status_message = str(self.__statusLabel.text())
+        self.last_status_message = unicode(self.__statusLabel.text())
         self.replace_status_message = replace
 
         self.__statusLabel.setText(message)

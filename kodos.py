@@ -682,10 +682,10 @@ class Kodos(KodosBA):
             #print group_tuples
             self.populate_group_listview(self.group_tuples)
 
-        str_pattern_matches = self.tr("Pattern matches")
-        str_found = self.tr("found")
-        str_match = self.tr("match")
-        str_matches = self.tr("matches")
+        str_pattern_matches = unicode(self.tr("Pattern matches"))
+        str_found = unicode(self.tr("found"))
+        str_match = unicode(self.tr("match"))
+        str_matches = unicode(self.tr("matches"))
 
         if len(allmatches) == 1:
             status = "%s (%s 1 %s)" % (str_pattern_matches,
@@ -789,9 +789,11 @@ class Kodos(KodosBA):
 
         
     def fileOpen(self):       
-        fn = QFileDialog.getOpenFileName(self.filename, "*.kds\nAll (*)",
-                                         self, self.tr("Open Kodos File"))
-
+        fn = QFileDialog.getOpenFileName(self.filename,
+                                         "*.kds\nAll (*)",
+                                         self,
+                                         "Open",
+                                         self.tr("Open Kodos File"))        
         if not fn.isEmpty():
             filename = str(fn)
             if self.openFile(filename):
@@ -832,13 +834,14 @@ class Kodos(KodosBA):
             self.replaceTextEdit.setText(replace)
             
             self.filename = filename
-            msg = "%s %s" % (filename, self.tr("loaded successfully"))
+            msg = "%s %s" % (filename, unicode(self.tr("loaded successfully")))
             self.updateStatus(msg, -1, 5, TRUE)
             self.editstate = STATE_UNEDITED
             return 1
         except Exception, e:
-            print str(e)
-            msg = "%s %s" % (self.tr("Error reading from file:"), filename)
+            if self.debug:  print unicode(e)
+            msg = "%s %s" % (unicode(self.tr("Error reading from file:")),
+                             filename)
             self.updateStatus(msg, -1, 5, TRUE)
             return 0
 
@@ -848,20 +851,15 @@ class Kodos(KodosBA):
             self.filedialog = QFileDialog(self.filename,
                                           "*.kds\nAll (*)",
                                           self,
-                                          self.tr("Save Kodos File"),
+                                          "Save",
                                           TRUE)
             self.filedialog.setCaption(self.tr("Save Kodos File"))
             self.filedialog.setMode(QFileDialog.AnyFile)
             #self.filedialog.show()
             ok = self.filedialog.exec_loop()
 
-            selected = self.filedialog.selectedFile()
-            if not ok or selected.isEmpty():
-                self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
-                return
-
-            filename = str(self.filedialog.selectedFile())
-            if not filename:
+            filename = unicode(self.filedialog.selectedFile())
+            if not ok or not filename:
                 self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
                 return
 
@@ -870,10 +868,10 @@ class Kodos(KodosBA):
                 filename += ".kds"
 
             if os.access(filename, os.F_OK):
-                message = "%s, %s %s\n%s" % (self.tr("The file"),
+                message = "%s, %s %s\n%s" % (unicode(self.tr("The file")),
                                          filename,
-                                         self.tr("already exists."),
-                                         self.tr("Would you like to replace it?"))
+                                         unicode(self.tr("already exists.")),
+                                         unicode(self.tr("Would you like to replace it?")))
                 cancel = QMessageBox.information(None,
                                                  self.tr("Replace file?"),
                                                  message,
@@ -896,7 +894,7 @@ class Kodos(KodosBA):
         try:
             fp = open(self.filename, "w")
         except:
-            msg = "%s: %s" % (self.tr("Could not open file for writing:"),
+            msg = "%s: %s" % (unicode(self.tr("Could not open file for writing:")),
                               self.filename)
             self.updateStatus(msg, -1, 5, TRUE)
             return None
@@ -909,7 +907,8 @@ class Kodos(KodosBA):
         p.dump(self.replace)
         
         fp.close()
-        msg = "%s %s" % (self.filename, self.tr("successfully saved"))
+        msg = "%s %s" % (unicode(self.filename),
+                         unicode(self.tr("successfully saved")))
         self.updateStatus(msg, -1, 5, TRUE)
         self.recent_files.add(self.filename)
 
@@ -953,9 +952,8 @@ class Kodos(KodosBA):
         if not noButtonStr: noButtonStr = self.tr("&No")
         
         if self.editstate == STATE_EDITED:
-            message = "%s. %s?" % \
-                      (self.tr("You have made changes"),
-                       self.tr("Would you like to save them before continuing"))
+            message = self.tr("You have made changes. Would you like to save them before continuing")
+            
             prompt = QMessageBox.warning(None,
                                          self.tr("Save changes?"),
                                          message,
@@ -1101,20 +1099,20 @@ class Kodos(KodosBA):
                                         self.tr("You are currently using the latest version of Kodos") + "(%s)" % VERSION)
             else:
                 message =  "%s\n\n%s: %s.\n%s: %s.\n\n%s\n" % \
-                          (self.tr("There is a newer version of Kodos available."),
-                           self.tr("You are using version:"),
+                          (unicode(self.tr("There is a newer version of Kodos available.")),
+                           unicode(self.tr("You are using version:")),
                            VERSION,
-                           self.tr("The latest version is:"),
+                           unicode(self.tr("The latest version is:")),
                            latest_version,
-                           self.tr("Press OK to launch browser"))
+                           unicode(self.tr("Press OK to launch browser")))
 
                 self.launch_browser_wrapper(url,
                                             self.tr("Kodos Update Available"),
                                             message)
         else:
             message = "%s.\n\n%s" % \
-                      (self.tr("Unable to get version info from Sourceforge"),
-                       self.tr("Press OK to launch browser"))
+                      (unicode(self.tr("Unable to get version info from Sourceforge")),
+                       unicode(self.tr("Press OK to launch browser")))
             self.launch_browser_wrapper(url,
                                         self.tr("Unknown version available"),
                                         message)
