@@ -872,7 +872,7 @@ class KodosMainWindow(QMainWindow):
 
             
     def check_for_update(self):
-        url = "https://sourceforge.net/project/showfiles.php?group_id=43860"
+        url = "http://sourceforge.net/project/showfiles.php?group_id=43860"
         try:
             fp = urllib.urlopen(url)
         except:
@@ -882,7 +882,7 @@ class KodosMainWindow(QMainWindow):
         lines = fp.readlines()
         html = string.join(lines)
 
-        rawstr = r"""release_id=.*\">kodos-(?P<version>.*?)<"""
+        rawstr = r"""release_id=.*\">.*(kodos-)(?P<version>.*?)</[aA]>"""
         match_obj = re.search(rawstr, html)
         if match_obj:
             latest_version = match_obj.group('version')
@@ -898,6 +898,12 @@ class KodosMainWindow(QMainWindow):
                 "Press OK to launch browser\n" 
 
                 self.launch_browser_wrapper(url, "Kodos Update Available", message)
+        else:
+            message = "Unable to get version info from Sourceforge.\n\nPress OK to launch browser"
+            self.launch_browser_wrapper(url, "Unknown version available", message)
+
+                      
+                      
 
 
     def launch_browser_wrapper(self, url, caption=None, message=None):

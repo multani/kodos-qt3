@@ -34,7 +34,7 @@ class Help(QMainWindow):
         self.external_browser = external_browser
         self.setGeometry(100, 50, 800, 600)
         self.setCaption("Help")
-        self.setIcon(getPixmap("ssilogo.png", "PNG"))
+        self.setIcon(getPixmap("kodos_icon.png", "PNG"))
 
         self.textBrowser = textbrowser(self)
         absPath = self.getHelpFile(filename)

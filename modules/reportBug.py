@@ -80,7 +80,7 @@ class reportBugWindow(QMainWindow):
         
         self.setGeometry(100, 50, 800, 600)
         self.setCaption("Report a Bug")
-        self.setIcon(getPixmap("ssilogo.png", "PNG"))
+        self.setIcon(getPixmap("kodos_icon.png", "PNG"))
 
         self.bug_report = reportBug(self)
         self.setCentralWidget(self.bug_report)

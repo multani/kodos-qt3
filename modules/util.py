@@ -7,6 +7,7 @@ import time
 import string
 from qt import *
 from debug import *
+import xpm
 
 # QT constants that should be defined
 FALSE = 0
@@ -158,21 +159,14 @@ def escapeSQLq(qstr):
 
 def kodos_toolbar_logo(toolbar):
     # hack to move logo to right
+
     blanklabel = QLabel("", toolbar)
     toolbar.setStretchableWidget(blanklabel)
     
-    logolabel = QLabel("kodos_logo", toolbar)
+    banner = getPixmap("kodos_text_logo.gif", "GIF")
     
-    logolabel.setText("Kodos   ")
-    font = QFont(logolabel.font())
-    font.setFamily('helvetic')
-    font.setBold(1)
-    logolabel.setFont(font)
-        
-    cg = QColorGroup()
-    pal =  logolabel.palette()
-    cg.setColor(QColorGroup.Foreground,QColor(9,86,16))
-    pal.setActive(cg)
-    pal.setInactive(cg)
-    logolabel.setPalette(pal)
+    logolabel = QLabel("kodos_logo", toolbar)
+    #logolabel.setPixmap(banner)
+    
+    logolabel.setPixmap(QPixmap(xpm.kodosTextIcon))
     return logolabel
