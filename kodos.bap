@@ -17,10 +17,16 @@ FileName = modules/referenceBA.ui
 Position = 2
 Type = Form
 [File4]
-Active = 1
+Active = 0
 Comments = 
 FileName = modules/prefsBA.ui
 Position = 3
+Type = Form
+[File5]
+Active = 1
+Comments = 
+FileName = modules/clearAllBA.ui
+Position = 4
 Type = Form
 [ProjectInfo]
 BackTrace = 1
@@ -29,7 +35,7 @@ Explorer = 0
 HierarchyView = 0
 Layout = 1,705,238,1
 MainScript = 0
-NrFiles = 4
+NrFiles = 5
 ProjectLanguage = Python
 PropertyEditor = 1
 RunFolder = 

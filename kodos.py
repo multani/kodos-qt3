@@ -45,7 +45,7 @@ class Kodos(KodosBA):
         self.flags = 0
         self.createTooltips()
         self.filename = ""
-        self.match_num = 0
+        self.match_num = 1 # matches are labeled 1..n
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
@@ -282,7 +282,7 @@ class Kodos(KodosBA):
             compile_obj = re.compile(self.regex, self.flags)
             allmatches = compile_obj.findall(self.matchstring)
             if allmatches and len(allmatches):
-                self.matchNumberSpinBox.setMaxValue(len(allmatches) - 1)
+                self.matchNumberSpinBox.setMaxValue(len(allmatches))
                 self.matchNumberSpinBox.setEnabled(TRUE)
             else:
                 self.matchNumberSpinBox.setEnabled(FALSE)
@@ -297,8 +297,12 @@ class Kodos(KodosBA):
             self.clear_results()
             return
 
-        if self.match_num > 0:
-            for i in range(self.match_num):
+        # match_index is the list element for match_num.  Therefor match_num is for ui display
+        # and match_index is for application logic.
+        match_index = self.match_num - 1 
+        
+        if match_index > 0:
+            for i in range(match_index):
                 match_obj = compile_obj.search(self.matchstring, match_obj.end())
                 
         self.populate_match_textbrowser(match_obj.start(), match_obj.end())
@@ -321,7 +325,7 @@ class Kodos(KodosBA):
 
             group_tuples = []
             # create group_tuple in the form: (group #, group name, group matches)
-            g = allmatches[self.match_num]
+            g = allmatches[match_index]
             if type(g) == types.TupleType:
                 for i in range(len(g)):
                     group_tuple = (i+1, group_nums.get(i+1, ""), g[i])
@@ -339,6 +343,12 @@ class Kodos(KodosBA):
             
         self.update_results(status, MATCH_OK)
         self.populate_code_textbrowser()
+
+
+    def clearAll(self):
+        self.regexMultiLineEdit.setText("")
+        self.stringMultiLineEdit.setText("")
+        self.set_flags(0)
         
 
     def openFileDialog(self):
@@ -360,6 +370,7 @@ class Kodos(KodosBA):
 
         try:
             u = cPickle.Unpickler(fp)
+            self.matchNumberSpinBox.setValue(1)
             self.regex = u.load()
             self.regexMultiLineEdit.setText(self.regex)
 
@@ -581,6 +592,8 @@ class KodosMainWindow(QMainWindow):
         self.saveid = self.filemenu.insertItem(QIconSet(QPixmap(xpm.saveIcon)),
                                                "&Save", self.kodos.saveFile)
         self.saveasid = self.filemenu.insertItem("Save As", self.kodos.saveFileAsDialog)
+        self.filemenu.insertSeparator()
+        self.saveasid = self.filemenu.insertItem("Clear All", self.kodos.clearAll)
         self.filemenu.insertSeparator()
         self.filemenu.insertItem(QIconSet(QPixmap(xpm.exitIcon)),
                                  "&Quit", qApp, SLOT("quit()"), Qt.CTRL+Qt.Key_Q )

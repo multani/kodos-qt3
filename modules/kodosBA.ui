@@ -392,6 +392,10 @@
                             <vsizetype>0</vsizetype>
                         </sizepolicy>
                     </property>
+                    <property stdset="1">
+                        <name>minValue</name>
+                        <number>1</number>
+                    </property>
                 </widget>
             </hbox>
         </widget>

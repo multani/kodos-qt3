@@ -1,6 +1,6 @@
-# Form implementation generated from reading ui file '/home/phil/tools/kodos/modules/kodosBA.ui'
+# Form implementation generated from reading ui file '/www/kodos/modules/kodosBA.ui'
 #
-# Created: Wed Feb 19 01:41:34 2003
+# Created: Mon Feb 24 14:27:23 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -151,6 +151,7 @@ class KodosBA(QWidget):
         self.matchNumberSpinBox = QSpinBox(self,'matchNumberSpinBox')
         self.matchNumberSpinBox.setEnabled(0)
         self.matchNumberSpinBox.setSizePolicy(QSizePolicy(0,0,self.matchNumberSpinBox.sizePolicy().hasHeightForWidth()))
+        self.matchNumberSpinBox.setMinValue(1)
         Layout4.addWidget(self.matchNumberSpinBox)
 
         KodosBALayout.addLayout(Layout4,4,1)
