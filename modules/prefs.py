@@ -35,7 +35,9 @@ class Preferences(PrefsBA):
             preference, setting = string.split(pref, ":", 1)
             setting = string.strip(setting)
             if preference == 'Font' and setting:
-                self.parseFontStr(setting)
+                self.parseFontStr(setting, self.parent.setfont)
+            if preference == 'Match Font' and setting:
+                self.parseFontStr(setting, self.parent.setMatchFont)
             if preference == 'Web Browser' and setting:
                 self.browserEdit.setText(setting)
             if preference == 'Email Server' and setting:
@@ -59,6 +61,12 @@ class Preferences(PrefsBA):
                   f.bold(), f.italic(),
                   f.underline(), f.strikeOut()))
 
+        f = self.parent.getMatchFont()
+        fp.write("Match Font: %s:%s:%s:%s:%s:%s\n" %
+                 (f.family(), f.pointSize(),
+                  f.bold(), f.italic(),
+                  f.underline(), f.strikeOut()))
+
         fp.write("Web Browser: %s\n" % str(self.browserEdit.text()))
         fp.write("Email Server: %s\n" % str(self.emailServerEdit.text()))
         fp.write("Recent Files: %s\n" % str(self.recentFilesSpinBox.text()))
@@ -66,7 +74,7 @@ class Preferences(PrefsBA):
         self.parent.emit(PYSIGNAL('prefsSaved()'), () )
 
 
-    def parseFontStr(self, fontstr):
+    def parseFontStr(self, fontstr, meth):
         # parse a font in the form: family:pt size:bold:italic:underline:strikeout
         parts = string.split(fontstr, ":")
         if len(parts) != 6: return
@@ -78,16 +86,22 @@ class Preferences(PrefsBA):
         f.setItalic(get_font_value(parts[3]))
         f.setUnderline(get_font_value(parts[4]))
         f.setStrikeOut(get_font_value(parts[5]))
-        self.parent.setfont(f)
+        meth(f)
+        #self.parent.setfont(f)
 
 
-    def setFontButtonText(self, font):
-        self.fontButton.setText("%s %s" % (str(font.family()),font.pointSize() ))
+    def setFontButtonText(self, button, font):
+        #self.fontButton.setText("%s %s" % (str(font.family()),font.pointSize() ))
+        button.setText("%s %s" % (str(font.family()),font.pointSize() ))
 
     def showPrefsDialog(self):
         f = self.parent.getfont()
         self.fontButton.setFont(f)
-        self.setFontButtonText(f)
+        self.setFontButtonText(self.fontButton, f)
+
+        f = self.parent.getMatchFont()
+        self.fontButtonMatch.setFont(f)
+        self.setFontButtonText(self.fontButtonMatch, f)
 
         self.show()
 
@@ -95,8 +109,13 @@ class Preferences(PrefsBA):
         (font, ok) = QFontDialog.getFont(self.fontButton.font())
         if ok:
             self.fontButton.setFont(font)
-            self.setFontButtonText(font)
+            self.setFontButtonText(self.fontButton, font)
 
+    def match_font_slot(self):
+        (font, ok) = QFontDialog.getFont(self.fontButtonMatch.font())
+        if ok:
+            self.fontButtonMatch.setFont(font)
+            self.setFontButtonText(self.fontButtonMatch, font)        
 
     def browser_slot(self):
         fn = QFileDialog.getOpenFileName(self.browserEdit.text(), "All (*)",
@@ -107,6 +126,7 @@ class Preferences(PrefsBA):
 
     def apply_slot(self):
         self.parent.setfont(self.fontButton.font())
+        self.parent.setMatchFont(self.fontButtonMatch.font())
         self.save()
 
 

@@ -1065,7 +1065,6 @@ class Kodos(KodosBA):
 
     def preferences(self):
         self.prefs.showPrefsDialog()
-
             
     def setfont(self, font):
         #print "font: ",  font
@@ -1074,11 +1073,22 @@ class Kodos(KodosBA):
         self.stringMultiLineEdit.setFont(font)
         self.replaceTextEdit.setFont(font)
 
+    def setMatchFont(self, font):
+        self.groupTable.setFont(font)
+        self.matchTextBrowser.setFont(font)
+        self.matchAllTextBrowser.setFont(font)
+        self.replaceTextBrowser.setFont(font)
+        self.codeTextBrowser.setFont(font)
+
 
     def getfont(self):
         return self.regexMultiLineEdit.font()
 
 
+    def getMatchFont(self):
+        return self.groupTable.font()
+
+    
     def helpHelp(self):
         self.helpWindow = help.Help(self, "kodos.html")
 

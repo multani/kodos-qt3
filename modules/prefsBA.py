@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/prefsBA.ui'
 #
-# Created: Sun Feb 22 17:17:21 2004
+# Created: Thu Aug 19 04:45:05 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,84 +74,95 @@ class PrefsBA(QDialog):
         self.setIcon(self.image0)
         self.setSizeGripEnabled(0)
 
-        PrefsBALayout = QVBoxLayout(self,11,6,"PrefsBALayout")
 
-        Layout15 = QGridLayout(None,1,1,0,6,"Layout15")
-        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout15.addMultiCell(spacer,3,3,2,3)
+        LayoutWidget = QWidget(self,"layout5")
+        LayoutWidget.setGeometry(QRect(11,6,519,246))
+        layout5 = QVBoxLayout(LayoutWidget,11,6,"layout5")
 
-        self.recentFilesSpinBox = QSpinBox(self,"recentFilesSpinBox")
+        layout4 = QGridLayout(None,1,1,0,6,"layout4")
+
+        self.TextLabel2 = QLabel(LayoutWidget,"TextLabel2")
+        self.TextLabel2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel2.sizePolicy().hasHeightForWidth()))
+
+        layout4.addWidget(self.TextLabel2,1,0)
+
+        self.browserButton = QPushButton(LayoutWidget,"browserButton")
+        self.browserButton.setSizePolicy(QSizePolicy(0,0,0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
+
+        layout4.addWidget(self.browserButton,0,3)
+
+        self.browserEdit = QLineEdit(LayoutWidget,"browserEdit")
+
+        layout4.addMultiCellWidget(self.browserEdit,0,0,1,2)
+
+        self.fontButtonMatch = QPushButton(LayoutWidget,"fontButtonMatch")
+
+        layout4.addMultiCellWidget(self.fontButtonMatch,2,3,1,3)
+
+        self.textLabel1 = QLabel(LayoutWidget,"textLabel1")
+
+        layout4.addWidget(self.textLabel1,2,0)
+
+        self.fontButton = QPushButton(LayoutWidget,"fontButton")
+
+        layout4.addMultiCellWidget(self.fontButton,1,1,1,3)
+
+        self.emailServerEdit = QLineEdit(LayoutWidget,"emailServerEdit")
+
+        layout4.addMultiCellWidget(self.emailServerEdit,4,4,1,3)
+
+        self.TextLabel1_2Emaii = QLabel(LayoutWidget,"TextLabel1_2Emaii")
+        self.TextLabel1_2Emaii.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2Emaii.sizePolicy().hasHeightForWidth()))
+
+        layout4.addMultiCellWidget(self.TextLabel1_2Emaii,3,4,0,0)
+
+        self.TextLabel1_2 = QLabel(LayoutWidget,"TextLabel1_2")
+        self.TextLabel1_2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2.sizePolicy().hasHeightForWidth()))
+
+        layout4.addWidget(self.TextLabel1_2,5,0)
+        spacer = QSpacerItem(380,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        layout4.addMultiCell(spacer,5,5,2,3)
+
+        self.recentFilesSpinBox = QSpinBox(LayoutWidget,"recentFilesSpinBox")
         self.recentFilesSpinBox.setSizePolicy(QSizePolicy(0,0,0,0,self.recentFilesSpinBox.sizePolicy().hasHeightForWidth()))
         self.recentFilesSpinBox.setMaxValue(25)
         self.recentFilesSpinBox.setValue(5)
 
-        Layout15.addWidget(self.recentFilesSpinBox,3,1)
+        layout4.addWidget(self.recentFilesSpinBox,5,1)
 
-        self.browserButton = QPushButton(self,"browserButton")
-        self.browserButton.setSizePolicy(QSizePolicy(0,0,0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
-
-        Layout15.addWidget(self.browserButton,0,3)
-
-        self.browserEdit = QLineEdit(self,"browserEdit")
-
-        Layout15.addMultiCellWidget(self.browserEdit,0,0,1,2)
-
-        self.emailServerEdit = QLineEdit(self,"emailServerEdit")
-
-        Layout15.addMultiCellWidget(self.emailServerEdit,2,2,1,3)
-
-        self.TextLabel1_2 = QLabel(self,"TextLabel1_2")
-        self.TextLabel1_2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2.sizePolicy().hasHeightForWidth()))
-
-        Layout15.addWidget(self.TextLabel1_2,3,0)
-
-        self.TextLabel1 = QLabel(self,"TextLabel1")
+        self.TextLabel1 = QLabel(LayoutWidget,"TextLabel1")
         self.TextLabel1.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
 
-        Layout15.addWidget(self.TextLabel1,0,0)
-
-        self.fontButton = QPushButton(self,"fontButton")
-
-        Layout15.addMultiCellWidget(self.fontButton,1,1,1,3)
-
-        self.TextLabel1_2Emaii = QLabel(self,"TextLabel1_2Emaii")
-        self.TextLabel1_2Emaii.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2Emaii.sizePolicy().hasHeightForWidth()))
-
-        Layout15.addWidget(self.TextLabel1_2Emaii,2,0)
-
-        self.TextLabel2 = QLabel(self,"TextLabel2")
-        self.TextLabel2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel2.sizePolicy().hasHeightForWidth()))
-
-        Layout15.addWidget(self.TextLabel2,1,0)
-        PrefsBALayout.addLayout(Layout15)
-        spacer_2 = QSpacerItem(20,20,QSizePolicy.Minimum,QSizePolicy.Expanding)
-        PrefsBALayout.addItem(spacer_2)
+        layout4.addWidget(self.TextLabel1,0,0)
+        layout5.addLayout(layout4)
+        spacer_2 = QSpacerItem(20,40,QSizePolicy.Minimum,QSizePolicy.Expanding)
+        layout5.addItem(spacer_2)
 
         Layout1 = QHBoxLayout(None,0,6,"Layout1")
 
-        self.buttonHelp = QPushButton(self,"buttonHelp")
+        self.buttonHelp = QPushButton(LayoutWidget,"buttonHelp")
         self.buttonHelp.setAutoDefault(1)
         Layout1.addWidget(self.buttonHelp)
         spacer_3 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
         Layout1.addItem(spacer_3)
 
-        self.buttonApply = QPushButton(self,"buttonApply")
+        self.buttonApply = QPushButton(LayoutWidget,"buttonApply")
         self.buttonApply.setAutoDefault(1)
         Layout1.addWidget(self.buttonApply)
 
-        self.buttonOk = QPushButton(self,"buttonOk")
+        self.buttonOk = QPushButton(LayoutWidget,"buttonOk")
         self.buttonOk.setAutoDefault(1)
         self.buttonOk.setDefault(1)
         Layout1.addWidget(self.buttonOk)
 
-        self.buttonCancel = QPushButton(self,"buttonCancel")
+        self.buttonCancel = QPushButton(LayoutWidget,"buttonCancel")
         self.buttonCancel.setAutoDefault(1)
         Layout1.addWidget(self.buttonCancel)
-        PrefsBALayout.addLayout(Layout1)
+        layout5.addLayout(Layout1)
 
         self.languageChange()
 
-        self.resize(QSize(540,260).expandedTo(self.minimumSizeHint()))
+        self.resize(QSize(540,257).expandedTo(self.minimumSizeHint()))
         try:
             self.clearWState(Qt.WState_Polished)
         except AttributeError:
@@ -164,6 +175,7 @@ class PrefsBA(QDialog):
         self.connect(self.fontButton,SIGNAL("pressed()"),self.font_slot)
         self.connect(self.buttonHelp,SIGNAL("pressed()"),self.help_slot)
         self.connect(self.buttonApply,SIGNAL("pressed()"),self.apply_slot)
+        self.connect(self.fontButtonMatch,SIGNAL("pressed()"),self.match_font_slot)
 
         self.setTabOrder(self.browserEdit,self.browserButton)
         self.setTabOrder(self.browserButton,self.fontButton)
@@ -177,12 +189,14 @@ class PrefsBA(QDialog):
 
     def languageChange(self):
         self.setCaption(self.__tr("Preferences"))
+        self.TextLabel2.setText(self.__tr("Editor Font:"))
         self.browserButton.setText(self.__tr("..."))
-        self.TextLabel1_2.setText(self.__tr("Recent Files:"))
-        self.TextLabel1.setText(self.__tr("Web Browser:"))
+        self.fontButtonMatch.setText(QString.null)
+        self.textLabel1.setText(self.__tr("Match Font:"))
         self.fontButton.setText(QString.null)
         self.TextLabel1_2Emaii.setText(self.__tr("Email Server:"))
-        self.TextLabel2.setText(self.__tr("Editor Font:"))
+        self.TextLabel1_2.setText(self.__tr("Recent Files:"))
+        self.TextLabel1.setText(self.__tr("Web Browser:"))
         self.buttonHelp.setText(self.__tr("&Help"))
         self.buttonApply.setText(self.__tr("&Apply"))
         self.buttonOk.setText(self.__tr("&OK"))
@@ -200,6 +214,9 @@ class PrefsBA(QDialog):
 
     def apply_slot(self):
         print "PrefsBA.apply_slot(): Not implemented yet"
+
+    def match_font_slot(self):
+        print "PrefsBA.match_font_slot(): Not implemented yet"
 
     def __tr(self,s,c = None):
         return qApp.translate("PrefsBA",s,c)
