@@ -146,6 +146,7 @@ class Kodos(KodosBA):
 
         return flags_str
 
+
     def get_embedded_flags_string(self):
         flags_str = flags = ""
         
@@ -696,11 +697,10 @@ class KodosMainWindow(QMainWindow):
 
 
     def kodos_website(self):
-        browser = str(self.prefs.browserEdit.text())
-        launch_browser(browser, "http://kodos.sourceforge.net")
+        self.launch_browser_wrapper("http://kodos.sourceforge.net")
 
+            
     def check_for_update(self):
-        browser = str(self.prefs.browserEdit.text())
         url = "https://sourceforge.net/project/showfiles.php?group_id=43860"
         try:
             fp = urllib.urlopen(url)
@@ -719,17 +719,22 @@ class KodosMainWindow(QMainWindow):
                 QMessageBox.information(None, "No Update is Available",
                                         "You are currently using the latest version of Kodos (%s)" % VERSION)
             else:
-                self.status_bar.set_message("A new version of Kodos is available", 5, TRUE)
-                launch_browser(browser, url)
-##                QMessageBox.information(None, "Update Available",
-##                                        "There is a newer version of Kodos available.\n\n"
-##                                        "You are using version: %s.\n"
-##                                        "The latest version is: %s.\n\n"
-##                                        "Press OK to close this dialog\n"
-##                                        "Press DOWNLOAD to retrieve the latest version\n"
-##                                        % (VERSION, latest_version),
-##                                        "Ok", "Download")
+                #self.status_bar.set_message("A new version of Kodos is available", 5, TRUE)
+                
+                message =  "There is a newer version of Kodos available.\n\n" + \
+                "You are using version: %s.\n" % VERSION + \
+                "The latest version is: %s.\n\n" % latest_version + \
+                "Press OK to launch browser\n" 
 
+                self.launch_browser_wrapper(url, "Kodos Update Available", message)
+
+
+    def launch_browser_wrapper(self, url, caption=None, message=None):
+        browser = str(self.prefs.browserEdit.text())
+        if launch_browser(browser, url, caption, message):
+            self.status_bar.set_message("Launching web browser", 3, TRUE)
+        else:
+            self.status_bar.set_message("Cancelled web browser launch", 3, TRUE)
 
 
     def reference_guide(self):
