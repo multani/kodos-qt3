@@ -1,6 +1,6 @@
 #  webbrowser.py: -*- Python -*-  DESCRIPTIVE TEXT.
 
-from os import access, X_OK, fork, execvp
+from os import access, X_OK, spawnv, P_NOWAIT 
 from qt import QMessageBox
 
 def launch_browser(browser, url, caption=None, message=None):
@@ -15,12 +15,6 @@ def launch_browser(browser, url, caption=None, message=None):
     cancel = QMessageBox.information(None, caption, message, "&Ok", "&Cancel")
     if cancel: return 0
 
-    pid = fork()
-            
-    if pid == 0:
-        #child process
-        execvp(browser, [browser, url])
-    else:
-        #parent process
-        return 1
+    return spawnv(P_NOWAIT, browser, (browser, url))
+
         
