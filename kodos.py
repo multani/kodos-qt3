@@ -34,6 +34,8 @@ FALSE = 0
 # regex to find special flags which must begin at beginning of line or after some spaces
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 
+QT_VERS = int(QT_VERSION_STR[0])
+    
 ########################################################################################
 #
 # The Kodos class which defines the main functionality and user interaction
@@ -54,6 +56,7 @@ class Kodos(KodosBA):
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
+        self.matchTextBrowser.setTextFormat(QTextEdit.RichText)
 
         if filename and self.openFile(filename):
             qApp.processEvents()
@@ -233,44 +236,37 @@ class Kodos(KodosBA):
         self.codeTextBrowser.setText(code)
 
 
+    def format_html(self, s):
+        # replace newlines w/ "<BR>" and replace spaces w/ "&nbsp;"
+        if QT_VERS == 3:
+            # Note: scrollToAnchor doesn't work properly in qt3 wrt
+            # the <BR> tag.  Therefor there will be additional whitespace in
+            # the match tab display.
+            s = string.replace(s, "\n", "&nbsp;<p>")
+        else:
+            s = string.replace(s, "\n", "&nbsp;<br>")
+        s = string.replace(s, " ", "&nbsp;")
+        return s
+
+                
     def populate_match_textbrowser(self, startpos, endpos):
-        #startpos = span_tuple[0]
-        #endpos = span_tuple[1]
+        pre = post = match = ""
         
         # highlight the matching section
-        s = "<font color=blue size=+2><b>" + self.matchstring[startpos:endpos] + "</b></font>"
+        match = '<a name="match"><font color=blue size=+2><b>' + \
+                self.matchstring[startpos:endpos] + \
+                "</b></font>"
 
         # prepend the beginning that didn't match
         if startpos > 0:
-            s = self.matchstring[0:startpos] + s
-
+            pre = self.format_html(self.matchstring[0:startpos])
+            
         # append the end that didn't match
         if endpos < len(self.matchstring):
-            #print endpos, len(self.matchstring), self.matchstring[endpos]
-            s += self.matchstring[endpos:]
+            post = self.format_html(self.matchstring[endpos:])
 
-        # replace newlines w/ <br>'s
-        s = string.replace(s, "\n", "<br>")
-
-        # replace spaces w/ nbsp; except in the font tag that we inserted above
-        # a better way might be to use an re.sub w/ a function, but this will
-        # suffice
-        raw = r'(.*)(<font.*>)(.*)'
-        matchobj = re.search(raw, s)
-        if matchobj:
-            pre = matchobj.group(1)
-            font = matchobj.group(2)
-            post = matchobj.group(3)
-            s = ""
-            if pre:
-                s += string.replace(pre, " ", "&nbsp;")
-                
-            s += font
-            if post:
-                s += string.replace(post, " ", "&nbsp;")
-
-        #print s + "\n"
-        self.matchTextBrowser.setText(s)
+        self.matchTextBrowser.setText(pre + match + post)
+        self.matchTextBrowser.scrollToAnchor("match")
 
 
     def clear_results(self):
@@ -402,25 +398,40 @@ class Kodos(KodosBA):
 
 
     def saveFileAsDialog(self):
-        self.filedialog = QFileDialog(self.filename, "*.kds\nAll (*)", self, "Save Kodos File", TRUE)
-        self.filedialog.setCaption("Save Kodos File")
-        self.filedialog.show()
+        while 1:
+            self.filedialog = QFileDialog(self.filename,
+                                          "*.kds\nAll (*)",
+                                          self, "Save Kodos File", TRUE)
+            self.filedialog.setCaption("Save Kodos File")
+            self.filedialog.setMode(QFileDialog.AnyFile)
+            #self.filedialog.show()
+            ok = self.filedialog.exec_loop()
 
-        selected = self.filedialog.selectedFile()
-        if selected.isEmpty():
-            self.parent.updateStatus("No file selected to save", -1, 5, TRUE)
-            return
-                
-        filename = str(self.filedialog.selectedFile())
-        if not filename:
-            self.parent.updateStatus("No file selected to save", -1, 5, TRUE)
-            return
- 
-        if filename.find(".") == -1:
-            filename += ".kds"
+            selected = self.filedialog.selectedFile()
+            if not ok or selected.isEmpty():
+                self.parent.updateStatus("No file selected to save", -1, 5, TRUE)
+                return
 
-        self.filename = filename
-        self.saveFile()
+            filename = str(self.filedialog.selectedFile())
+            if not filename:
+                self.parent.updateStatus("No file selected to save", -1, 5, TRUE)
+                return
+
+            if filename.find(".") == -1:
+                filename += ".kds"
+
+            if os.access(filename, os.F_OK):
+                message = "The file, %s, already exists.\nWould you like to replace it?" % filename
+                cancel = QMessageBox.information(None, "Replace file?",
+                                                 message, "&Replace",
+                                                 "&Cancel")
+                if cancel:
+                    # allow user to choose another filename
+                    continue
+
+            self.filename = filename
+            self.saveFile()
+            break
 
 
     def saveFile(self):
@@ -580,14 +591,20 @@ class KodosMainWindow(QMainWindow):
         # hack to move logo to right
         label = QLabel("", toolbar)
         toolbar.setStretchableWidget(label)
-
+        
         self.logolabel = QLabel("logo", toolbar)
-        pixmap = getPixmap("ssilogo.png", "PNG")
-        self.logolabel.setPixmap(pixmap)
+        self.logolabel.setText("Kodos   ")
 
-        banner = getPixmap("banner.png", "PNG")
-        bannerlabel = QLabel("ssi banner", toolbar)
-        bannerlabel.setPixmap(banner)
+        font = QFont(self.logolabel.font())
+        font.setFamily('helvetic')
+        font.setBold(1)
+        self.logolabel.setFont(font)
+
+        cg = QColorGroup()
+        pal =  self.logolabel.palette()
+        cg.setColor(QColorGroup.Foreground,QColor(9,86,16))
+        pal.setActive(cg)
+        self.logolabel.setPalette(pal)
         
 
     def createStatusBar(self):

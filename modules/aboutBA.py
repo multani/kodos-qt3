@@ -1,6 +1,6 @@
-# Form implementation generated from reading ui file '/home/phil/tools/kodos/modules/aboutBA.ui'
+# Form implementation generated from reading ui file '/www/kodos/modules/aboutBA.ui'
 #
-# Created: Fri Feb 28 07:00:14 2003
+# Created: Thu Mar 13 16:32:51 2003
 #      by: The Python User Interface Compiler (pyuic)
 #
 # WARNING! All changes made in this file will be lost!
@@ -625,7 +625,7 @@ class AboutBA(QDialog):
         self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__.setTitle(self.tr('About...'))
 
         LayoutWidget = QWidget(self.GroupBox6__DOCTYPE_UI_SELECTION__UI_SELECTION___widget_______class_QLabel__class_______property_stdset__1____________name_name__name___________cstring_TextLabel1_2__cstring________property_______property_stdset__1____________name_geometry__name___________rect_______________x_11__x_______________y_280__y_______________width_90__width_______________height_26__height____________rect________property_______property_stdset__1____________name_text__name___________string_Version___string________property____widget____UI_SELECTION__,'Layout6')
-        LayoutWidget.setGeometry(QRect(11,19,243,295))
+        LayoutWidget.setGeometry(QRect(10,15,243,295))
         Layout6 = QGridLayout(LayoutWidget)
         Layout6.setSpacing(6)
         Layout6.setMargin(0)

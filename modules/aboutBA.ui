@@ -344,8 +344,8 @@
                 <property stdset="1">
                     <name>geometry</name>
                     <rect>
-                        <x>11</x>
-                        <y>19</y>
+                        <x>10</x>
+                        <y>15</y>
                         <width>243</width>
                         <height>295</height>
                     </rect>
