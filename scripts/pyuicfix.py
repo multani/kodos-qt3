@@ -22,7 +22,19 @@ fp = open(filename, "r")
 pycode = fp.read()
 fp.close()
 
+
+
 # regex from Kodos (of course!)
+rx = re.compile(r"""self\.clearWState\(Qt\.WState_Polished\)""")
+repl = """try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+"""
+pycode = rx.sub(repl, pycode)
+
+
+
 rx = re.compile(r"""\.setAccel\((?P<tr>.*)""")
 pos = 0
 while 1:
@@ -35,6 +47,10 @@ while 1:
              tr + \
              ")" + \
              pycode[m.end():]
+
+
+
+                
 
 fp = open(filename, "w")
 fp.write(pycode)

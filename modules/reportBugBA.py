@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/reportBugBA.ui'
 #
-# Created: Sat Jan 10 12:25:59 2004
+# Created: Sun Feb 22 17:17:26 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -130,7 +130,11 @@ class reportBugBA(QWidget):
         self.languageChange()
 
         self.resize(QSize(750,645).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
+        try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+
 
         self.connect(self.submitButton,SIGNAL("clicked()"),self.submit_slot)
         self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancel_slot)

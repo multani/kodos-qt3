@@ -242,6 +242,7 @@ def restoreWindowSettings(window, filename):
 
 def findFile(filename):
     dirs = [getAppPath(),
+            os.path.join("/", "usr", "share", "kodos"),
             os.path.join("/", "usr", "local", "kodos")]
 
     for d in dirs:

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/urlDialogBA.ui'
 #
-# Created: Sat Jan 10 12:25:57 2004
+# Created: Sun Feb 22 17:17:29 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -112,7 +112,11 @@ class URLDialogBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(443,170).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
+        try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self.ok_slot)
         self.connect(self.buttonCancel,SIGNAL("clicked()"),self,SLOT("reject()"))

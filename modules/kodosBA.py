@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/kodosBA.ui'
 #
-# Created: Sat Feb 7 19:08:33 2004
+# Created: Sun Feb 22 17:16:52 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -1081,7 +1081,11 @@ class KodosBA(QMainWindow):
         self.languageChange()
 
         self.resize(QSize(532,674).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
+        try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+
 
         self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.checkbox_slot)
         self.connect(self.editCopyAction,SIGNAL("activated()"),self.editCopy)

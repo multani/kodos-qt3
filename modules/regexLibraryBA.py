@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/regexLibraryBA.ui'
 #
-# Created: Sat Jan 10 12:26:01 2004
+# Created: Sun Feb 22 17:17:24 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -236,7 +236,11 @@ class RegexLibraryBA(QMainWindow):
         self.languageChange()
 
         self.resize(QSize(491,490).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
+        try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+
 
         self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
         self.connect(self.descriptionListBox,SIGNAL("highlighted(QListBoxItem*)"),self.descSelectedSlot)

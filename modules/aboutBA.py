@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/aboutBA.ui'
 #
-# Created: Sat Jan 10 12:26:09 2004
+# Created: Sun Feb 22 17:17:17 2004
 #      by: The PyQt User Interface Compiler (pyuic) 3.8
 #
 # WARNING! All changes made in this file will be lost!
@@ -642,7 +642,11 @@ class AboutBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(525,400).expandedTo(self.minimumSizeHint()))
-        self.clearWState(Qt.WState_Polished)
+        try:
+            self.clearWState(Qt.WState_Polished)
+        except AttributeError:
+            pass
+
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self,SLOT("accept()"))
 

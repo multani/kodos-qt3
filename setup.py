@@ -17,7 +17,8 @@ if sys.platform == 'win32':
 #     libpath = '.\\'
      libpath = r"lib\site-packages\kodos"
 else:
-     libpath = "/usr/local/kodos"
+     #libpath = "/usr/local/kodos" # 2.4.0 and prior
+     libpath = "/usr/share/kodos"  # as of 2.4.1
 
 for arg in args:
     if arg == "--formats=wininst":

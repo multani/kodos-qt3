@@ -61,6 +61,8 @@ TIMEOUT = 3
 # or after some spaces
 EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 
+RX_BACKREF = re.compile(r"""\\\d""")
+
 STATE_UNEDITED = 0
 STATE_EDITED   = 1
 
@@ -543,17 +545,26 @@ class Kodos(KodosBA):
         self.colorize_strings(strings, self.matchTextBrowser, 1)
 
 
-    def populate_replace_textbrowser(self, spans, nummatches):
+    def populate_replace_textbrowser(self, spans, nummatches, compile_obj):
         self.replaceTextBrowser.clear()
         if not spans: return
 
-
         num = self.replaceNumberSpinBox.value()
         if num == 0: num = nummatches
+        text = self.matchstring
+        
+        replace_text = unicode(self.replaceTextEdit.text())
+        if RX_BACKREF.search(replace_text):
+            # if the replace string contains a backref we just use the
+            # python regex methods for the substitution
+            replaced = compile_obj.subn(replace_text, text, num)[0]
+            self.replaceTextBrowser.setText(replaced)
+            return
         
         numreplaced = idx = 0
-        text = self.matchstring
+
         strings = []
+
         for span in spans:
             if span[0] != 0:
                 s = text[idx:span[0]]
@@ -719,7 +730,7 @@ class Kodos(KodosBA):
 
         spans = self.findAllSpans(compile_obj)
         if self.replace:
-            self.populate_replace_textbrowser(spans, len(allmatches))
+            self.populate_replace_textbrowser(spans, len(allmatches), compile_obj)
         self.populate_matchAll_textbrowser(spans)
 
 
@@ -1057,7 +1068,8 @@ class Kodos(KodosBA):
 
             
     def setfont(self, font):
-        return
+        #print "font: ",  font
+        #return
         self.regexMultiLineEdit.setFont(font)
         self.stringMultiLineEdit.setFont(font)
         self.replaceTextEdit.setFont(font)
