@@ -117,5 +117,8 @@ class Help(QMainWindow):
             self.textBrowser.forward()
     
     def getHelpFile(self, filename):
-        return getAppPath() + os.sep + "help" + os.sep + filename
+        f = findFile(os.path.join("help", filename))
+        return f
+    
+
         

@@ -238,4 +238,14 @@ def restoreWindowSettings(window, filename):
         window.resize(sz)
     except:
         pass
+    
 
+def findFile(filename):
+    dirs = [getAppPath(),
+            os.path.join("/", "usr", "local", "kodos")]
+
+    for d in dirs:
+        path = os.path.join(d, filename)
+        if os.access(path, os.R_OK): return path
+
+    return None
