@@ -32,7 +32,7 @@ class ReferenceWindow(QMainWindow):
         self.ref = Reference(self, self.kodos)
 
         
-        self.setGeometry(200, 20, 535, 510)
+        self.setGeometry(200, 20, 550, 530)
         self.setCaption("Kodos: Python Regex Reference")
 
         self.setIcon(getPixmap("kodos_icon.png", "PNG"))

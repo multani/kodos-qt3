@@ -18,6 +18,7 @@ import re
 import copy
 import cPickle
 import types
+import getopt
 
 # match status
 MATCH_NA = 0
@@ -37,9 +38,10 @@ EMBEDDED_FLAGS = r"^ *\(\?(?P<flags>[iLmsux]*)\)"
 ########################################################################################
 
 class Kodos(KodosBA):
-    def __init__(self, parent):
+    def __init__(self, parent, filename, debug):
         self.parent = parent
         KodosBA.__init__(self, parent)
+        self.debug = debug
         self.regex = ""
         self.matchstring = ""
         self.flags = 0
@@ -49,6 +51,9 @@ class Kodos(KodosBA):
         self.embedded_flags_obj = re.compile(EMBEDDED_FLAGS)
         self.embedded_flags = ""
         self.regex_embedded_flags_removed = ""
+
+        if filename and self.openFile(filename):
+            qApp.processEvents()
 
         
     def createTooltips(self):
@@ -318,10 +323,11 @@ class Kodos(KodosBA):
                 for key in keys:
                     group_nums[compile_obj.groupindex[key]] = key
 
-            #print "group_nums:", group_nums                         
-            #print "grp index: ", compile_obj.groupindex
-            #print "groups:", match_obj.groups()
-            #print "span: ", match_obj.span()
+            if self.debug:
+                print "group_nums:", group_nums                         
+                print "grp index: ", compile_obj.groupindex
+                print "groups:", match_obj.groups()
+                print "span: ", match_obj.span()
 
             group_tuples = []
             # create group_tuple in the form: (group #, group name, group matches)
@@ -383,10 +389,12 @@ class Kodos(KodosBA):
             self.filename = filename
             msg = filename + " loaded successfully"
             self.parent.updateStatus(msg, -1, 5, TRUE)
+            return 1
         except Exception, e:
             print str(e)
             msg = "Error reading from file: " + filename
             self.parent.updateStatus(msg, -1, 5, TRUE)
+            return 0
 
 
     def saveFileAsDialog(self):
@@ -476,21 +484,25 @@ class Kodos(KodosBA):
             
 
 class KodosMainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, filename, debug):
         QMainWindow.__init__(self, None, None,
                              Qt.WDestructiveClose | Qt.WType_TopLevel)
+
+        self.debug = debug
+        
         self.setGeometry(0, 20, 695, 625)
         self.setCaption("Kodos")
 
         self.setIcon(getPixmap("kodos_icon.png", "PNG"))
 
-        self.kodos = Kodos(self)
+        self.createStatusBar()
+        self.updateStatus("Enter a regular expression and a string to match against", MATCH_NA)
+
+        self.kodos = Kodos(self, filename, self.debug)
         
         self.createMenuBar()
-        self.createStatusBar()
         self.createToolBar()
         
-        self.updateStatus("Enter a regular expression and a string to match against", MATCH_NA)
 
         self.connect(self, PYSIGNAL('copySymbol()'), self.kodos.copy_symbol)
         self.setCentralWidget(self.kodos)
@@ -686,9 +698,42 @@ class KodosMainWindow(QMainWindow):
 #
 #####################################################################################
 
+def usage():
+    print "kodos.py [-f filename | --file=filename ] [ -d debug | --debug=debug ]"
+    print
+    print "  -f filename | --filename=filename  : Load filename on startup"
+    print "  -d debug | --debug=debug           : Set debug to this debug level"
+    print
+    sys.exit(0)
+
+filename=None
+debug=0
+
+args = sys.argv[1:]
+try:
+    (opts, getopts) = getopt.getopt(args, 'd:f:?h',
+                                    ["file=", "debug=",
+                                     "help"])
+except:
+    print "\nInvalid command line option detected."
+    usage()
+
+for opt, arg in opts:
+    if opt in ('-h', '-?', '--help'):
+        usage()
+    if opt in ('-d', '--debug'):
+        try:
+            debug = int(arg)
+        except:
+            print "debug value must be an integer"
+            usage()            
+    if opt in ('-f', '--file'):
+        filename = arg
+               
+
 qApp = QApplication(sys.argv)
 
-kodos = KodosMainWindow()
+kodos = KodosMainWindow(filename, debug)
 
 qApp.setMainWidget(kodos)
 
