@@ -1,5 +1,6 @@
 
 import os
+import os.path
 import sys
 from util import *
 from stat import *
@@ -10,11 +11,13 @@ NEW_SETTINGS = OLD_SETTINGS + os.sep + "prefs"
 
 class MigrateSettings:
     def __init__(self):
-        stat = os.stat(OLD_SETTINGS)
-        mode = stat[ST_MODE]
-        if S_ISDIR(mode):
-            # settings have already been migrated
-            return
+        if os.path.exists(OLD_SETTINGS):
+            stat = os.stat(OLD_SETTINGS)
+            mode = stat[ST_MODE]
+            if S_ISDIR(mode):
+                # settings have already been migrated
+                return
+
         self.migrate_settings()
 
     def migrate_settings(self):
