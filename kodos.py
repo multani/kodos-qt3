@@ -298,18 +298,10 @@ class Kodos(KodosBA):
             return
 
         if self.match_num > 0:
-            slicepos = 0
             for i in range(self.match_num):
-                slicepos = match_obj.end()
-                #print slicepos
-                match_obj = compile_obj.search(self.matchstring, slicepos)
-                #print match_obj.end()
-                #print len(self.matchstring), self.matchstring[slicepos:]
-                #print match_obj.groups()
-            self.populate_match_textbrowser(slicepos, match_obj.end()-1)
-        else:
-            self.populate_match_textbrowser(match_obj.start(), match_obj.end())
-
+                match_obj = compile_obj.search(self.matchstring, match_obj.end())
+                
+        self.populate_match_textbrowser(match_obj.start(), match_obj.end())
 
         if match_obj.groups():
             #print match_obj.groups()
@@ -328,13 +320,6 @@ class Kodos(KodosBA):
             #print "span: ", match_obj.span()
 
             group_tuples = []
-            # old way... only handled first match...
-##            for i in range(1, num_groups + 1):
-##                # create group_tuple in the form: (group #, group name, group matches)
-##                group_tuple = (i, group_nums.get(i, ""), match_obj.group(i))
-##                group_tuples.append(group_tuple)
-
-            # new way... handles add'l matches
             # create group_tuple in the form: (group #, group name, group matches)
             g = allmatches[self.match_num]
             if type(g) == types.TupleType:
