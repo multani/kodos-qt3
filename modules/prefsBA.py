@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/prefsBA.ui'
 #
-# Created: Thu Aug 19 04:45:05 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:32 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -82,12 +82,12 @@ class PrefsBA(QDialog):
         layout4 = QGridLayout(None,1,1,0,6,"layout4")
 
         self.TextLabel2 = QLabel(LayoutWidget,"TextLabel2")
-        self.TextLabel2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel2.sizePolicy().hasHeightForWidth()))
+        self.TextLabel2.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Minimum,0,0,self.TextLabel2.sizePolicy().hasHeightForWidth()))
 
         layout4.addWidget(self.TextLabel2,1,0)
 
         self.browserButton = QPushButton(LayoutWidget,"browserButton")
-        self.browserButton.setSizePolicy(QSizePolicy(0,0,0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
+        self.browserButton.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.browserButton.sizePolicy().hasHeightForWidth()))
 
         layout4.addWidget(self.browserButton,0,3)
 
@@ -112,39 +112,39 @@ class PrefsBA(QDialog):
         layout4.addMultiCellWidget(self.emailServerEdit,4,4,1,3)
 
         self.TextLabel1_2Emaii = QLabel(LayoutWidget,"TextLabel1_2Emaii")
-        self.TextLabel1_2Emaii.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2Emaii.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1_2Emaii.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Minimum,0,0,self.TextLabel1_2Emaii.sizePolicy().hasHeightForWidth()))
 
         layout4.addMultiCellWidget(self.TextLabel1_2Emaii,3,4,0,0)
 
         self.TextLabel1_2 = QLabel(LayoutWidget,"TextLabel1_2")
-        self.TextLabel1_2.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1_2.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1_2.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Minimum,0,0,self.TextLabel1_2.sizePolicy().hasHeightForWidth()))
 
         layout4.addWidget(self.TextLabel1_2,5,0)
-        spacer = QSpacerItem(380,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        layout4.addMultiCell(spacer,5,5,2,3)
+        Spacer1_2 = QSpacerItem(380,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        layout4.addMultiCell(Spacer1_2,5,5,2,3)
 
         self.recentFilesSpinBox = QSpinBox(LayoutWidget,"recentFilesSpinBox")
-        self.recentFilesSpinBox.setSizePolicy(QSizePolicy(0,0,0,0,self.recentFilesSpinBox.sizePolicy().hasHeightForWidth()))
+        self.recentFilesSpinBox.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.recentFilesSpinBox.sizePolicy().hasHeightForWidth()))
         self.recentFilesSpinBox.setMaxValue(25)
         self.recentFilesSpinBox.setValue(5)
 
         layout4.addWidget(self.recentFilesSpinBox,5,1)
 
         self.TextLabel1 = QLabel(LayoutWidget,"TextLabel1")
-        self.TextLabel1.setSizePolicy(QSizePolicy(0,1,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Minimum,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
 
         layout4.addWidget(self.TextLabel1,0,0)
         layout5.addLayout(layout4)
-        spacer_2 = QSpacerItem(20,40,QSizePolicy.Minimum,QSizePolicy.Expanding)
-        layout5.addItem(spacer_2)
+        Spacer1 = QSpacerItem(20,40,QSizePolicy.Minimum,QSizePolicy.Expanding)
+        layout5.addItem(Spacer1)
 
         Layout1 = QHBoxLayout(None,0,6,"Layout1")
 
         self.buttonHelp = QPushButton(LayoutWidget,"buttonHelp")
         self.buttonHelp.setAutoDefault(1)
         Layout1.addWidget(self.buttonHelp)
-        spacer_3 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(spacer_3)
+        Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout1.addItem(Horizontal_Spacing2)
 
         self.buttonApply = QPushButton(LayoutWidget,"buttonApply")
         self.buttonApply.setAutoDefault(1)
@@ -163,14 +163,10 @@ class PrefsBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(540,257).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
+        self.clearWState(Qt.WState_Polished)
 
-
-        self.connect(self.buttonOk,SIGNAL("clicked()"),self,SLOT("accept()"))
-        self.connect(self.buttonCancel,SIGNAL("clicked()"),self,SLOT("reject()"))
+        self.connect(self.buttonOk,SIGNAL("clicked()"),self.accept)
+        self.connect(self.buttonCancel,SIGNAL("clicked()"),self.reject)
         self.connect(self.browserButton,SIGNAL("pressed()"),self.browser_slot)
         self.connect(self.fontButton,SIGNAL("pressed()"),self.font_slot)
         self.connect(self.buttonHelp,SIGNAL("pressed()"),self.help_slot)

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/regexLibraryBA.ui'
 #
-# Created: Sun Feb 22 17:17:24 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:35 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -177,7 +177,7 @@ class RegexLibraryBA(QMainWindow):
         self.regexTextBrowser.setTextFormat(QTextBrowser.PlainText)
 
         tabLayout.addWidget(self.regexTextBrowser,0,0)
-        self.tabWidget3.insertTab(self.tab,QString(""))
+        self.tabWidget3.insertTab(self.tab,QString.fromLatin1(""))
 
         self.tab_2 = QWidget(self.tabWidget3,"tab_2")
         tabLayout_2 = QGridLayout(self.tab_2,1,1,11,6,"tabLayout_2")
@@ -199,7 +199,7 @@ class RegexLibraryBA(QMainWindow):
         layout3.addWidget(self.contribEdit)
 
         tabLayout_2.addLayout(layout3,1,0)
-        self.tabWidget3.insertTab(self.tab_2,QString(""))
+        self.tabWidget3.insertTab(self.tab_2,QString.fromLatin1(""))
 
         RegexLibraryBALayout.addWidget(self.tabWidget3,1,0)
 
@@ -236,15 +236,11 @@ class RegexLibraryBA(QMainWindow):
         self.languageChange()
 
         self.resize(QSize(491,490).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
-
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
         self.connect(self.descriptionListBox,SIGNAL("highlighted(QListBoxItem*)"),self.descSelectedSlot)
-        self.connect(self.exitAction,SIGNAL("activated()"),self,SLOT("close()"))
+        self.connect(self.exitAction,SIGNAL("activated()"),self.close)
         self.connect(self.descriptionListBox,SIGNAL("doubleClicked(QListBoxItem*)"),self.editPaste)
 
 
@@ -257,16 +253,19 @@ class RegexLibraryBA(QMainWindow):
         self.editPasteAction.setText(self.__tr("Paste"))
         self.editPasteAction.setMenuText(self.__tr("&Paste Example Into Kodos"))
         self.editPasteAction.setToolTip(self.__tr("Paste This Example Into Kodos"))
-        self.editPasteAction.setAccel(QKeySequence(self.__tr("Ctrl+V")))
+        self.editPasteAction.setAccel(self.__tr("Ctrl+V"))
         self.helpHelpAction.setText(self.__tr("Help"))
         self.helpHelpAction.setMenuText(self.__tr("&Help"))
-        self.helpHelpAction.setAccel(QKeySequence(self.__tr("Ctrl+/")))
+        self.helpHelpAction.setAccel(self.__tr("Ctrl+/"))
         self.exitAction.setText(self.__tr("Exit"))
         self.exitAction.setMenuText(self.__tr("&Exit"))
         self.toolBar.setLabel(self.__tr("Tools"))
-        self.MenuBar.findItem(1).setText(self.__tr("&File"))
-        self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
-        self.MenuBar.findItem(3).setText(self.__tr("&Help"))
+        if self.MenuBar.findItem(1):
+            self.MenuBar.findItem(1).setText(self.__tr("&File"))
+        if self.MenuBar.findItem(2):
+            self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
+        if self.MenuBar.findItem(3):
+            self.MenuBar.findItem(3).setText(self.__tr("&Help"))
 
 
     def fileNew(self):

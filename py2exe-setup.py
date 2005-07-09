@@ -6,6 +6,10 @@ import os
 import os.path
 import sys
 from glob import glob
+try:
+     import py2exe
+except:
+     pass
 
 args = sys.argv[1:]
 
@@ -37,6 +41,10 @@ setup(name="kodos",
       author_email="phil_schwartz@users.sourceforge.net",
       url="http://kodos.sourceforge.net",
       scripts=['kodos.py'],
+      windows=[{"script": 'kodos.py',
+                "icon_resources": [(1, "images\kodos_icon.ico")]
+                }],
+      console=[{"script": "kodos.py"}],
       ##package_dir={'': 'modules'},
       packages=['modules', "."],
       data_files=[(HELP_DIR, glob(os.path.join("help", "*.*ml"))),

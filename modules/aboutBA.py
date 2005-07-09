@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/aboutBA.ui'
 #
-# Created: Sun Feb 22 17:17:17 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:27 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -599,8 +599,8 @@ class AboutBA(QDialog):
         AboutBALayout = QGridLayout(self,1,1,11,6,"AboutBALayout")
 
         Layout1 = QHBoxLayout(None,0,6,"Layout1")
-        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(spacer)
+        Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout1.addItem(Horizontal_Spacing2)
 
         self.buttonOk = QPushButton(self,"buttonOk")
         self.buttonOk.setAutoDefault(1)
@@ -626,7 +626,7 @@ class AboutBA(QDialog):
         Layout6.addWidget(self.versionLabel,1,1)
 
         self.TextLabel1 = QLabel(LayoutWidget,"TextLabel1")
-        self.TextLabel1.setSizePolicy(QSizePolicy(7,1,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
+        self.TextLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Expanding,QSizePolicy.Minimum,0,0,self.TextLabel1.sizePolicy().hasHeightForWidth()))
         TextLabel1_font = QFont(self.TextLabel1.font())
         TextLabel1_font.setFamily("helvetic")
         self.TextLabel1.setFont(TextLabel1_font)
@@ -642,13 +642,9 @@ class AboutBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(525,400).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
+        self.clearWState(Qt.WState_Polished)
 
-
-        self.connect(self.buttonOk,SIGNAL("clicked()"),self,SLOT("accept()"))
+        self.connect(self.buttonOk,SIGNAL("clicked()"),self.accept)
 
 
     def languageChange(self):

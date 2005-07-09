@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/urlDialogBA.ui'
 #
-# Created: Sun Feb 22 17:17:29 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:39 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -81,8 +81,8 @@ class URLDialogBA(QDialog):
         self.buttonHelp = QPushButton(self,"buttonHelp")
         self.buttonHelp.setAutoDefault(1)
         Layout1.addWidget(self.buttonHelp)
-        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout1.addItem(spacer)
+        Horizontal_Spacing2 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout1.addItem(Horizontal_Spacing2)
 
         self.buttonOk = QPushButton(self,"buttonOk")
         self.buttonOk.setAutoDefault(1)
@@ -112,25 +112,21 @@ class URLDialogBA(QDialog):
         self.languageChange()
 
         self.resize(QSize(443,170).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
-
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.buttonOk,SIGNAL("clicked()"),self.ok_slot)
-        self.connect(self.buttonCancel,SIGNAL("clicked()"),self,SLOT("reject()"))
+        self.connect(self.buttonCancel,SIGNAL("clicked()"),self.reject)
         self.connect(self.buttonHelp,SIGNAL("clicked()"),self.help_slot)
 
 
     def languageChange(self):
         self.setCaption(self.__tr("Import URL"))
         self.buttonHelp.setText(self.__tr("&Help"))
-        self.buttonHelp.setAccel(QKeySequence(self.__tr("F1")))
+        self.buttonHelp.setAccel(self.__tr("F1"))
         self.buttonOk.setText(self.__tr("&OK"))
-        self.buttonOk.setAccel(QKeySequence(QString.null))
+        self.buttonOk.setAccel(QString.null)
         self.buttonCancel.setText(self.__tr("&Cancel"))
-        self.buttonCancel.setAccel(QKeySequence(QString.null))
+        self.buttonCancel.setAccel(QString.null)
         self.groupBox1.setTitle(self.__tr("Enter URL to import"))
         self.URLTextEdit.setText(self.__tr("http://kodos.sourceforge.net"))
 

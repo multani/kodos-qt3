@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/newUserDialogBA.ui'
 #
-# Created: Sun Feb 22 17:17:19 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:30 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -176,7 +176,7 @@ class NewUserDialog(QDialog):
         if not name:
             self.setName("NewUserDialog")
 
-        self.setSizePolicy(QSizePolicy(1,5,0,0,self.sizePolicy().hasHeightForWidth()))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,QSizePolicy.Preferred,0,0,self.sizePolicy().hasHeightForWidth()))
         self.setIcon(self.image0)
 
         NewUserDialogLayout = QVBoxLayout(self,11,6,"NewUserDialogLayout")
@@ -190,7 +190,7 @@ class NewUserDialog(QDialog):
         layout13 = QGridLayout(None,1,1,0,6,"layout13")
 
         self.pixmapLabel2 = QLabel(self,"pixmapLabel2")
-        self.pixmapLabel2.setSizePolicy(QSizePolicy(0,0,0,0,self.pixmapLabel2.sizePolicy().hasHeightForWidth()))
+        self.pixmapLabel2.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel2.sizePolicy().hasHeightForWidth()))
         self.pixmapLabel2.setPixmap(self.image1)
         self.pixmapLabel2.setScaledContents(1)
 
@@ -201,7 +201,7 @@ class NewUserDialog(QDialog):
         layout13.addWidget(self.textLabel4,1,0)
 
         self.pixmapLabel1 = QLabel(self,"pixmapLabel1")
-        self.pixmapLabel1.setSizePolicy(QSizePolicy(0,0,0,0,self.pixmapLabel1.sizePolicy().hasHeightForWidth()))
+        self.pixmapLabel1.setSizePolicy(QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed,0,0,self.pixmapLabel1.sizePolicy().hasHeightForWidth()))
         self.pixmapLabel1.setPixmap(self.image2)
         self.pixmapLabel1.setScaledContents(1)
 
@@ -214,8 +214,8 @@ class NewUserDialog(QDialog):
         NewUserDialogLayout.addLayout(layout14)
 
         layout15 = QHBoxLayout(None,0,6,"layout15")
-        spacer = QSpacerItem(241,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        layout15.addItem(spacer)
+        spacer10 = QSpacerItem(241,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        layout15.addItem(spacer10)
 
         self.okButton = QPushButton(self,"okButton")
         self.okButton.setDefault(1)
@@ -225,13 +225,9 @@ class NewUserDialog(QDialog):
         self.languageChange()
 
         self.resize(QSize(338,326).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
+        self.clearWState(Qt.WState_Polished)
 
-
-        self.connect(self.okButton,SIGNAL("clicked()"),self,SLOT("accept()"))
+        self.connect(self.okButton,SIGNAL("clicked()"),self.accept)
 
 
     def languageChange(self):
@@ -247,7 +243,7 @@ class NewUserDialog(QDialog):
         self.textLabel4.setText(self.__tr("<b>Regex Reference Guide</b>"))
         self.textLabel3.setText(self.__tr("<b>Regex Library</b>"))
         self.okButton.setText(self.__tr("&OK"))
-        self.okButton.setAccel(QKeySequence(self.__tr("Alt+O")))
+        self.okButton.setAccel(self.__tr("Alt+O"))
 
 
     def __tr(self,s,c = None):

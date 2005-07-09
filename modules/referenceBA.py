@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/referenceBA.ui'
 #
-# Created: Sun Feb 22 17:17:23 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:33 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -617,7 +617,7 @@ class ReferenceBA(QMainWindow):
         self.referenceListView = QListView(self.centralWidget(),"referenceListView")
         self.referenceListView.addColumn(self.__tr("Symbol"))
         self.referenceListView.addColumn(self.__tr("Definition"))
-        self.referenceListView.setSizePolicy(QSizePolicy(5,5,0,0,self.referenceListView.sizePolicy().hasHeightForWidth()))
+        self.referenceListView.setSizePolicy(QSizePolicy(QSizePolicy.Preferred,QSizePolicy.Preferred,0,0,self.referenceListView.sizePolicy().hasHeightForWidth()))
         self.referenceListView.setFrameShape(QListView.StyledPanel)
         self.referenceListView.setFrameShadow(QListView.Sunken)
         self.referenceListView.setVScrollBarMode(QListView.Auto)
@@ -685,13 +685,9 @@ class ReferenceBA(QMainWindow):
         self.languageChange()
 
         self.resize(QSize(600,605).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
+        self.clearWState(Qt.WState_Polished)
 
-
-        self.connect(self.fileExitAction,SIGNAL("activated()"),self,SLOT("close()"))
+        self.connect(self.fileExitAction,SIGNAL("activated()"),self.close)
         self.connect(self.editPasteAction,SIGNAL("activated()"),self.editPaste)
         self.connect(self.helpAction,SIGNAL("activated()"),self.help_slot)
         self.connect(self.referenceListView,SIGNAL("doubleClicked(QListViewItem*)"),self.editPaste)
@@ -837,58 +833,61 @@ class ReferenceBA(QMainWindow):
 
         self.fileNewAction.setText(self.__tr("New"))
         self.fileNewAction.setMenuText(self.__tr("&New"))
-        self.fileNewAction.setAccel(QKeySequence(self.__tr("Ctrl+N")))
+        self.fileNewAction.setAccel(self.__tr("Ctrl+N"))
         self.fileOpenAction.setText(self.__tr("Open"))
         self.fileOpenAction.setMenuText(self.__tr("&Open..."))
-        self.fileOpenAction.setAccel(QKeySequence(self.__tr("Ctrl+O")))
+        self.fileOpenAction.setAccel(self.__tr("Ctrl+O"))
         self.fileSaveAction.setText(self.__tr("Save"))
         self.fileSaveAction.setMenuText(self.__tr("&Save"))
-        self.fileSaveAction.setAccel(QKeySequence(self.__tr("Ctrl+S")))
+        self.fileSaveAction.setAccel(self.__tr("Ctrl+S"))
         self.fileSaveAsAction.setText(self.__tr("Save As"))
         self.fileSaveAsAction.setMenuText(self.__tr("Save &As..."))
-        self.fileSaveAsAction.setAccel(QKeySequence(QString.null))
+        self.fileSaveAsAction.setAccel(QString.null)
         self.filePrintAction.setText(self.__tr("Print"))
         self.filePrintAction.setMenuText(self.__tr("&Print..."))
-        self.filePrintAction.setAccel(QKeySequence(self.__tr("Ctrl+P")))
+        self.filePrintAction.setAccel(self.__tr("Ctrl+P"))
         self.fileExitAction.setText(self.__tr("Exit"))
         self.fileExitAction.setMenuText(self.__tr("E&xit"))
-        self.fileExitAction.setAccel(QKeySequence(QString.null))
+        self.fileExitAction.setAccel(QString.null)
         self.editUndoAction.setText(self.__tr("Undo"))
         self.editUndoAction.setMenuText(self.__tr("&Undo"))
-        self.editUndoAction.setAccel(QKeySequence(self.__tr("Ctrl+Z")))
+        self.editUndoAction.setAccel(self.__tr("Ctrl+Z"))
         self.editRedoAction.setText(self.__tr("Redo"))
         self.editRedoAction.setMenuText(self.__tr("&Redo"))
-        self.editRedoAction.setAccel(QKeySequence(self.__tr("Ctrl+Y")))
+        self.editRedoAction.setAccel(self.__tr("Ctrl+Y"))
         self.editCutAction.setText(self.__tr("Cut"))
         self.editCutAction.setMenuText(self.__tr("&Cut"))
-        self.editCutAction.setAccel(QKeySequence(self.__tr("Ctrl+X")))
+        self.editCutAction.setAccel(self.__tr("Ctrl+X"))
         self.editCopyAction.setText(self.__tr("Copy"))
         self.editCopyAction.setMenuText(self.__tr("C&opy"))
-        self.editCopyAction.setAccel(QKeySequence(self.__tr("Ctrl+C")))
+        self.editCopyAction.setAccel(self.__tr("Ctrl+C"))
         self.editPasteAction.setText(self.__tr("Paste"))
         self.editPasteAction.setMenuText(self.__tr("&Paste"))
         self.editPasteAction.setToolTip(self.__tr("Paste selection into Kodos"))
-        self.editPasteAction.setAccel(QKeySequence(self.__tr("Ctrl+V")))
+        self.editPasteAction.setAccel(self.__tr("Ctrl+V"))
         self.editFindAction.setText(self.__tr("Find"))
         self.editFindAction.setMenuText(self.__tr("&Find..."))
-        self.editFindAction.setAccel(QKeySequence(self.__tr("Ctrl+F")))
+        self.editFindAction.setAccel(self.__tr("Ctrl+F"))
         self.helpContentsAction.setText(self.__tr("Contents"))
         self.helpContentsAction.setMenuText(self.__tr("&Contents..."))
-        self.helpContentsAction.setAccel(QKeySequence(QString.null))
+        self.helpContentsAction.setAccel(QString.null)
         self.helpIndexAction.setText(self.__tr("Index"))
         self.helpIndexAction.setMenuText(self.__tr("&Index..."))
-        self.helpIndexAction.setAccel(QKeySequence(QString.null))
+        self.helpIndexAction.setAccel(QString.null)
         self.helpAboutAction.setText(self.__tr("About"))
         self.helpAboutAction.setMenuText(self.__tr("&About"))
-        self.helpAboutAction.setAccel(QKeySequence(QString.null))
+        self.helpAboutAction.setAccel(QString.null)
         self.helpAction.setText(self.__tr("Help"))
         self.helpAction.setMenuText(self.__tr("&Help"))
         self.helpPythonAction.setText(self.__tr("Python Regex Help"))
         self.helpPythonAction.setMenuText(self.__tr("&Python Regex Help"))
         self.toolBar.setLabel(self.__tr("Tools"))
-        self.MenuBar.findItem(1).setText(self.__tr("&File"))
-        self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
-        self.MenuBar.findItem(3).setText(self.__tr("&Help"))
+        if self.MenuBar.findItem(1):
+            self.MenuBar.findItem(1).setText(self.__tr("&File"))
+        if self.MenuBar.findItem(2):
+            self.MenuBar.findItem(2).setText(self.__tr("&Edit"))
+        if self.MenuBar.findItem(3):
+            self.MenuBar.findItem(3).setText(self.__tr("&Help"))
 
 
     def fileNew(self):

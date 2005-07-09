@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/reportBugBA.ui'
 #
-# Created: Sun Feb 22 17:17:26 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:37 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -22,8 +22,8 @@ class reportBugBA(QWidget):
         reportBugBALayout = QGridLayout(self,1,1,11,6,"reportBugBALayout")
 
         Layout8 = QHBoxLayout(None,0,6,"Layout8")
-        spacer = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        Layout8.addItem(spacer)
+        Spacer1 = QSpacerItem(20,20,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        Layout8.addItem(Spacer1)
 
         self.submitButton = QPushButton(self,"submitButton")
         Layout8.addWidget(self.submitButton)
@@ -119,7 +119,7 @@ class reportBugBA(QWidget):
         Layout22.addWidget(self.emailAddressEdit,0,1)
 
         self.TextLabel2_2 = QLabel(self.GroupBox7,"TextLabel2_2")
-        self.TextLabel2_2.setSizePolicy(QSizePolicy(1,0,0,0,self.TextLabel2_2.sizePolicy().hasHeightForWidth()))
+        self.TextLabel2_2.setSizePolicy(QSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed,0,0,self.TextLabel2_2.sizePolicy().hasHeightForWidth()))
 
         Layout22.addWidget(self.TextLabel2_2,0,0)
 
@@ -130,14 +130,10 @@ class reportBugBA(QWidget):
         self.languageChange()
 
         self.resize(QSize(750,645).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
+        self.clearWState(Qt.WState_Polished)
 
-
-        self.connect(self.submitButton,SIGNAL("clicked()"),self.submit_slot)
-        self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancel_slot)
+        self.connect(self.submitButton,SIGNAL("clicked()"),self.submitButton.submit_slot)
+        self.connect(self.cancelButton,SIGNAL("clicked()"),self.cancelButton.cancel_slot)
 
         self.setTabOrder(self.OSEdit,self.pythonVersionEdit)
         self.setTabOrder(self.pythonVersionEdit,self.PyQtVersionEdit)

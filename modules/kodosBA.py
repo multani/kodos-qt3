@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/phil/work/kodos/modules/kodosBA.ui'
 #
-# Created: Sun Feb 22 17:16:52 2004
-#      by: The PyQt User Interface Compiler (pyuic) 3.8
+# Created: Sat Jul 9 09:40:28 2005
+#      by: The PyQt User Interface Compiler (pyuic) 3.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -847,7 +847,7 @@ class KodosBA(QMainWindow):
         KodosBALayout.addWidget(self.buttonGroup2,1,0)
 
         self.groupBox1 = QGroupBox(self.centralWidget(),"groupBox1")
-        self.groupBox1.setSizePolicy(QSizePolicy(7,7,0,0,self.groupBox1.sizePolicy().hasHeightForWidth()))
+        self.groupBox1.setSizePolicy(QSizePolicy(QSizePolicy.Expanding,QSizePolicy.Expanding,0,0,self.groupBox1.sizePolicy().hasHeightForWidth()))
         self.groupBox1.setLineWidth(1)
         self.groupBox1.setColumnLayout(0,Qt.Vertical)
         self.groupBox1.layout().setSpacing(6)
@@ -883,7 +883,7 @@ class KodosBA(QMainWindow):
         self.groupTable.setSelectionMode(QTable.SingleRow)
 
         tabLayout.addWidget(self.groupTable,0,0)
-        self.resultTabWidget.insertTab(self.tab,QString(""))
+        self.resultTabWidget.insertTab(self.tab,QString.fromLatin1(""))
 
         self.tab_2 = QWidget(self.resultTabWidget,"tab_2")
         tabLayout_2 = QGridLayout(self.tab_2,1,1,11,6,"tabLayout_2")
@@ -891,7 +891,7 @@ class KodosBA(QMainWindow):
         self.matchTextBrowser = QTextBrowser(self.tab_2,"matchTextBrowser")
 
         tabLayout_2.addWidget(self.matchTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.tab_2,QString(""))
+        self.resultTabWidget.insertTab(self.tab_2,QString.fromLatin1(""))
 
         self.TabPage = QWidget(self.resultTabWidget,"TabPage")
         TabPageLayout = QGridLayout(self.TabPage,1,1,11,6,"TabPageLayout")
@@ -899,14 +899,14 @@ class KodosBA(QMainWindow):
         self.matchAllTextBrowser = QTextBrowser(self.TabPage,"matchAllTextBrowser")
 
         TabPageLayout.addWidget(self.matchAllTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.TabPage,QString(""))
+        self.resultTabWidget.insertTab(self.TabPage,QString.fromLatin1(""))
 
         self.TabPage_2 = QWidget(self.resultTabWidget,"TabPage_2")
         TabPageLayout_2 = QVBoxLayout(self.TabPage_2,11,6,"TabPageLayout_2")
 
         self.replaceTextBrowser = QTextBrowser(self.TabPage_2,"replaceTextBrowser")
         TabPageLayout_2.addWidget(self.replaceTextBrowser)
-        self.resultTabWidget.insertTab(self.TabPage_2,QString(""))
+        self.resultTabWidget.insertTab(self.TabPage_2,QString.fromLatin1(""))
 
         self.TabPage_3 = QWidget(self.resultTabWidget,"TabPage_3")
         TabPageLayout_3 = QGridLayout(self.TabPage_3,1,1,11,6,"TabPageLayout_3")
@@ -914,7 +914,7 @@ class KodosBA(QMainWindow):
         self.codeTextBrowser = QTextBrowser(self.TabPage_3,"codeTextBrowser")
 
         TabPageLayout_3.addWidget(self.codeTextBrowser,0,0)
-        self.resultTabWidget.insertTab(self.TabPage_3,QString(""))
+        self.resultTabWidget.insertTab(self.TabPage_3,QString.fromLatin1(""))
 
         KodosBALayout.addWidget(self.resultTabWidget,4,0)
 
@@ -927,7 +927,7 @@ class KodosBA(QMainWindow):
         self.stringMultiLineEdit.setTextFormat(QTextEdit.PlainText)
 
         tabLayout_3.addWidget(self.stringMultiLineEdit,0,0)
-        self.tabWidget3.insertTab(self.tab_3,QString(""))
+        self.tabWidget3.insertTab(self.tab_3,QString.fromLatin1(""))
 
         self.tab_4 = QWidget(self.tabWidget3,"tab_4")
         tabLayout_4 = QGridLayout(self.tab_4,1,1,11,6,"tabLayout_4")
@@ -936,13 +936,13 @@ class KodosBA(QMainWindow):
         self.replaceTextEdit.setTextFormat(QTextEdit.PlainText)
 
         tabLayout_4.addWidget(self.replaceTextEdit,0,0)
-        self.tabWidget3.insertTab(self.tab_4,QString(""))
+        self.tabWidget3.insertTab(self.tab_4,QString.fromLatin1(""))
 
         KodosBALayout.addWidget(self.tabWidget3,2,0)
 
         layout3 = QHBoxLayout(None,0,6,"layout3")
-        spacer = QSpacerItem(70,31,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        layout3.addItem(spacer)
+        spacer1 = QSpacerItem(70,31,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        layout3.addItem(spacer1)
 
         self.textLabel1 = QLabel(self.centralWidget(),"textLabel1")
         layout3.addWidget(self.textLabel1)
@@ -961,8 +961,8 @@ class KodosBA(QMainWindow):
 
         self.replaceNumberSpinBox = QSpinBox(self.centralWidget(),"replaceNumberSpinBox")
         layout3.addWidget(self.replaceNumberSpinBox)
-        spacer_2 = QSpacerItem(118,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
-        layout3.addItem(spacer_2)
+        spacer3 = QSpacerItem(118,21,QSizePolicy.Expanding,QSizePolicy.Minimum)
+        layout3.addItem(spacer3)
 
         KodosBALayout.addLayout(layout3,3,0)
 
@@ -1081,11 +1081,7 @@ class KodosBA(QMainWindow):
         self.languageChange()
 
         self.resize(QSize(532,674).expandedTo(self.minimumSizeHint()))
-        try:
-            self.clearWState(Qt.WState_Polished)
-        except AttributeError:
-            pass
-
+        self.clearWState(Qt.WState_Polished)
 
         self.connect(self.dotallCheckBox,SIGNAL("toggled(bool)"),self.checkbox_slot)
         self.connect(self.editCopyAction,SIGNAL("activated()"),self.editCopy)
@@ -1094,7 +1090,7 @@ class KodosBA(QMainWindow):
         self.connect(self.editRedoAction,SIGNAL("activated()"),self.editRedo)
         self.connect(self.editUndoAction,SIGNAL("activated()"),self.editUndo)
         self.connect(self.examineAction,SIGNAL("activated()"),self.examine)
-        self.connect(self.fileExitAction,SIGNAL("activated()"),self,SLOT("close()"))
+        self.connect(self.fileExitAction,SIGNAL("activated()"),self.close)
         self.connect(self.fileNewAction,SIGNAL("activated()"),self.fileNew)
         self.connect(self.fileOpenAction,SIGNAL("activated()"),self.fileOpen)
         self.connect(self.fileSaveAction,SIGNAL("activated()"),self.fileSave)
@@ -1190,57 +1186,61 @@ class KodosBA(QMainWindow):
         self.replaceLabel.setText(self.__tr("Replace Number"))
         self.fileNewAction.setText(self.__tr("New"))
         self.fileNewAction.setMenuText(self.__tr("&New"))
-        self.fileNewAction.setAccel(QKeySequence(self.__tr("Ctrl+N")))
+        self.fileNewAction.setAccel(self.__tr("Ctrl+N"))
         self.fileOpenAction.setText(self.__tr("Open"))
         self.fileOpenAction.setMenuText(self.__tr("&Open..."))
-        self.fileOpenAction.setAccel(QKeySequence(self.__tr("Ctrl+O")))
+        self.fileOpenAction.setAccel(self.__tr("Ctrl+O"))
         self.fileSaveAction.setText(self.__tr("Save"))
         self.fileSaveAction.setMenuText(self.__tr("&Save"))
-        self.fileSaveAction.setAccel(QKeySequence(self.__tr("Ctrl+S")))
+        self.fileSaveAction.setAccel(self.__tr("Ctrl+S"))
         self.fileSaveAsAction.setText(self.__tr("Save As"))
         self.fileSaveAsAction.setMenuText(self.__tr("Save &As..."))
-        self.fileSaveAsAction.setAccel(QKeySequence(QString.null))
+        self.fileSaveAsAction.setAccel(QString.null)
         self.fileExitAction.setText(self.__tr("Exit"))
         self.fileExitAction.setMenuText(self.__tr("E&xit"))
-        self.fileExitAction.setAccel(QKeySequence(QString.null))
+        self.fileExitAction.setAccel(QString.null)
         self.editUndoAction.setText(self.__tr("Undo"))
         self.editUndoAction.setMenuText(self.__tr("&Undo"))
-        self.editUndoAction.setAccel(QKeySequence(self.__tr("Ctrl+Z")))
+        self.editUndoAction.setAccel(self.__tr("Ctrl+Z"))
         self.editRedoAction.setText(self.__tr("Redo"))
         self.editRedoAction.setMenuText(self.__tr("&Redo"))
-        self.editRedoAction.setAccel(QKeySequence(self.__tr("Ctrl+Y")))
+        self.editRedoAction.setAccel(self.__tr("Ctrl+Y"))
         self.editCutAction.setText(self.__tr("Cut"))
         self.editCutAction.setMenuText(self.__tr("&Cut"))
-        self.editCutAction.setAccel(QKeySequence(self.__tr("Ctrl+X")))
+        self.editCutAction.setAccel(self.__tr("Ctrl+X"))
         self.editCopyAction.setText(self.__tr("Copy"))
         self.editCopyAction.setMenuText(self.__tr("C&opy"))
-        self.editCopyAction.setAccel(QKeySequence(self.__tr("Ctrl+C")))
+        self.editCopyAction.setAccel(self.__tr("Ctrl+C"))
         self.editPasteAction.setText(self.__tr("Paste"))
         self.editPasteAction.setMenuText(self.__tr("&Paste"))
-        self.editPasteAction.setAccel(QKeySequence(self.__tr("Ctrl+V")))
+        self.editPasteAction.setAccel(self.__tr("Ctrl+V"))
         self.examineAction.setText(self.__tr("Examine Regex for Match"))
         self.examineAction.setMenuText(self.__tr("E&xamine Regex"))
-        self.examineAction.setAccel(QKeySequence(self.__tr("Ctrl+X")))
+        self.examineAction.setAccel(self.__tr("Ctrl+X"))
         self.helpContentsAction.setText(self.__tr("Contents"))
         self.helpContentsAction.setMenuText(self.__tr("&Contents..."))
-        self.helpContentsAction.setAccel(QKeySequence(QString.null))
+        self.helpContentsAction.setAccel(QString.null)
         self.helpIndexAction.setText(self.__tr("Index"))
         self.helpIndexAction.setMenuText(self.__tr("&Index..."))
-        self.helpIndexAction.setAccel(QKeySequence(QString.null))
+        self.helpIndexAction.setAccel(QString.null)
         self.helpAboutAction.setText(self.__tr("About"))
         self.helpAboutAction.setMenuText(self.__tr("&About"))
-        self.helpAboutAction.setAccel(QKeySequence(QString.null))
+        self.helpAboutAction.setAccel(QString.null)
         self.regexChangedAction.setText(self.__tr("Action"))
+        self.regexChangedAction.setMenuText(self.__tr("Action"))
         self.editPauseAction.setText(self.__tr("Pause Processing"))
-        self.editPauseAction.setAccel(QKeySequence(self.__tr("Ctrl+P")))
+        self.editPauseAction.setAccel(self.__tr("Ctrl+P"))
+        self.editPauseAction.setMenuText(self.__tr("Pause Processing"))
         self.editPreferencesAction.setText(self.__tr("Preferences"))
+        self.editPreferencesAction.setMenuText(self.__tr("Preferences"))
         self.helpHelpAction.setText(self.__tr("Help"))
-        self.helpHelpAction.setAccel(QKeySequence(self.__tr("Ctrl+/")))
+        self.helpHelpAction.setAccel(self.__tr("Ctrl+/"))
+        self.helpHelpAction.setMenuText(self.__tr("Help"))
         self.helpPythonHelpAction.setText(self.__tr("Python Regex Help"))
         self.helpPythonHelpAction.setMenuText(self.__tr("&Python Regex Help"))
         self.helpRegexReferenceAction.setText(self.__tr("Regex Reference Guide"))
         self.helpRegexReferenceAction.setMenuText(self.__tr("&Regex Reference Guide"))
-        self.helpRegexReferenceAction.setAccel(QKeySequence(self.__tr("Ctrl+R")))
+        self.helpRegexReferenceAction.setAccel(self.__tr("Ctrl+R"))
         self.helpVisitWebsiteAction.setText(self.__tr("Visit Kodos Website"))
         self.helpVisitWebsiteAction.setMenuText(self.__tr("&Visit Kodos Website"))
         self.helpCheckForUpdateAction.setText(self.__tr("Check for Kodos Update"))
@@ -1248,6 +1248,7 @@ class KodosBA(QMainWindow):
         self.helpReportBugAction.setText(self.__tr("Report a Bug"))
         self.helpReportBugAction.setMenuText(self.__tr("Report a &Bug"))
         self.noopAction.setText(QString.null)
+        self.noopAction.setMenuText(QString.null)
         self.fileImportFileAction.setText(self.__tr("Import File"))
         self.fileImportFileAction.setMenuText(self.__tr("Import &File"))
         self.fileImportURLAction.setText(self.__tr("Import URL"))
@@ -1255,13 +1256,16 @@ class KodosBA(QMainWindow):
         self.helpRegexLibAction.setText(self.__tr("Regex Library"))
         self.helpRegexLibAction.setMenuText(self.__tr("Regex &Library"))
         self.helpRegexLibAction.setToolTip(self.__tr("Open the Regex Library"))
-        self.helpRegexLibAction.setAccel(QKeySequence(self.__tr("Ctrl+L")))
+        self.helpRegexLibAction.setAccel(self.__tr("Ctrl+L"))
         self.FileRevertAction.setText(self.__tr("Revert Kodos File"))
         self.FileRevertAction.setMenuText(self.__tr("&Revert Kodos File"))
         self.toolBar.setLabel(self.__tr("Tools"))
-        self.menubar.findItem(1).setText(self.__tr("&File"))
-        self.menubar.findItem(2).setText(self.__tr("&Edit"))
-        self.menubar.findItem(3).setText(self.__tr("&Help"))
+        if self.menubar.findItem(1):
+            self.menubar.findItem(1).setText(self.__tr("&File"))
+        if self.menubar.findItem(2):
+            self.menubar.findItem(2).setText(self.__tr("&Edit"))
+        if self.menubar.findItem(3):
+            self.menubar.findItem(3).setText(self.__tr("&Help"))
 
 
     def fileNew(self):

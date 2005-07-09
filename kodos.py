@@ -890,6 +890,7 @@ class Kodos(KodosBA):
             if not ok or not filename:
                 self.updateStatus(self.tr("No file selected to save"), -1, 5, TRUE)
                 return
+            filename = os.path.normcase(filename)
 
             basename = os.path.basename(filename)
             if basename.find(".") == -1:

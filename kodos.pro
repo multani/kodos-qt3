@@ -33,7 +33,6 @@
     <pyfile url="/modules/reportBugBA.py" type="file" name="reportBugBA.py" />
    </uifile>
    <uifile type="file" name="urlDialogBA.ui" >
-    <uifile type="file" name="regexLibraryBA.ui" />
     <pyfile url="/modules/urlDialogBA.py" type="file" name="urlDialogBA.py" />
    </uifile>
    <uifile type="file" name="regexLibraryBA.ui" >
