@@ -1,0 +1,8 @@
+Kodos ChangeLog
+
+2.4.7
+=====
+
+ *) packaging now contains python2.3 and python2.4 specific rpms (rather than just an "rpm")
+ *) Windows binary is now complied against python2.4 rather than 2.3
+

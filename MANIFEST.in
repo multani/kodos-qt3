@@ -14,3 +14,4 @@ include kodos.pro
 include kodosqt.pro
 include windows/build.bat
 include windows/installer.iss
+include CHANGELOG.txt
