@@ -7,6 +7,7 @@ import sys
 import string
 import smtplib
 from version import VERSION
+import xpm
 
 AUTHOR_ADDR = "phil_schwartz@users.sourceforge.net"
 
@@ -78,8 +79,8 @@ class reportBugWindow(QMainWindow):
         
         self.setGeometry(100, 50, 800, 600)
         self.setCaption(self.tr("Report a Bug"))
-        self.setIcon(getPixmap("kodos_icon.png", "PNG"))
-
+        #self.setIcon(getPixmap("kodos_icon.png", "PNG"))
+        self.setIcon(QPixmap(xpm.kodosIcon))
         self.bug_report = reportBug(self)
         self.setCentralWidget(self.bug_report)
 
@@ -103,5 +104,3 @@ class reportBugWindow(QMainWindow):
         toolbar.setStretchableWidget(self.menubar)
         self.logolabel = kodos_toolbar_logo(toolbar)
  
-
-

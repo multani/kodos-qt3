@@ -4,9 +4,7 @@
   <pyfile type="file" name="kodos.py" />
   <folder name="modules" >
    <pyfile type="file" name="__init__.py" />
-   <uifile type="file" name="kodosBA.ui" >
-    <pyfile url="/modules/kodosBA.py" type="file" name="kodosBA.py" />
-   </uifile>
+   <uifile type="file" name="kodosBA.ui" />
    <pyfile type="file" name="TimeoutError.py" />
    <pyfile type="file" name="about.py" />
    <pyfile type="file" name="debug.py" />
@@ -20,9 +18,7 @@
    <pyfile type="file" name="util.py" />
    <pyfile type="file" name="version.py" />
    <pyfile type="file" name="webbrowser.py" />
-   <uifile type="file" name="aboutBA.ui" >
-    <pyfile url="/modules/aboutBA.py" type="file" name="aboutBA.py" />
-   </uifile>
+   <uifile type="file" name="aboutBA.ui" />
    <uifile type="file" name="prefsBA.ui" >
     <pyfile url="/modules/prefsBA.py" type="file" name="prefsBA.py" />
    </uifile>
@@ -40,6 +36,10 @@
    </uifile>
    <uifile type="file" name="newUserDialogBA.ui" >
     <pyfile url="/modules/newUserDialogBA.py" type="file" name="newUserDialogBA.py" />
+   </uifile>
+   <pyfile type="file" name="helpBA.py" />
+   <uifile type="file" name="helpBA.ui" container="1" >
+    <pyfile url="/modules/helpBA.py" type="file" name="helpBA.py" />
    </uifile>
   </folder>
  </project>

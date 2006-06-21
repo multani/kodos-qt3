@@ -172,7 +172,8 @@ def kodos_toolbar_logo(toolbar):
     logolabel = QLabel("kodos_logo", toolbar)
     #logolabel.setPixmap(banner)
     
-    logolabel.setPixmap(QPixmap(xpm.kodosTextIcon))
+    logolabel.setPixmap(QPixmap(xpm.kodosIcon))
+    #logolabel.setPixmap(getPixmap("kodos_icon.png", "PNG"))
     return logolabel
 
 
